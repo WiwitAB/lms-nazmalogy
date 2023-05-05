@@ -1,0 +1,17 @@
+#partnerShip {
+    height: 30vh;
+    width: 100%;
+}
+
+#partnerShip h1 {
+    text-align: center;
+    font-size: 40px;
+    color: #1A181D;
+}
+
+@media (max-width: 992px) {
+    #partnerShip img {
+        width: 80%;
+        /* display: inline-block; */
+    }
+}
