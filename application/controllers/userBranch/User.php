@@ -22,7 +22,7 @@ class User extends CI_Controller
             $role_instructor = 2;
             $role_member = 3;
             $this->load->view('admin/user/style');
-            $this->load->view('admin/user/menubar');
+
 
             $data = [
                   'id_role' => $this->session->userdata('id_role'),
@@ -32,34 +32,59 @@ class User extends CI_Controller
                   'instructor_count' => $this->UserModel->get_users_role($role_instructor),
                   'member_count' => $this->UserModel->get_users_role($role_member)
             ];
+
+            $this->load->view('admin/user/menubar', $data);
             $this->load->view('admin/user/index', $data);
             $this->load->view('admin/user/script');
       }
       public function detail()
       {
+            $data = [
+                  'id_role' => $this->session->userdata('id_role')
+            ];
             $this->load->view('admin/user/style');
-            $this->load->view('admin/user/menubar');
+            $this->load->view('admin/user/menubar', $data);
             $this->load->view('admin/user/detailedCourse');
             $this->load->view('admin/user/script');
       }
       public function listClass()
       {
+            $data = [
+                  'id_role' => $this->session->userdata('id_role')
+            ];
             $this->load->view('admin/user/style');
-            $this->load->view('admin/user/menubar');
+            $this->load->view('admin/user/menubar', $data);
             $this->load->view('admin/user/listClass');
             $this->load->view('admin/user/script');
       }
       public function savedClass()
       {
+            $data = [
+                  'id_role' => $this->session->userdata('id_role')
+            ];
             $this->load->view('admin/user/style');
-            $this->load->view('admin/user/menubar');
+            $this->load->view('admin/user/menubar', $data);
             $this->load->view('admin/user/savedClass');
+            $this->load->view('admin/user/script');
+      }
+      public function setting()
+      {
+            $data = [
+                  'id_role' => $this->session->userdata('id_role'),
+                  'users' => $this->UserModel->get_all_user()
+            ];
+            $this->load->view('admin/user/style');
+            $this->load->view('admin/user/menubar', $data);
+            $this->load->view('admin/user/setting');
             $this->load->view('admin/user/script');
       }
       public function profile()
       {
+            $data = [
+                  'id_role' => $this->session->userdata('id_role')
+            ];
             $this->load->view('admin/user/style');
-            $this->load->view('admin/user/menubar');
+            $this->load->view('admin/user/menubar', $data);
             $this->load->view('admin/user/profile');
             $this->load->view('admin/user/script');
       }
