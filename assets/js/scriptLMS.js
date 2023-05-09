@@ -60,7 +60,8 @@ function searchToggle(obj, evt) {
 // Logut Function
 function logOutFunction() {
 	Swal.fire({
-		title: "Apakah anda ingin logout?",
+		title:
+			"<h4 class='text-dark fw-bold'> " + "Apakah anda ingin logout?" + "</h4>",
 		text: "Aksi ini akan menutup sesi anda!",
 		icon: "warning",
 		showCancelButton: true,

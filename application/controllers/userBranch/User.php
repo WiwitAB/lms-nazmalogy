@@ -88,4 +88,45 @@ class User extends CI_Controller
             $this->load->view('admin/user/profile');
             $this->load->view('admin/user/script');
       }
+
+      function edit_user($id)
+      {
+            $where = array('id' => $id);
+            $data = [
+                  'id_role' => $this->session->userdata('id_role'),
+                  'user' => $this->UserModel->get_role_by_id($id)
+            ];
+            $this->load->view('admin/user/style');
+            $this->load->view('admin/user/menubar', $data);
+            $this->load->view('admin/user/setting/form', $data);
+            $this->load->view('admin/user/script');
+      }
+
+      public function delete_user($id)
+      {
+            $where = array('id' => $id);
+            $this->db->where($where);
+            $this->db->delete('users');
+            // Menampilkan pesan sukses dan redirect ke halaman lain
+            $this->session->set_flashdata('success_delete_user', 'Data berhasil diupdate');
+            redirect('userBranch/user/setting');
+      }
+
+      public function update_user($id)
+      {
+            // Validasi form di sini
+            // ...
+
+            $data = array(
+                  'name' => $this->input->post('name'),
+                  'email' => $this->input->post('email'),
+                  'id_role' => $this->input->post('id_role'),
+                  'id' => $id
+            );
+            $this->UserModel->updateUser($data);
+
+            // Menampilkan pesan sukses dan redirect ke halaman lain
+            $this->session->set_flashdata('success_update_user', 'Data berhasil diupdate');
+            redirect('userBranch/user/setting');
+      }
 }

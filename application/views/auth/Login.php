@@ -18,6 +18,24 @@
         })
         </script>
         ";
+    } else if ($this->session->flashdata('error_login') != '') {
+        echo "
+        <script>
+        Swal.fire({
+            toast: true,
+            position: 'top-right',
+            iconColor: 'white',
+            customClass: {
+                popup: 'colored-toast'
+            },
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            icon: 'error',
+            title: 'Email atau Password Salah',
+        })
+        </script>
+        ";
     } else if ($this->session->flashdata('success_register') != '') {
         echo "
         <script>

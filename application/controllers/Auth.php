@@ -92,11 +92,11 @@ class Auth extends CI_Controller
                         $this->session->set_flashdata('success_login', 'Login Berhasil');
                         redirect('userBranch/user/page');
                   } else {
-                        $this->session->set_flashdata('error', 'email & Password salah');
+                        $this->session->set_flashdata('error_login', 'email atau Password salah');
                         redirect('auth/login_page');
                   }
             } else {
-                  $this->session->set_flashdata('error', 'email & Password salah');
+                  $this->session->set_flashdata('error_login', 'email atau Password salah');
                   redirect('auth/login_page');
             }
             // if ($this->auth->login_user($email, $password)) {
