@@ -13,6 +13,9 @@
                 <div class="auth-form">
                     <h2 class="text-center py-4 ft-7">Daftar Akun</h2>
                     <form method="post" action="<?php echo base_url('auth/register_proccess'); ?>">
+                        <div class="login__field" hidden>
+                            <input type="text" class="login__input" name="id_role" id="id_role" value="3">
+                        </div>
                         <div class="login__field">
                             <i class="bx bx-user login__icon"></i>
                             <input type="text" class="login__input" placeholder="Nama Lengkap" name="name" id="name" required>

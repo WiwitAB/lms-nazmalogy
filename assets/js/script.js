@@ -72,8 +72,7 @@ function logOutFunction() {
 			Swal.fire("Logout Sukses!", "Anda telah keluar", "success").then(
 				(result) => {
 					if (result.isConfirmed) {
-						window.location.href =
-							"http://localhost/lms-nazma-office-codeigniter/auth/logout";
+						window.location.href = "http://localhost/lms-nazmalogy/auth/logout";
 					}
 				}
 			);

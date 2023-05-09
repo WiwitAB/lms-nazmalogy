@@ -6,15 +6,14 @@ class AuthModel extends CI_Model
     {
         parent::__construct();
     }
-
-    function register($email, $password, $name)
+    function register($email, $password, $name, $id_role)
     {
         $data_user = array(
             'email' => $email,
             'password' => password_hash($password, PASSWORD_DEFAULT),
-            'name' => $name
+            'name' => $name,
+            'id_role' => $id_role
         );
         $this->db->insert('users', $data_user);
     }
 }
-?>

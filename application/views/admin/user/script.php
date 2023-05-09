@@ -1,5 +1,5 @@
 <!--=============== External JS ===============-->
-<script type="text/javascript" src="<?= base_url('assets/js/scriptLMS.js') ?>"></script>
+<script type="text/javascript" src="<?= base_url('assets/js/script.js') ?>"></script>
 <script type="text/javascript" src="<?= base_url('assets/js/search.js') ?>"></script>
 <script type="text/javascript" src="<?= base_url('assets/js/user_class.js') ?>"></script>
 <script type="text/javascript" src="<?= base_url('assets/js/form.js') ?>"></script>
