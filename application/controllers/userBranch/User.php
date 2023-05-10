@@ -78,6 +78,8 @@ class User extends CI_Controller
             $this->load->view('admin/user/setting');
             $this->load->view('admin/user/script');
       }
+
+
       public function profile()
       {
             $data = [

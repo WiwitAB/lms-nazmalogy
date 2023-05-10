@@ -106,21 +106,29 @@
                     <span class="nav_name">Kelas</span>
                 </a>
 
-                <a href="<?php if ($id_role == '1') {
-                                echo site_url('/userBranch/user/setting');
-                            } else {
-                                echo site_url('/userBranch/user/savedClass');
-                            } ?>" class="nav_link <?php if ($this->uri->segment(3) === "savedClass") {
-                                                        echo "active";
-                                                    } ?>">
+                <a href="<?php echo site_url('/userBranch/user/savedClass'); ?>" class="nav_link <?php if ($this->uri->segment(3) === "savedClass") {
+                                                                                                        echo "active";
+                                                                                                    } ?>">
                     <i class="bx bx<?php if ($this->uri->segment(3) === "savedClass") {
                                         echo "s";
                                     } ?>-bookmark nav_icon"></i>
-                    <span class="nav_name"><?php if ($id_role == '1') {
-                                                echo 'Setting';
-                                            } else {
-                                                echo 'Tersimpan';
-                                            } ?></span>
+                    <span class="nav_name">Tersimpan</span>
+                </a>
+                <a href="<?php echo site_url('/userBranch/user/setting'); ?>" class="nav_link <?php if ($this->uri->segment(3) === "setting") {
+                                                                                                    echo "active";
+                                                                                                } ?>">
+                    <i class="bx bx<?php if ($this->uri->segment(3) === "setting") {
+                                        echo "s";
+                                    } ?>-cog nav_icon"></i>
+                    <span class="nav_name">Pengaturan Akses</span>
+                </a>
+                <a href="<?php echo site_url('/userBranch/course/class_admin'); ?>" class="nav_link <?php if ($this->uri->segment(3) === "class_admin") {
+                                                                                                        echo "active";
+                                                                                                    } ?>">
+                    <i class="bx bx<?php if ($this->uri->segment(3) === "class_admin") {
+                                        echo "s";
+                                    } ?>-book-alt nav_icon"></i>
+                    <span class="nav_name">Pengaturan Kelas</span>
                 </a>
                 <a href="<?= site_url('/userBranch/user/profile') ?>" class="nav_link <?php if ($this->uri->segment(3) === "profile") {
                                                                                             echo "active";
