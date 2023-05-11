@@ -117,8 +117,8 @@ if ($this->session->flashdata('success_add') != '') {
         </div>
         <!-- =============== Tabel Kategori ================= -->
         <div class="mt-5 mb-1 p-2 d-flex justify-content-between" data-aos="fade-up" data-aos-duration="700">
-            <h5 class="ft-7">Data Kategori</h5>
-            <a href="<?= site_url('userBranch/course/add_category') ?>"><button class="btn btn-success">+ Tambah </button></a>
+            <h5 class="ft-7">Data Playlist</h5>
+            <a href="<?= site_url('userBranch/playlist/add_playlist') ?>"><button class="btn btn-success">+ Tambah </button></a>
 
         </div>
 
@@ -127,22 +127,22 @@ if ($this->session->flashdata('success_add') != '') {
                 <thead>
                     <tr">
                         <th class="text-center" scope="col">No</th>
-                        <th class="text-center" scope="col">Nama Kategori</th>
+                        <th class="text-center" scope="col">Nama Playlist</th>
                         <th class="text-center" scope="col">Aksi</th>
                         </tr>
                 </thead>
                 <tbody>
                     <?php
                     $no = 1;
-                    foreach ($categories as $row) {
+                    foreach ($playlists as $row) {
                     ?>
                         <tr>
                             <td class="text-center"><?php echo $no++ ?></td>
                             <td><?php echo $row->name; ?></td>
                             <td>
                                 <div class="d-flex gap-2 justify-content-center">
-                                    <?php echo anchor('userBranch/course/edit_category/' . $row->id, "<button class='btn btn-primary bg-first'>Edit</button>"); ?>
-                                    <button onclick="return confirm('Do you want delete this record')" class="btn btn-danger text-white"> <?php echo anchor('userBranch/course/delete_category/' . $row->id, "<span class='text-white'>Hapus</span>"); ?>
+                                    <?php echo anchor('userBranch/playlist/edit_playlist/' . $row->id, "<button class='btn btn-primary bg-first'>Edit</button>"); ?>
+                                    <button onclick="return confirm('Do you want delete this record')" class="btn btn-danger text-white"> <?php echo anchor('userBranch/playlist/delete_playlist/' . $row->id, "<span class='text-white'>Hapus</span>"); ?>
                                     </button>
                                 </div>
                             </td>

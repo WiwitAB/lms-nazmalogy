@@ -130,6 +130,12 @@
                                     } ?>-book-alt nav_icon"></i>
                     <span class="nav_name">Pengaturan Kelas</span>
                 </a>
+                <a href="<?php echo site_url('/userBranch/playlist/video_admin'); ?>" class="nav_link <?php if ($this->uri->segment(3) === "video_admin") {
+                                                                                                            echo "active";
+                                                                                                        } ?>">
+                    <i class="bx bxs-playlist nav_icon"></i>
+                    <span class="nav_name">Control Video</span>
+                </a>
                 <a href="<?= site_url('/userBranch/user/profile') ?>" class="nav_link <?php if ($this->uri->segment(3) === "profile") {
                                                                                             echo "active";
                                                                                         } ?>">

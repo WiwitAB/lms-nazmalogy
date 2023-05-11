@@ -57,7 +57,7 @@
                             </label>
                             <textarea id="summernote" name="summary"> <?php echo $course->summary ?></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary bg-first">Tambah Data</button>
+                        <button type="submit" class="btn btn-primary bg-first">Simpan Data</button>
                     </form>
                 </div>
             </div>
