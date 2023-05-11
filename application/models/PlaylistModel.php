@@ -38,4 +38,48 @@ class PlaylistModel extends CI_Model
         $this->db->where('id', $id);
         $this->db->update('playlists', $data);
     }
+
+
+    // CRUD Video
+    public function insert_data_video($data)
+    {
+        $this->db->insert('videos', $data);
+        return $this->db->insert_id();
+    }
+    public function get_all_user()
+    {
+        $this->db->select('videos.*, playlists.id AS id_playlist, playlists.name AS playlist_name, ');
+        $this->db->join('playlists', 'videos.id_playlist = playlists.id');
+        $this->db->from('videos');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function get_video_by_id($id)
+    {
+        $this->db->select('videos.*, playlists.id AS playlist_id, playlists.name AS playlist_name, ');
+        $this->db->join('playlists', 'videos.id_playlist = playlists.id');
+        $this->db->from('videos');
+        $this->db->where('videos.id', $id);
+        $query = $this->db->get();
+
+        return $query->row(); // mengembalikan sebuah objek hasil query
+    }
+
+    public function updateVideo($data)
+    {
+        $link = $data['link'];
+        $duration = $data['duration'];
+        $id_playlist = $data['id_playlist'];
+        $id = $data['id'];
+
+        $data = array(
+            'link' => $link,
+            'duration' => $duration,
+            'id_playlist' => $id_playlist
+        );
+
+        $this->db->where('id', $id);
+        $this->db->update('videos', $data);
+    }
 }

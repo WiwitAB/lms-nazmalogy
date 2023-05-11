@@ -63,58 +63,46 @@ if ($this->session->flashdata('success_add') != '') {
     <div class="space-top">
         <!-- =============== Tabel Tag ================= -->
         <div class="mt-5 mb-1 p-2 d-flex justify-content-between" data-aos="fade-up" data-aos-duration="700">
-            <h5 class="ft-7">Data Kursus</h5>
-            <a href="<?= site_url('userBranch/course/add_course') ?>"><button class="btn btn-success">+ Tambah </button></a>
+            <h5 class="ft-7">Data Video</h5>
+            <a href="<?= site_url('userBranch/playlist/add_video') ?>"><button class="btn btn-success">+ Tambah </button></a>
 
         </div>
 
         <div class="bg-white p-5 border" data-aos="fade-up" data-aos-duration="700">
-
             <table id="example" class="table display">
                 <thead>
                     <tr">
                         <th class="text-center" scope="col">No</th>
-                        <th class="text-center" scope="col">Judul Kursus</th>
-                        <th class="text-center" scope="col">Cover</th>
-                        <th class="text-center" scope="col">Kategori</th>
+                        <th class="text-center" scope="col">Link</th>
+                        <th class="text-center" scope="col">Durasi</th>
+                        <th class="text-center" scope="col">Playlist</th>
                         <th class="text-center" scope="col">Aksi</th>
                         </tr>
                 </thead>
-
                 <tbody>
-
                     <?php
                     $no = 1;
-                    foreach ($course as $data) { ?>
+                    foreach ($videos as $row) {
+                    ?>
                         <tr>
-                            <td width="5%" class="text-center"><?= $no++ ?></td>
-                            <td width="30%"><?= $data->title ?></td>
-                            <td width="25%"><img class="w-100" src="<?= base_url('assets/images/admin/course/' . $data->cover) ?>"></td>
-                            <td width="20%">
-                                <div class="d-flex gap-2 flex-wrap">
-                                    <?php
-                                    $category = explode(',', $data->category);
-                                    foreach ($category as $kat) {
-                                        echo "
-                                    <button class='btn btn-warning'>" . $kat . "</button>" . '<br>';
-                                    }
-                                    ?>
-                                </div>
-
-                            </td>
-                            <td width="20%">
+                            <td class="text-center"><?php echo $no++ ?></td>
+                            <td><?php echo $row->link; ?></td>
+                            <td class="text-center"><?php echo $row->duration; ?></td>
+                            <td class="text-center"><?php echo $row->playlist_name; ?></td>
+                            <td>
                                 <div class="d-flex gap-2 justify-content-center">
-                                    <?php echo anchor('userBranch/course/edit_course/' . $data->id, "<button class='btn btn-primary bg-first'>Edit</button>"); ?>
-                                    <button onclick="return confirm('Do you want delete this record')" class="btn btn-danger text-white"> <?php echo anchor('userBranch/course/delete_course/' . $data->id, "<span class='text-white'>Hapus</span>"); ?>
+                                    <?php echo anchor('userBranch/playlist/edit_video/' . $row->id, "<button class='btn btn-primary bg-first'>Edit</button>"); ?>
+                                    <button onclick="return confirm('Do you want delete this record')" class="btn btn-danger text-white"> <?php echo anchor('userBranch/playlist/delete_video/' . $row->id, "<span class='text-white'>Hapus</span>"); ?>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
                     <?php } ?>
-
-
                 </tbody>
             </table>
         </div>
+
+
         <!-- =============== Tabel Kategori ================= -->
         <div class="mt-5 mb-1 p-2 d-flex justify-content-between" data-aos="fade-up" data-aos-duration="700">
             <h5 class="ft-7">Data Playlist</h5>
