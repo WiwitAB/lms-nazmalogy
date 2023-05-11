@@ -49,7 +49,7 @@ if ($this->session->flashdata('success_update_user') != '') {
             <h5 class="ft-7">Pengaturan Akun</h5>
         </div>
 
-        <div class="bg-white p-5" data-aos="fade-up" data-aos-duration="700">
+        <div class="bg-white p-5 border" data-aos="fade-up" data-aos-duration="700">
             <table id="example" class="table display">
                 <thead>
                     <tr">

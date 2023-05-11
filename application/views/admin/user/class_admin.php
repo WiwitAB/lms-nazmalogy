@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
 
 <?php
-if ($this->session->flashdata('success_add_category') != '') {
+if ($this->session->flashdata('success_add') != '') {
     echo "
       <script>
       Swal.fire({
@@ -19,7 +19,7 @@ if ($this->session->flashdata('success_add_category') != '') {
       })    
       </script>
       ";
-} else if ($this->session->flashdata('success_update_category') != '') {
+} else if ($this->session->flashdata('success_update') != '') {
     echo "
       <script>
       Swal.fire({
@@ -37,7 +37,7 @@ if ($this->session->flashdata('success_add_category') != '') {
       })    
       </script>
       ";
-} else if ($this->session->flashdata('success_delete_category') != '') {
+} else if ($this->session->flashdata('success_delete') != '') {
     echo "
       <script>
       Swal.fire({
@@ -61,27 +61,80 @@ if ($this->session->flashdata('success_add_category') != '') {
 <body id="body-pd">
     <!--=============== Course Content ===============-->
     <div class="space-top">
+        <!-- =============== Tabel Tag ================= -->
+        <div class="mt-5 mb-1 p-2 d-flex justify-content-between" data-aos="fade-up" data-aos-duration="700">
+            <h5 class="ft-7">Data Kursus</h5>
+            <a href="<?= site_url('userBranch/course/add_course') ?>"><button class="btn btn-success">+ Tambah </button></a>
 
-        <!-- =============== Kelas Tersimpan ================= -->
+        </div>
+
+        <div class="bg-white p-5 border" data-aos="fade-up" data-aos-duration="700">
+
+            <table id="example" class="table display">
+                <thead>
+                    <tr">
+                        <th class="text-center" scope="col">No</th>
+                        <th class="text-center" scope="col">Judul Kursus</th>
+                        <th class="text-center" scope="col">Cover</th>
+                        <th class="text-center" scope="col">Kategori</th>
+                        <th class="text-center" scope="col">Aksi</th>
+                        </tr>
+                </thead>
+
+                <tbody>
+
+                    <?php
+                    $no = 1;
+                    foreach ($course as $data) { ?>
+                        <tr>
+                            <td width="5%" class="text-center"><?= $no++ ?></td>
+                            <td width="30%"><?= $data->title ?></td>
+                            <td width="25%"><img class="w-100" src="<?= base_url('assets/images/admin/course/' . $data->cover) ?>"></td>
+                            <td width="20%">
+                                <div class="d-flex gap-2 flex-wrap">
+                                    <?php
+                                    $category = explode(',', $data->category);
+                                    foreach ($category as $kat) {
+                                        echo "
+                                    <button class='btn btn-warning'>" . $kat . "</button>" . '<br>';
+                                    }
+                                    ?>
+                                </div>
+
+                            </td>
+                            <td width="20%">
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <?php echo anchor('userBranch/course/edit_course/' . $data->id, "<button class='btn btn-primary bg-first'>Edit</button>"); ?>
+                                    <button onclick="return confirm('Do you want delete this record')" class="btn btn-danger text-white"> <?php echo anchor('userBranch/course/delete_course/' . $data->id, "<span class='text-white'>Hapus</span>"); ?>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php } ?>
+
+
+                </tbody>
+            </table>
+        </div>
+        <!-- =============== Tabel Kategori ================= -->
         <div class="mt-5 mb-1 p-2 d-flex justify-content-between" data-aos="fade-up" data-aos-duration="700">
             <h5 class="ft-7">Data Kategori</h5>
             <a href="<?= site_url('userBranch/course/add_category') ?>"><button class="btn btn-success">+ Tambah </button></a>
 
         </div>
 
-        <div class="bg-white p-5" data-aos="fade-up" data-aos-duration="700">
-            <table id="example" class="table display">
+        <div class="bg-white p-5 border" data-aos="fade-up" data-aos-duration="700">
+            <table id="example2" class="table display">
                 <thead>
                     <tr">
                         <th class="text-center" scope="col">No</th>
-                        <th class="text-center" scope="col">Nama Kategori</th>
+                        <th class="text-center" scope="col">Cover</th>
                         <th class="text-center" scope="col">Aksi</th>
                         </tr>
                 </thead>
                 <tbody>
                     <?php
                     $no = 1;
-                    foreach ($category as $row) {
+                    foreach ($categories as $row) {
                     ?>
                         <tr>
                             <td class="text-center"><?php echo $no++ ?></td>
@@ -99,46 +152,15 @@ if ($this->session->flashdata('success_add_category') != '') {
             </table>
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Pengguna</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form>
-                        <?php foreach ($user as $u) { ?>
-                            <form action="" method="post">
-                                <input type="hidden" name="id" value="<?php echo $u->id ?>">
-                                <input type="text" name="nama" value="<?php echo $u->name ?>">
-                            </form>
-                        <?php } ?>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary bg-first"><?php echo anchor('userBranch/user/delete_user/' . $row->id, "<span class='text-white'>Edit Data</span>"); ?></button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
     </div>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     <script>
         $(document).ready(function() {
             $('#example').DataTable();
+        });
+        $(document).ready(function() {
+            $('#example2').DataTable();
         });
     </script>
     <!--=============== Footer Tab and Desktop ===============-->

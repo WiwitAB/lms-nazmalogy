@@ -12,15 +12,6 @@ class CategoryModel extends CI_Model
         return $query->result();
     }
 
-    public function get_all_user()
-    {
-        $this->db->select('users.*, roles.id AS id_role, roles.name AS roles_name, ');
-        $this->db->join('roles', 'users.id_role = roles.id');
-        $this->db->from('users');
-        $query = $this->db->get();
-        return $query->result();
-    }
-
     public function insert_data_category($data)
     {
         $this->db->insert('categories', $data);
