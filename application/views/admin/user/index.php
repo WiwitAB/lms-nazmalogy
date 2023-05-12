@@ -197,7 +197,9 @@ if ($this->session->flashdata('success_login') != '') {
                   </div>
             </section>
 
-            <section id="analytics">
+            <section id="analytics" class=" <?php if ($id_role != '1') {
+                                                      echo 'd-none';
+                                                } ?>">
                   <div class="py-4" data-aos="fade-up" data-aos-duration="500">
                         <h5 class="ft-7">Statistik Pengguna</h5>
                   </div>
