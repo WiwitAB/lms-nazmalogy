@@ -52,6 +52,16 @@
                             </select>
                         </div>
                         <div class="mb-3">
+                            <label for="exampleInputname1" class="form-label fw-bold">Playlist Kursus
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select style="width: 100%" class="js-example-basic-multiple" name="playlist[]" multiple aria-required="true">
+                                <?php foreach ($playlist as $row) { ?>
+                                    <option value="<?php echo $row->id; ?>"><?php echo $row->name; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label for="exampleInputname1" class="form-label fw-bold">Ringkasan Kursus
                                 <span class="text-danger">*</span>
                             </label>

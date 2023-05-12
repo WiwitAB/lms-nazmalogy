@@ -22,7 +22,7 @@ class Playlist extends CI_Controller
         $data = [
             'id_role' => $this->session->userdata('id_role'),
             'playlists' => $this->PlaylistModel->get_data_playlist(),
-            'videos' => $this->PlaylistModel->get_all_user()
+            'videos' => $this->PlaylistModel->get_all_video()
         ];
         $this->load->view('admin/user/style');
         $this->load->view('admin/user/menubar', $data);
@@ -100,7 +100,7 @@ class Playlist extends CI_Controller
     {
         $data = [
             'id_role' => $this->session->userdata('id_role'),
-            'playlists' => $this->PlaylistModel->get_data_playlist()
+            'playlists' => $this->PlaylistModel->get_data_playlist(),
         ];
         $this->load->view('admin/user/style');
         $this->load->view('admin/user/menubar', $data);
@@ -112,10 +112,12 @@ class Playlist extends CI_Controller
         $link = $this->input->post('link');
         $duration = $this->input->post('duration');
         $id_playlist = $this->input->post('id_playlist');
+        $title = $this->input->post('title');
         $data = array(
             'link' => $link,
             'duration' => $duration,
-            'id_playlist' => $id_playlist
+            'id_playlist' => $id_playlist,
+            'title' => $title
             // dan seterusnya
         );
         $insert_id = $this->PlaylistModel->insert_data_video($data);
@@ -157,11 +159,12 @@ class Playlist extends CI_Controller
         // ...
         $link = $this->input->post('link');
         $duration = $this->input->post('duration');
-        // $id_playlist = $this->input->post('id_playlist');
+        $title = $this->input->post('title');
         $id_playlist = $this->input->post('id_playlist');
         $data = array(
             'link' => $link,
             'duration' => $duration,
+            'title' => $title,
             'id_playlist' => $id_playlist,
             'id' => $id
         );

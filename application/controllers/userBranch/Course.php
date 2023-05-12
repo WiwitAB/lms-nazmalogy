@@ -11,7 +11,7 @@ class Course extends CI_Controller
         $this->load->model('UserModel');
         $this->load->model('CategoryModel');
         $this->load->model('CourseModel');
-
+        $this->load->model('PlaylistModel');
         if (empty($this->session->userdata('is_login'))) {
             $this->session->set_flashdata('end_session', 'User Belum Login');
             redirect('auth/login_page');
@@ -97,7 +97,8 @@ class Course extends CI_Controller
     {
         $data = [
             'id_role' => $this->session->userdata('id_role'),
-            'categories' => $this->CategoryModel->get_data_category()
+            'categories' => $this->CategoryModel->get_data_category(),
+            'playlist' => $this->PlaylistModel->get_data_playlist()
         ];
         $this->load->view('admin/user/style');
         $this->load->view('admin/user/menubar', $data);
@@ -148,6 +149,15 @@ class Course extends CI_Controller
                         'id_category' => $row
                     );
                     $this->CourseModel->save_category_relation($data_category);
+                }
+
+                $playlist = $this->input->post('playlist');
+                foreach ($playlist as $row) {
+                    $data_playlist = array(
+                        'id_course' => $id_data,
+                        'id_playlist' => $row
+                    );
+                    $this->CourseModel->save_playlist_relation($data_playlist);
                 }
 
                 redirect('userBranch/course/class_admin');

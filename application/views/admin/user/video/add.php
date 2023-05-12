@@ -18,6 +18,12 @@
                     <hr>
                     <form method="post" action="<?= base_url('userBranch/playlist/save_video') ?>?>">
                         <div class="mb-3">
+                            <label for="exampleInputname1" class="form-label fw-bold">Judul Video
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" name="title" class="form-control" id="exampleInputname1" placeholder="Title Video" required>
+                        </div>
+                        <div class="mb-3">
                             <label for="exampleInputname1" class="form-label fw-bold">Link Embed Youtube
                                 <span class="text-danger">*</span>
                             </label>

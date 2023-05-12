@@ -9,7 +9,10 @@
             <div class="row pt-2">
                 <div class="col-lg-7">
                     <div class="video-panel">
-                        <iframe class="w-100" style="height: 25rem" src="<?= $course->intro_link ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+
+                        <iframe class="w-100" style="height: 25rem;" src="<?= $id_video->link ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 
                     </div>
                     <div class="tab-panel pt-2 mt-3 mb-5 bg-white p-4 border">
@@ -70,14 +73,15 @@
                                 </div>
                             </div>
                         </div>
+
                         <?php
                         $no = 1;
                         foreach ($playlists as $playlist) { ?>
                             <h6 class="ft-7 pt-3"><?php echo $playlist->name; ?></h6>
 
                             <?php foreach ($playlist->videos as $video) { ?>
-                                <div class="list-course pt-3 d-flex flex-column gap-3 kelas">
-                                    <div class="card-course d-flex gap-2 px-15 border">
+                                <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
+                                    <div class="bg-white gap-2 rounded d-flex px-15 border">
                                         <div class=" icon-progress w-10 icon-center">
                                             <i id="ready_icon" class="text-center bx bx-pause-circle ready-icon"></i>
                                         </div>

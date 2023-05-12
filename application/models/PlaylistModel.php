@@ -25,7 +25,16 @@ class PlaylistModel extends CI_Model
 
         return $query->row(); // mengembalikan sebuah objek hasil query
     }
-
+    public function get_playlists_by_id($id)
+    {
+        $this->db->select('courses.*, GROUP_CONCAT(course_has_playlist.id_course) AS course_ids, GROUP_CONCAT(course_has_playlist.id_playlist) AS playlist_ids');
+        $this->db->from('courses');
+        $this->db->join('course_has_playlist', 'courses.id = course_has_playlist.id_course', 'left');
+        $this->db->where('courses.id', $id);
+        $this->db->group_by('courses.id');
+        $query = $this->db->get();
+        return $query->row();
+    }
     public function updateplaylist($data)
     {
         $name = $data['name'];
@@ -46,7 +55,7 @@ class PlaylistModel extends CI_Model
         $this->db->insert('videos', $data);
         return $this->db->insert_id();
     }
-    public function get_all_user()
+    public function get_all_video()
     {
         $this->db->select('videos.*, playlists.id AS id_playlist, playlists.name AS playlist_name, ');
         $this->db->join('playlists', 'videos.id_playlist = playlists.id');
@@ -71,12 +80,14 @@ class PlaylistModel extends CI_Model
         $link = $data['link'];
         $duration = $data['duration'];
         $id_playlist = $data['id_playlist'];
+        $title = $data['title'];
         $id = $data['id'];
 
         $data = array(
             'link' => $link,
             'duration' => $duration,
-            'id_playlist' => $id_playlist
+            'id_playlist' => $id_playlist,
+            'title' => $title
         );
 
         $this->db->where('id', $id);

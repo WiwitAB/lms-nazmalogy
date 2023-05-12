@@ -30,6 +30,10 @@ class CourseModel extends CI_Model
     {
         $this->db->insert('course_has_category', $data);
     }
+    public function save_playlist_relation($data)
+    {
+        $this->db->insert('course_has_playlist', $data);
+    }
     public function delete_category_relation($id)
     {
         $this->db->where('id_course', $id);
@@ -98,5 +102,42 @@ class CourseModel extends CI_Model
             $this->db->where('id', $id);
             $this->db->update('courses', $data);
         }
+    }
+
+    // Detail Class
+    public function get_course_by_id_detail($course_id)
+    {
+        $this->db->where('id', $course_id);
+        $query = $this->db->get('courses');
+        return $query->row();
+    }
+
+    public function get_playlists_by_course_id($course_id)
+    {
+        $this->db->select('playlists.*');
+        $this->db->from('course_has_playlist');
+        $this->db->join('playlists', 'playlists.id = course_has_playlist.id_playlist');
+        $this->db->where('course_has_playlist.id_course', $course_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function get_playlist_by_id($playlist_id)
+    {
+        $this->db->where('id', $playlist_id);
+        $query = $this->db->get('playlists');
+        return $query->row();
+    }
+
+    public function get_videos_by_playlist_id($playlist_id)
+    {
+        $this->db->where('id_playlist', $playlist_id);
+        $query = $this->db->get('videos');
+        return $query->result();
+    }
+    public function get_video_by_id($video_id)
+    {
+        $this->db->where('id', $video_id);
+        $query = $this->db->get('videos');
+        return $query->row();
     }
 }

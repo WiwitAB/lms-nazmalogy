@@ -73,7 +73,7 @@ if ($this->session->flashdata('success_add') != '') {
                 <thead>
                     <tr">
                         <th class="text-center" scope="col">No</th>
-                        <th class="text-center" scope="col">Link</th>
+                        <th class="text-center" scope="col">Judul Video</th>
                         <th class="text-center" scope="col">Durasi</th>
                         <th class="text-center" scope="col">Playlist</th>
                         <th class="text-center" scope="col">Aksi</th>
@@ -86,7 +86,7 @@ if ($this->session->flashdata('success_add') != '') {
                     ?>
                         <tr>
                             <td class="text-center"><?php echo $no++ ?></td>
-                            <td><?php echo $row->link; ?></td>
+                            <td><?php echo $row->title; ?></td>
                             <td class="text-center"><?php echo $row->duration; ?></td>
                             <td class="text-center"><?php echo $row->playlist_name; ?></td>
                             <td>

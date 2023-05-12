@@ -99,7 +99,7 @@
                                     } ?>-grid-alt nav_icon"></i>
                     <span class="nav_name">Dashboard</span>
                 </a>
-                <a href="<?= site_url('/userBranch/user/listClass') ?>" class="nav_link <?php if ($this->uri->segment(3) === "listClass") {
+                <a href="<?= site_url('/userBranch/user/listClass') ?>" class="nav_link <?php if ($this->uri->segment(3) === "listClass" || $this->uri->segment(3) === "detail_course" || ($this->uri->segment(3) === "detail_video_course")) {
                                                                                             echo "active";
                                                                                         } ?>">
                     <i class="bx bx-library nav_icon"></i>

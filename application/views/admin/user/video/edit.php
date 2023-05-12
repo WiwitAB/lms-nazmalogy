@@ -18,6 +18,12 @@
                     <hr>
                     <form method="post" action="<?php echo base_url('userBranch/playlist/update_video/' . $video->id); ?>">
                         <div class="mb-3">
+                            <label for="exampleInputname1" class="form-label fw-bold">Judul Video
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" name="title" class="form-control" id="exampleInputname1" value="<?= $video->title ?>" required>
+                        </div>
+                        <div class="mb-3">
                             <label for="exampleInputname1" class="form-label fw-bold">Link Embed Youtube
                                 <span class="text-danger">*</span>
                             </label>
