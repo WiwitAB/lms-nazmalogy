@@ -49,7 +49,7 @@ class Course extends CI_Controller
         );
         $insert_id = $this->CategoryModel->insert_data_category($data);
         if ($insert_id) {
-            $this->session->set_flashdata('success_add_category', 'email atau Password salah');
+            $this->session->set_flashdata('success_add', 'email atau Password salah');
             redirect('userBranch/course/class_admin');
         } else {
             $this->session->set_flashdata('error_login', 'email atau Password salah');
@@ -73,7 +73,7 @@ class Course extends CI_Controller
         $this->db->where($where);
         $this->db->delete('categories');
         // Menampilkan pesan sukses dan redirect ke halaman lain
-        $this->session->set_flashdata('success_delete_category', 'Data berhasil dihapus');
+        $this->session->set_flashdata('success_delete', 'Data berhasil dihapus');
         redirect('userBranch/course/class_admin');
     }
 
@@ -88,7 +88,7 @@ class Course extends CI_Controller
         );
         $this->CategoryModel->updateCategory($data);
         // Menampilkan pesan sukses dan redirect ke halaman lain
-        $this->session->set_flashdata('success_update_category', 'Data berhasil diupdate');
+        $this->session->set_flashdata('success_update', 'Data berhasil diupdate');
         redirect('userBranch/course/class_admin');
     }
 
@@ -138,7 +138,7 @@ class Course extends CI_Controller
 
             if ($this->CourseModel->insert_data_course($data)) {
                 $this->session->set_flashdata(
-                    'message',
+                    'success_add',
                     'Success Add Project Data'
                 );
 
@@ -227,6 +227,7 @@ class Course extends CI_Controller
             );
             $this->CourseModel->save_category_relation($data_category);
         }
+        $this->session->set_flashdata('success_update', 'Data berhasil diupdate');
 
         redirect('userBranch/course/class_admin');
     }

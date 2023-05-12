@@ -43,34 +43,85 @@
         <div class="nav__menu" id="nav-menu">
             <ul class="nav__list">
                 <li class="nav__item">
-                    <a href="<?= site_url('/userBranch/user/page') ?>" class="nav__link <?php if ($this->uri->segment(3) === "page") {
-                                                                                            echo "active-link";
-                                                                                        } ?>">
+                    <a href="<?= site_url('/userBranch/user/page') ?>" class="nav__link 
+                    <?php if ($this->uri->segment(3) === "page") {
+                        echo "active-link";
+                    } ?>">
                         <i class="bx bx<?php if ($this->uri->segment(3) === "page") {
                                             echo "s";
                                         } ?>-home-alt-2 nav__icon"></i>
                     </a>
                 </li>
-                <li class="nav__item">
-                    <a href="<?= site_url('/userBranch/user/listClass') ?>" class="nav__link <?php if ($this->uri->segment(3) === "listClass") {
-                                                                                                    echo "active-link";
-                                                                                                } ?>">
+                <li class="nav__item
+                <?php if ($id_role == '1') {
+                    echo "d-none";
+                } ?>">
+                    <a href="<?= site_url('/userBranch/user/listClass') ?>" class="nav__link 
+                    <?php if ($this->uri->segment(3) === "listClass") {
+                        echo "active-link";
+                    } ?>">
                         <i class="bx bx-library nav__icon"></i>
                     </a>
                 </li>
+                <!-- Pengaturan Akses -->
+                <li class="nav__item 
+                <?php if ($id_role != '1') {
+                    echo "d-none";
+                } ?>">
+                    <a href="<?= site_url('/userBranch/user/setting') ?>" class="nav__link 
+                    <?php if ($this->uri->segment(3) === "setting") {
+                        echo "active-link";
+                    } ?>">
+                        <i class="bx bx<?php if ($this->uri->segment(3) === "setting") {
+                                            echo "s";
+                                        } ?>-cog nav__icon"></i>
+                    </a>
+                </li>
+                <!-- Pengaturan Kelas -->
+                <li class="nav__item <?php if ($id_role != '1') {
+                                            echo "d-none";
+                                        } ?>">
+                    <a href="<?= site_url('/userBranch/course/class_admin') ?>" class="nav__link 
+                    <?php if ($this->uri->segment(3) === "class_admin") {
+                        echo "active-link";
+                    } ?>">
+                        <i class="bx bx<?php if ($this->uri->segment(3) === "class_admin") {
+                                            echo "s";
+                                        } ?>-book-alt nav__icon"></i>
+                    </a>
+                </li>
+                <!-- Pengaturan Video -->
                 <li class="nav__item">
-                    <a href="<?= site_url('/userBranch/user/savedClass') ?>" class="nav__link <?php if ($this->uri->segment(3) === "savedClass") {
-                                                                                                    echo "active-link";
-                                                                                                } ?>">
+                    <a href="<?= site_url('/userBranch/playlist/video_admin') ?>" class="nav__link 
+                    <?php if ($this->uri->segment(3) === "video_admin") {
+                        echo "active-link";
+                    } ?> <?php if ($id_role != '1') {
+                                echo "d-none";
+                            } ?>">
+                        <i class="bx bxs-playlist nav__icon"></i>
+                    </a>
+                </li>
+                <li class="nav__item 
+                <?php if ($id_role == '1') {
+                    echo "d-none";
+                } ?>">
+                    <a href="<?= site_url('/userBranch/user/savedClass') ?>" class="nav__link 
+                    <?php if ($this->uri->segment(3) === "savedClass") {
+                        echo "active-link";
+                    } ?> ">
                         <i class="bx bx<?php if ($this->uri->segment(3) === "savedClass") {
                                             echo "s";
                                         } ?>-heart nav__icon"></i>
                     </a>
                 </li>
-                <li class="nav__item">
-                    <a href="<?= site_url('/userBranch/user/profile') ?>" class="nav__link <?php if ($this->uri->segment(3) === "profile") {
-                                                                                                echo "active-link";
-                                                                                            } ?>">
+                <li class="nav__item 
+                <?php if ($id_role == '1') {
+                    echo "d-none";
+                } ?>">
+                    <a href="<?= site_url('/userBranch/user/profile') ?>" class="nav__link 
+                    <?php if ($this->uri->segment(3) === "profile") {
+                        echo "active-link";
+                    } ?> ">
                         <i class='bx bx<?php if ($this->uri->segment(3) === "profile") {
                                             echo "s";
                                         } ?>-user nav__icon'></i>
@@ -91,54 +142,93 @@
                 <span class="nav_logo-name">NaZMalogy</span>
             </a>
             <div class="nav_list">
-                <a href="<?= site_url('/userBranch/user/page') ?>" class="nav_link <?php if ($this->uri->segment(3) === "page") {
-                                                                                        echo "active";
-                                                                                    } ?>">
+                <a href="<?= site_url('/userBranch/user/page') ?>" class="nav_link 
+                <?php if ($this->uri->segment(3) === "page") {
+                    echo "active";
+                } ?>">
                     <i class="bx bx<?php if ($this->uri->segment(3) === "page") {
                                         echo "s";
                                     } ?>-grid-alt nav_icon"></i>
                     <span class="nav_name">Dashboard</span>
                 </a>
-                <a href="<?= site_url('/userBranch/user/listClass') ?>" class="nav_link <?php if ($this->uri->segment(3) === "listClass" || $this->uri->segment(3) === "detail_course" || ($this->uri->segment(3) === "detail_video_course")) {
-                                                                                            echo "active";
-                                                                                        } ?>">
+                <a href="<?= site_url('/userBranch/user/listClass') ?>" class="nav_link 
+                <?php if (
+                    $this->uri->segment(3) === "listClass" || $this->uri->segment(3) ===
+                    "detail_course" || ($this->uri->segment(3) === "detail_video_course")
+                ) {
+                    echo "active";
+                } ?>
+                <?php if ($id_role == '1') {
+                    echo "d-none";
+                } ?>
+                ">
                     <i class="bx bx-library nav_icon"></i>
                     <span class="nav_name">Kelas</span>
                 </a>
 
-                <a href="<?php echo site_url('/userBranch/user/savedClass'); ?>" class="nav_link <?php if ($this->uri->segment(3) === "savedClass") {
-                                                                                                        echo "active";
-                                                                                                    } ?>">
+                <!-- Kelas Tersimpan -->
+                <a href="<?php echo site_url('/userBranch/user/savedClass'); ?>" class="nav_link 
+                    <?php if ($this->uri->segment(3) === "savedClass") {
+                        echo "active";
+                    } ?> 
+                    <?php if ($id_role == '1') {
+                        echo "d-none";
+                    } ?>">
                     <i class="bx bx<?php if ($this->uri->segment(3) === "savedClass") {
                                         echo "s";
                                     } ?>-bookmark nav_icon"></i>
                     <span class="nav_name">Tersimpan</span>
                 </a>
-                <a href="<?php echo site_url('/userBranch/user/setting'); ?>" class="nav_link <?php if ($this->uri->segment(3) === "setting") {
-                                                                                                    echo "active";
-                                                                                                } ?>">
+
+                <!-- Pengaturan Akses -->
+                <a href="<?php echo site_url('/userBranch/user/setting'); ?>" class="nav_link 
+                    <?php if ($this->uri->segment(3) === "setting") {
+                        echo "active";
+                    } ?>
+                    <?php if ($id_role != '1') {
+                        echo "d-none";
+                    } ?>
+                    ">
                     <i class="bx bx<?php if ($this->uri->segment(3) === "setting") {
                                         echo "s";
                                     } ?>-cog nav_icon"></i>
                     <span class="nav_name">Pengaturan Akses</span>
                 </a>
-                <a href="<?php echo site_url('/userBranch/course/class_admin'); ?>" class="nav_link <?php if ($this->uri->segment(3) === "class_admin") {
-                                                                                                        echo "active";
-                                                                                                    } ?>">
+                <!-- Pengaturan Kelas -->
+                <a href="<?php echo site_url('/userBranch/course/class_admin'); ?>" class="nav_link 
+                <?php if ($this->uri->segment(3) === "class_admin") {
+                    echo "active";
+                } ?>
+                <?php if ($id_role != '1') {
+                    echo "d-none";
+                } ?>
+                ">
                     <i class="bx bx<?php if ($this->uri->segment(3) === "class_admin") {
                                         echo "s";
                                     } ?>-book-alt nav_icon"></i>
                     <span class="nav_name">Pengaturan Kelas</span>
                 </a>
-                <a href="<?php echo site_url('/userBranch/playlist/video_admin'); ?>" class="nav_link <?php if ($this->uri->segment(3) === "video_admin") {
-                                                                                                            echo "active";
-                                                                                                        } ?>">
+                <!-- Pengaturan Video -->
+                <a href="<?php echo site_url('/userBranch/playlist/video_admin'); ?>" class="nav_link 
+                <?php if ($this->uri->segment(3) === "video_admin") {
+                    echo "active";
+                } ?>
+                <?php if ($id_role != '1') {
+                    echo "d-none";
+                } ?>
+                ">
                     <i class="bx bxs-playlist nav_icon"></i>
                     <span class="nav_name">Control Video</span>
                 </a>
-                <a href="<?= site_url('/userBranch/user/profile') ?>" class="nav_link <?php if ($this->uri->segment(3) === "profile") {
-                                                                                            echo "active";
-                                                                                        } ?>">
+                <!-- Pengaturan Profil -->
+                <a href="<?= site_url('/userBranch/user/profile') ?>" class="nav_link 
+                <?php if ($this->uri->segment(3) === "profile") {
+                    echo "active";
+                } ?>
+                <?php if ($id_role == '1') {
+                    echo "d-none";
+                } ?>
+                ">
                     <i class="bx bx<?php if ($this->uri->segment(3) === "profile") {
                                         echo "s";
                                     } ?>-user nav_icon"></i>
