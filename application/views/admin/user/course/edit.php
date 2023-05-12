@@ -42,6 +42,18 @@
                             <input type="text" name="instructor" class="form-control" id="exampleInputname1" value="<?php echo $course->instructor; ?>" required>
                         </div>
                         <div class="mb-3">
+                            <label for="exampleInputname1" class="form-label fw-bold">Link Intro Kelas
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" name="intro_link" class="form-control" id="exampleInputname1" value="<?= $course->intro_link ?>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputname1" class="form-label fw-bold">Durasi (Menit)
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="number" value="<?= $course->intro_duration ?>" name="intro_duration" class="form-control" id="exampleInputname1" required>
+                        </div>
+                        <div class="mb-3">
                             <label for="exampleInputname1" class="form-label fw-bold">Kategori Kursus
                                 <span class="text-danger">*</span>
                             </label>

@@ -130,6 +130,8 @@ class Course extends CI_Controller
                 'title' => $this->input->post('title', TRUE),
                 'summary' => $this->input->post('summary', TRUE),
                 'instructor' => $this->input->post('instructor', TRUE),
+                'intro_link' => $this->input->post('intro_link', TRUE),
+                'intro_duration' => $this->input->post('intro_duration', TRUE),
                 'cover' => $this->upload->data('file_name')
             );
 
@@ -210,6 +212,8 @@ class Course extends CI_Controller
             'title' => $this->input->post('title', TRUE),
             'instructor' => $this->input->post('instructor', TRUE),
             'summary' => $this->input->post('summary', TRUE),
+            'intro_link' => $this->input->post('intro_link', TRUE),
+            'intro_duration' => $this->input->post('intro_duration', TRUE),
             'id' => $id
 
         );

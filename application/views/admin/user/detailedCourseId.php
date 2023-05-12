@@ -4,7 +4,12 @@
     <body id="body-pd">
         <!--=============== Course Content ===============-->
         <div class="space-top">
-            <h3 class="ft-7"><?= $course->title ?></h3>
+            <a class="fw-bold gap-3 fs-5" style="color:#2c2f75" href="<?= site_url('userBranch/user/listClass') ?>">
+                <i class="bi bi-chevron-left"></i>
+                <span class="py-5">
+                    Kembali </span>
+            </a>
+            <h3 class="ft-7 mt-3"><?= $course->title ?></h3>
             <p class="gray-text"><?= $course->instructor ?></p>
             <div class="row pt-2">
                 <div class="col-lg-7">

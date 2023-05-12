@@ -52,6 +52,19 @@
                             </select>
                         </div>
                         <div class="mb-3">
+                            <label for="exampleInputname1" class="form-label fw-bold">Link Intro Kelas
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" name="intro_link" class="form-control" id="exampleInputname1" placeholder="www.example.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputname1" class="form-label fw-bold">Durasi (Menit)
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="number" placeholder="3" name="intro_duration" class="form-control" id="exampleInputname1" required>
+                        </div>
+
+                        <div class="mb-3">
                             <label for="exampleInputname1" class="form-label fw-bold">Playlist Kursus
                                 <span class="text-danger">*</span>
                             </label>

@@ -68,6 +68,8 @@ class CourseModel extends CI_Model
         $title = $data['title'];
         $instructor = $data['instructor'];
         $summary = $data['summary'];
+        $intro_link = $data['intro_link'];
+        $intro_duration = $data['intro_duration'];
         $id = $data['id'];
         $this->db->where('id', $id);
         $course = $this->db->get('courses')->row();
@@ -86,6 +88,8 @@ class CourseModel extends CI_Model
                 'title' => $title,
                 'instructor' => $instructor,
                 'summary' => $summary,
+                'intro_link' => $intro_link,
+                'intro_duration' => $intro_duration,
                 'cover' => $this->upload->data('file_name')
 
             );
@@ -94,8 +98,10 @@ class CourseModel extends CI_Model
         } else {
             $data = array(
                 'title' => $title,
-                'instructor' => $instructor,
+                'intro_link' => $intro_link,
                 'summary' => $summary,
+                'intro_duration' => $intro_duration,
+                'instructor' => $instructor,
                 'cover' => $cover
 
             );
