@@ -11,6 +11,11 @@ class UserModel extends CI_Model
         return $this->db->get('users')->result_array();
     }
 
+    public function insert_data_saved_course($data)
+    {
+        return $this->db->insert('user_has_course_saved', $data);
+    }
+
     public function get_all_user()
     {
         $this->db->select('users.*, roles.id AS id_role, roles.name AS roles_name, ');

@@ -6,12 +6,16 @@
             </i>
         </div>
         <div class="search_toggle">
-            <div class="search-wrapper">
+            <div class="search-wrapper <?php if ($id_role == '1' || $this->uri->segment(3) === "listClass") {
+                                            echo "d-none";
+                                        } ?>">
                 <div class="input-holder">
                     <div class="search-box">
                         <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
-                        <form action="" class="search-form">
-                            <input type="text" placeholder="Cari Modul Pembelajaran" id="search" autocomplete="off">
+                        <form action="<?= base_url('userBranch/user/classSearch') ?>" method="get">
+                            <input name="searchTitle" type="text" placeholder="Cari Modul Pembelajaran" id="search<?php if ($this->uri->segment(3) === "listClass") {
+                                                                                                                        echo "s";
+                                                                                                                    } ?>" autocomplete="off" value="<?= isset($_GET['searchTitle']) ? $_GET['searchTitle'] : '' ?>">
                         </form>
                         <svg class="search-border" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 671 111" style="enable-background:new 0 0 671 111;" xml:space="preserve">
                             <path class="border" d="M335.5,108.5h-280c-29.3,0-53-23.7-53-53v0c0-29.3,23.7-53,53-53h280" />

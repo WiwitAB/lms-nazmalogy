@@ -56,6 +56,8 @@ class Course extends CI_Controller
             redirect('userBranch/course/add_category');
         }
     }
+
+
     public function edit_category($id)
     {
         $data = [

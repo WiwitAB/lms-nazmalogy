@@ -10,18 +10,83 @@ class CourseModel extends CI_Model
     {
         return $this->db->count_all('courses');
     }
+    // public function get_data_course()
+    // {
+    //     $this->db->select('courses.*, GROUP_CONCAT(categories.name) as category');
+    //     $this->db->from('courses');
+    //     $this->db->join('course_has_category', 'courses.id = course_has_category.id_course');
+    //     $this->db->join('categories', 'course_has_category.id_category = categories.id');
+    //     $this->db->group_by('courses.id');
+    //     $this->db->order_by('created_at', 'desc');
+    //     $query = $this->db->get();
+    //     return $query->result();
+    // }
+
     public function get_data_course()
     {
         // $query = $this->db->get('courses');
         // return $query->result();
-        $this->db->select('courses.*, GROUP_CONCAT(categories.name) as category');
-        $this->db->from('courses');
-        $this->db->join('course_has_category', 'courses.id = course_has_category.id_course');
-        $this->db->join('categories', 'course_has_category.id_category = categories.id');
-        $this->db->group_by('courses.id');
+
+        $this->db->select('c.*, GROUP_CONCAT(categories.name) as category, COUNT(uhc.id_user) as has_relation');
+        $this->db->from('courses c');
+        // $this->db->join('course_has_category', 'courses.id = course_has_category.id_course');
+        $this->db->join('course_has_category chc', 'c.id = chc.id_course');
+        $this->db->join('categories', 'chc.id_category = categories.id');
+        $this->db->join('user_has_course_saved uhc', 'c.id = uhc.id_course AND uhc.id_user = ' . $this->session->userdata('id'), 'left');
+        $this->db->group_by('c.id');
+        $this->db->order_by('created_at', 'desc');
         $query = $this->db->get();
         return $query->result();
     }
+
+    public function get_data_course_asc()
+    {
+        // $query = $this->db->get('courses');
+        // return $query->result();
+        $this->db->select('c.*, GROUP_CONCAT(categories.name) as category, COUNT(uhc.id_user) as has_relation');
+        $this->db->from('courses c');
+        // $this->db->join('course_has_category', 'courses.id = course_has_category.id_course');
+        $this->db->join('course_has_category chc', 'c.id = chc.id_course');
+        $this->db->join('categories', 'chc.id_category = categories.id');
+        $this->db->join('user_has_course_saved uhc', 'c.id = uhc.id_course AND uhc.id_user = ' . $this->session->userdata('id'), 'left');
+        $this->db->group_by('c.id');
+        $this->db->order_by('created_at', 'asc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function get_data_course_az()
+    {
+        // $query = $this->db->get('courses');
+        // return $query->result();
+        $this->db->select('c.*, GROUP_CONCAT(categories.name) as category, COUNT(uhc.id_user) as has_relation');
+        $this->db->from('courses c');
+        // $this->db->join('course_has_category', 'courses.id = course_has_category.id_course');
+        $this->db->join('course_has_category chc', 'c.id = chc.id_course');
+        $this->db->join('categories', 'chc.id_category = categories.id');
+        $this->db->join('user_has_course_saved uhc', 'c.id = uhc.id_course AND uhc.id_user = ' . $this->session->userdata('id'), 'left');
+        $this->db->group_by('c.id');
+        $this->db->order_by('title', 'asc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function get_data_course_za()
+    {
+        // $query = $this->db->get('courses');
+        // return $query->result();
+        $this->db->select('c.*, GROUP_CONCAT(categories.name) as category, COUNT(uhc.id_user) as has_relation');
+        $this->db->from('courses c');
+        // $this->db->join('course_has_category', 'courses.id = course_has_category.id_course');
+        $this->db->join('course_has_category chc', 'c.id = chc.id_course');
+        $this->db->join('categories', 'chc.id_category = categories.id');
+        $this->db->join('user_has_course_saved uhc', 'c.id = uhc.id_course AND uhc.id_user = ' . $this->session->userdata('id'), 'left');
+        $this->db->group_by('c.id');
+        $this->db->order_by('title', 'desc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+
+
     public function insert_data_course($data)
     {
         return $this->db->insert('courses', $data);

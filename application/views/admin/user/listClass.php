@@ -1,3 +1,25 @@
+<?php
+if ($this->session->flashdata('success_add') != '') {
+    echo "
+      <script>
+      Swal.fire({
+          toast: true,
+          position: 'top-right',
+          iconColor: 'white',
+          customClass: {
+              popup: 'colored-toast',
+          },
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          icon: 'success',
+          title: 'Kelas Tersimpan',
+      })    
+      </script>
+      ";
+}
+?>
+
 <body id="body-pd">
     <!--=============== Course Content ===============-->
     <div class="space-top">
@@ -28,12 +50,12 @@
             <!-- PC dan Tab Filter -->
             <div class="wd-25" data-aos="fade-up" data-aos-duration="700">
                 <div class="area-filter">
-                    <div class="card-filter">
+                    <div class="card-filter border rounded">
                         <div class="py-3">
                             <div class="search-box">
                                 <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
-                                <form action="" class="search-form">
-                                    <input type="text" placeholder="Cari Modul Pembelajaran" id="search" autocomplete="off">
+                                <form action="<?= base_url('userBranch/user/classSearch') ?>" method="get">
+                                    <input name="searchTitle" type="text" placeholder="Cari Modul Pembelajaran" id="search" autocomplete="off" value="<?= isset($_GET['searchTitle']) ? $_GET['searchTitle'] : '' ?>">
                                 </form>
                                 <svg class="search-border" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 671 111" style="enable-background:new 0 0 671 111;" xml:space="preserve">
                                     <path class="border" d="M335.5,108.5h-280c-29.3,0-53-23.7-53-53v0c0-29.3,23.7-53,53-53h280" />
@@ -46,48 +68,29 @@
                                     <i class="bx bx-category-alt"></i> <span class="mx-2"> Urutkan Per</span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Waktu</a></li>
-                                    <li><a class="dropdown-item" href="#">Nama</a></li>
+                                    <li><a class="dropdown-item" href="<?= site_url('userBranch/user/listClass') ?>">Terbaru - Terlama</a></li>
+                                    <li><a class="dropdown-item" href="<?= site_url('userBranch/user/listClassAsc') ?>">Terlama - Terbaru</a></li>
+                                    <li><a class="dropdown-item" href="<?= site_url('userBranch/user/listClassAZ') ?>">A - Z </a></li>
+                                    <li><a class="dropdown-item" href="<?= site_url('userBranch/user/listClassZA') ?>">Z - A</a></li>
                                 </ul>
                             </div>
                             <h5 class="ft-7 mx-3 mt-4">Kategori</h5>
-                            <div class="form-check mt-2">
-                                <input class="form-check-input" type="checkbox">
-                                <label class="form-check-label">
-                                    Manajemen
-                                </label>
-                            </div>
-                            <div class="form-check mt-2">
-                                <input class="form-check-input" type="checkbox">
-                                <label class="form-check-label">
-                                    Programming
-                                </label>
-                            </div>
-                            <div class="form-check mt-2">
-                                <input class="form-check-input" type="checkbox">
-                                <label class="form-check-label">
-                                    Business
-                                </label>
-                            </div>
-                            <h5 class="ft-7 mx-3 mt-4">Level</h5>
-                            <div class="form-check mt-2">
-                                <input class="form-check-input" type="checkbox">
-                                <label class="form-check-label">
-                                    Mudah
-                                </label>
-                            </div>
-                            <div class="form-check mt-2">
-                                <input class="form-check-input" type="checkbox">
-                                <label class="form-check-label">
-                                    Menengah
-                                </label>
-                            </div>
-                            <div class="form-check mt-2">
-                                <input class="form-check-input" type="checkbox">
-                                <label class="form-check-label">
-                                    Lanjutan
-                                </label>
-                            </div>
+                            <form action="<?php echo base_url('userBranch/user/filter_by_category'); ?>" method="post">
+                                <?php foreach ($categories as $category) { ?>
+                                    <div class="form-check mt-2 mb-2">
+                                        <input class="form-check-input" value="<?php echo $category->id; ?>" name="category[]" type="checkbox" <?php if (isset($selected_categories) && in_array($category->id, $selected_categories)) echo 'checked' ?>>
+                                        <label class="form-check-label">
+                                            <?= $category->name ?>
+                                        </label>
+                                    </div>
+                                <?php } ?>
+                                <div class="mt-3">
+                                    <button type="submit" class="btn btn-primary bg-first">Filter</button>
+                                </div>
+
+                            </form>
+
+
                         </div>
                     </div>
                 </div>
@@ -101,23 +104,37 @@
                     <?php
                     $no = 1;
                     foreach ($course as $data) { ?>
+
                         <div class="class-lg">
                             <div class="card-area">
                                 <div class="card-class" data-aos="fade-up" data-aos-duration="700">
-                                    <div class="d-flex flex-column">
+                                    <div class="d-flex flex-column rounded border">
                                         <div class="class-image">
                                             <img src="<?= base_url('assets/images/admin/course/' . $data->cover) ?>">
                                             <div class="marker"></div>
-                                            <div class="like-bottom my-auto mt-auto">
-                                                <i id="<?= $no++ ?>" onclick="likeFunction(this.id)" class="position-absolute bx bx-bookmark like_icon"></i>
-                                            </div>
+                                            <?php if ($data->has_relation) : ?>
+                                                <div class="like-bottom my-auto mt-auto">
+                                                    <i class="position-absolute bx bxs-bookmark like_icon bg-transparent border text-white bg-danger">
+                                                    </i>
+                                                </div>
+                                            <?php else : ?>
+                                                <form action="<?= site_url('userBranch/user/save_course') ?>" method="post" id="form-id-<?= $no++ ?>" hidden>
+                                                    <input type="text" name="id_user" value="<?php echo $id_user ?>">
+                                                    <input type="text" name="id_course" value="<?php echo $data->id ?>">
+                                                </form>
+                                                <div id="<?= $no++ ?>" style="cursor: pointer;" class="like-bottom my-auto mt-auto your-id">
+                                                    <i class="position-absolute bx bx-bookmark like_icon">
+                                                    </i>
+                                                </div>
+
+                                            <?php endif; ?>
                                         </div>
-                                        <div class="p-2 pb-0 d-flex gap-2 flex-wrap">
+                                        <div class="p-2 pb-0 d-flex gap-1 flex-wrap">
                                             <?php
                                             $category = explode(',', $data->category);
                                             foreach ($category as $kat) {
                                                 echo "
-                                    <button class='btn btn-warning font-lg'>" . $kat . "</button>";
+                                    <button class='btn btn-warning fw-medium' style='font-size:13px'>" . $kat . "</button>";
                                             }
                                             ?>
                                         </div>
@@ -147,8 +164,21 @@
                                 </div>
                             </div>
                         </div>
-                    <?php } ?>
 
+                    <?php } ?>
+                    <script>
+                        var nodesSameClass = document.getElementsByClassName("card-area");
+
+                        for (let i = 1; i <= nodesSameClass.length * 2; i++) {
+                            if (i % 2 == 1) {
+                                document.getElementById(i + 1).addEventListener("click", function() {
+                                    document.getElementById("form-id-" + i).submit();
+                                });
+                            }
+
+
+                        }
+                    </script>
                     <!-- Pagination
                     <div class="pagination-line" data-aos="fade-up" data-aos-duration="700">
                         <div id="app">
