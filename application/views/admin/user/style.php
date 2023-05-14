@@ -21,7 +21,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!--=============== External CSS ================= -->
-    <link rel="stylesheet" href="<?= base_url('assets/css/stylePage.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/styleAdmin.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/search.css') ?>">
 
     <!--=============== Sweet Alert CDN ================= -->

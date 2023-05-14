@@ -12,6 +12,7 @@ class User extends CI_Controller
             $this->load->model('CourseModel');
             $this->load->model('PlaylistModel');
             $this->load->model('CategoryModel');
+            $this->load->library('pagination');
 
             if (empty($this->session->userdata('is_login'))) {
                   $this->session->set_flashdata('end_session', 'User Belum Login');
@@ -27,6 +28,7 @@ class User extends CI_Controller
 
 
             $data = [
+                  'id_user' => $this->session->userdata('id'),
                   'id_role' => $this->session->userdata('id_role'),
                   'user_count' => $this->UserModel->count_all(),
                   'course_count' => $this->CourseModel->count_all(),
@@ -66,11 +68,17 @@ class User extends CI_Controller
             $this->load->view('admin/user/script');
       }
 
-      public function savedClass()
+      public function savedClass($id)
       {
+
             $data = [
-                  'id_role' => $this->session->userdata('id_role')
+                  'id_role' => $this->session->userdata('id_role'),
+                  'id_user' => $this->session->userdata('id'),
+                  'categories' => $this->CategoryModel->get_data_category(),
+                  'course' => $this->CourseModel->get_course($id)
             ];
+
+
             $this->load->view('admin/user/style');
             $this->load->view('admin/user/menubar', $data);
             $this->load->view('admin/user/savedClass');
@@ -79,6 +87,7 @@ class User extends CI_Controller
       public function setting()
       {
             $data = [
+                  'id_user' => $this->session->userdata('id'),
                   'id_role' => $this->session->userdata('id_role'),
                   'users' => $this->UserModel->get_all_user()
             ];
@@ -92,6 +101,7 @@ class User extends CI_Controller
       public function profile()
       {
             $data = [
+                  'id_user' => $this->session->userdata('id'),
                   'id_role' => $this->session->userdata('id_role')
             ];
             $this->load->view('admin/user/style');

@@ -109,7 +109,7 @@
                 <?php if ($id_role == '1') {
                     echo "d-none";
                 } ?>">
-                    <a href="<?= site_url('/userBranch/user/savedClass') ?>" class="nav__link 
+                    <a href="<?= anchor('/userBranch/user/savedClass/' . $id_role) ?>" class="nav__link 
                     <?php if ($this->uri->segment(3) === "savedClass") {
                         echo "active-link";
                     } ?> ">
@@ -168,9 +168,8 @@
                     <i class="bx bx-library nav_icon"></i>
                     <span class="nav_name">Kelas</span>
                 </a>
-
                 <!-- Kelas Tersimpan -->
-                <a href="<?php echo site_url('/userBranch/user/savedClass'); ?>" class="nav_link 
+                <a href="<?php echo base_url('/userBranch/user/savedClass/' . $id_user) ?>" class="nav_link 
                     <?php if ($this->uri->segment(3) === "savedClass") {
                         echo "active";
                     } ?> 

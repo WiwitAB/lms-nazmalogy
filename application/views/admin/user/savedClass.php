@@ -1,3 +1,25 @@
+<?php
+if ($this->session->flashdata('success_delete') != '') {
+    echo "
+      <script>
+      Swal.fire({
+          toast: true,
+          position: 'top-right',
+          iconColor: 'white',
+          customClass: {
+              popup: 'colored-toast',
+          },
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          icon: 'success',
+          title: 'Kelas Terhapus',
+      })    
+      </script>
+      ";
+}
+?>
+
 <body id="body-pd">
     <!--=============== Course Content ===============-->
     <div class="space-top">
@@ -15,148 +37,92 @@
             <!-- Class List -->
             <div class="w-100">
                 <div class="d-flex card-groups">
-                    <div class="class-lg" id="1">
-                        <div class="card-area">
-                            <div class="card-class" data-aos="fade-up" data-aos-duration="700">
-                                <div class="d-flex flex-column">
-                                    <div class="class-image">
-                                        <img src="<?= base_url('assets/img/class_album.jpg') ?>" alt="">
-                                        <div class="marker"></div>
-                                        <div class="like-bottom my-auto mt-auto">
-                                            <i id="2" onclick="unlikeFunction(this.id)"
-                                                class="position-absolute bx bxs-bookmark like_icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="class-tag">
-                                        <button class="btn btn-outline-warning text-lg">marketing</button>
-                                        <button class="btn btn-outline-warning text-lg">business</button>
-                                    </div>
-                                    <div class="class-title">
-                                        <h6 class="ft-7 p-2">Digital Marketing Untuk UMKM</h6>
-                                    </div>
-                                    <div class="class-action">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="d-flex gap-4 popularity">
-                                                <div class="rating">
-                                                    <i class="bx bx-star class-icon yellow-image"></i>
-                                                    <span class="text-xl">4.3</span>
+                    <?php
+                    $no = 1;
+                    foreach ($course as $data) { ?>
+                        <?php if ($data->has_relation) : ?>
+                            <div class="class-lg">
+                                <div class="card-area">
+                                    <div class="card-class" data-aos="fade-up" data-aos-duration="700">
+                                        <div class="d-flex flex-column rounded border">
+                                            <div class="class-image">
+                                                <img src="<?= base_url('assets/images/admin/course/' . $data->cover) ?>">
+                                                <div class="marker"></div>
+                                                <form action="<?= site_url('userBranch/classpath/delete_course') ?>" method="post" id="form-id-<?= $no++ ?>" hidden>
+                                                    <input type="text" name="id_user" value="<?php echo $id_user ?>">
+                                                    <input type="text" name="id_course" value="<?php echo $data->id ?>">
+                                                </form>
+                                                <div id="<?= $no++ ?>" style="cursor: pointer;" class="like-bottom my-auto mt-auto">
+                                                    <i class="position-absolute bx bxs-bookmark like_icon bg-transparent border text-warning bg-danger">
+                                                    </i>
                                                 </div>
-                                                <div class="person">
-                                                    <i class="bx bx-user class-icon blue-image"></i>
-                                                    <span class="text-xl">20k+</span>
+
+                                            </div>
+                                            <div class="p-2 pb-0 d-flex gap-1 flex-wrap">
+                                                <?php
+                                                $category = explode(',', $data->category);
+                                                foreach ($category as $kat) {
+                                                    echo "
+                                    <button class='btn btn-warning fw-medium' style='font-size:13px'>" . $kat . "</button>";
+                                                }
+                                                ?>
+                                            </div>
+                                            <div class="class-title">
+                                                <h6 class="ft-7 p-2"><?= $data->title ?></h6>
+                                            </div>
+                                            <div class="class-action">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex gap-4 popularity">
+                                                        <div class="rating">
+                                                            <i class="bx bx-star class-icon yellow-image"></i>
+                                                            <span class="text-xl"><?= $data->rating ?></span>
+                                                        </div>
+                                                        <div class="person">
+                                                            <i class="bx bx-user class-icon blue-image"></i>
+                                                            <span class="text-xl"><?= $data->participant ?></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="detail-bottom">
+                                                        <?php echo anchor('userBranch/classpath/detail_course/' . $data->id, "
+                                                        <button class='btn btn-primary bg-first text-xl'>+ Ikuti</button>
+                                                    "); ?>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <a href="detail_class.html">
-                                                <div class="detail-bottom">
-                                                    <button class="btn btn-primary bg-first text-xl">+ Ikuti</button>
-                                                </div>
-                                            </a>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        <?php endif; ?>
+                    <?php } ?>
+                    <script>
+                        var nodesSameClass = document.getElementsByClassName("card-area");
+
+                        for (let i = 1; i <= nodesSameClass.length * 2; i++) {
+                            if (i % 2 == 1) {
+                                document.getElementById(i + 1).addEventListener("click", function() {
+                                    document.getElementById("form-id-" + i).submit();
+                                });
+                            }
+
+
+                        }
+                    </script>
+                    <!-- Pagination -->
+
+                    <!-- <div class="pagination-line" data-aos="fade-up" data-aos-duration="700">
+                        <div id="app">
+                            <div class="button active"></div>
+                            <div class="button"></div>
+                            <div class="button"></div>
+                            <div class="button"></div>
                         </div>
-                    </div>
-                    <div class="class-lg" id="3">
-                        <div class="card-area">
-                            <div class="card-class" data-aos="fade-up" data-aos-duration="700">
-                                <div class="d-flex flex-column">
-                                    <div class="class-image">
-                                        <img src="<?= base_url('assets/img/course-1.png') ?>" alt="">
-                                        <div class="marker"></div>
-                                        <div class="like-bottom my-auto mt-auto">
-                                            <i id="4" onclick="unlikeFunction(this.id)"
-                                                class="position-absolute bx bxs-bookmark like_icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="class-tag">
-                                        <button class="btn btn-outline-warning text-lg">marketing</button>
-                                        <button class="btn btn-outline-warning text-lg">business</button>
-                                    </div>
-                                    <div class="class-title">
-                                        <h6 class="ft-7 p-2">Go Digital - Memahami Corong Pemasaran</h6>
-                                    </div>
-                                    <div class="class-action">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="d-flex gap-4 popularity">
-                                                <div class="rating">
-                                                    <i class="bx bx-star class-icon yellow-image"></i>
-                                                    <span class="text-xl">4.3</span>
-                                                </div>
-                                                <div class="person">
-                                                    <i class="bx bx-user class-icon blue-image"></i>
-                                                    <span class="text-xl">20k+</span>
-                                                </div>
-                                            </div>
-                                            <a href="detail_class.html">
-
-                                                <div class="detail-bottom">
-                                                    <button class="btn btn-primary bg-first text-xl">+ Ikuti</button>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="class-lg" id="5">
-                        <div class="card-area">
-                            <div class="card-class" data-aos="fade-up" data-aos-duration="700">
-                                <div class="d-flex flex-column">
-                                    <div class="class-image">
-                                        <img src="<?= base_url('assets/img/class_album.jpg') ?>" alt="">
-                                        <div class="marker"></div>
-                                        <div class="like-bottom my-auto mt-auto">
-                                            <i id="6" onclick="unlikeFunction(this.id)"
-                                                class="position-absolute bx bxs-bookmark like_icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="class-tag">
-                                        <button class="btn btn-outline-warning text-lg">marketing</button>
-                                        <button class="btn btn-outline-warning text-lg">business</button>
-                                    </div>
-                                    <div class="class-title">
-                                        <h6 class="ft-7 p-2">Digital Marketing Untuk UMKM</h6>
-                                    </div>
-                                    <div class="class-action">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="d-flex gap-4 popularity">
-                                                <div class="rating">
-                                                    <i class="bx bx-star class-icon yellow-image"></i>
-                                                    <span class="text-xl">4.3</span>
-                                                </div>
-                                                <div class="person">
-                                                    <i class="bx bx-user class-icon blue-image"></i>
-                                                    <span class="text-xl">20k+</span>
-                                                </div>
-                                            </div>
-
-
-                                            <a href="detail_class.html">
-                                                <div class="detail-bottom">
-                                                    <button class="btn btn-primary bg-first text-xl">+ Ikuti</button>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    </div> -->
                 </div>
 
-                <!-- Pagination -->
-                <div class="pagination-line" data-aos="fade-up" data-aos-duration="300">
-                    <div id="app">
-                        <div class="button active"></div>
-                        <div class="button"></div>
-                        <div class="button"></div>
-                        <div class="button"></div>
-                    </div>
-                </div>
+
+
+
             </div>
 
         </div>

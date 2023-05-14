@@ -21,7 +21,40 @@ class CourseModel extends CI_Model
     //     $query = $this->db->get();
     //     return $query->result();
     // }
+    public function get_course($id)
+    {
+        // $query = $this->db->get('courses');
+        // return $query->result();
 
+        $this->db->select('c.*, GROUP_CONCAT(categories.name) as category, COUNT(uhc.id_user) as has_relation');
+        $this->db->from('courses c');
+        // $this->db->join('course_has_category', 'courses.id = course_has_category.id_course');
+        $this->db->join('course_has_category chc', 'c.id = chc.id_course');
+        $this->db->join('categories', 'chc.id_category = categories.id');
+        $this->db->join('user_has_course_saved uhc', 'c.id = uhc.id_course AND uhc.id_user = ' . $this->session->userdata('id'), 'left');
+
+        $this->db->group_by('c.id');
+        $this->db->where('uhc.id_user', $id);
+        $this->db->order_by('created_at', 'desc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function get_data_course_admin()
+    {
+        // $query = $this->db->get('courses');
+        // return $query->result();
+
+        $this->db->select('c.*, GROUP_CONCAT(categories.name) as category, COUNT(uhc.id_user) as has_relation');
+        $this->db->from('courses c');
+        // $this->db->join('course_has_category', 'courses.id = course_has_category.id_course');
+        $this->db->join('course_has_category chc', 'c.id = chc.id_course');
+        $this->db->join('categories', 'chc.id_category = categories.id');
+        $this->db->join('user_has_course_saved uhc', 'c.id = uhc.id_course AND uhc.id_user = ' . $this->session->userdata('id'), 'left');
+        $this->db->group_by('c.id');
+        $this->db->order_by('created_at', 'desc');
+        $query = $this->db->get();
+        return $query->result();
+    }
     public function get_data_course($limit, $offset)
     {
         // $query = $this->db->get('courses');

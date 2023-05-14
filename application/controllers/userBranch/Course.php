@@ -20,9 +20,10 @@ class Course extends CI_Controller
     public function class_admin()
     {
         $data = [
+            'id_user' => $this->session->userdata('id'),
             'id_role' => $this->session->userdata('id_role'),
             'categories' => $this->CategoryModel->get_data_category(),
-            'course' => $this->CourseModel->get_data_course()
+            'course' => $this->CourseModel->get_data_course_admin()
         ];
         $this->load->view('admin/user/style');
         $this->load->view('admin/user/menubar', $data);
@@ -32,6 +33,7 @@ class Course extends CI_Controller
     public function add_category()
     {
         $data = [
+            'id_user' => $this->session->userdata('id'),
             'id_role' => $this->session->userdata('id_role')
         ];
         $this->load->view('admin/user/style');
@@ -61,6 +63,7 @@ class Course extends CI_Controller
     public function edit_category($id)
     {
         $data = [
+            'id_user' => $this->session->userdata('id'),
             'id_role' => $this->session->userdata('id_role'),
             'category' => $this->CategoryModel->get_category_by_id($id)
         ];
@@ -98,6 +101,7 @@ class Course extends CI_Controller
     public function add_course()
     {
         $data = [
+            'id_user' => $this->session->userdata('id'),
             'id_role' => $this->session->userdata('id_role'),
             'categories' => $this->CategoryModel->get_data_category(),
             'playlist' => $this->PlaylistModel->get_data_playlist()
@@ -184,6 +188,7 @@ class Course extends CI_Controller
     public function edit_course($id)
     {
         $data = [
+            'id_user' => $this->session->userdata('id'),
             'id_role' => $this->session->userdata('id_role'),
             'course' => $this->CourseModel->get_course_by_id($id),
             'categories' => $this->CategoryModel->get_data_category(),

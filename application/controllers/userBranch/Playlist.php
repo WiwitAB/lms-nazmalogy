@@ -20,6 +20,7 @@ class Playlist extends CI_Controller
     public function video_admin()
     {
         $data = [
+            'id_user' => $this->session->userdata('id'),
             'id_role' => $this->session->userdata('id_role'),
             'playlists' => $this->PlaylistModel->get_data_playlist(),
             'videos' => $this->PlaylistModel->get_all_video()
@@ -33,6 +34,7 @@ class Playlist extends CI_Controller
     public function add_playlist()
     {
         $data = [
+            'id_user' => $this->session->userdata('id'),
             'id_role' => $this->session->userdata('id_role')
         ];
         $this->load->view('admin/user/style');
@@ -71,6 +73,7 @@ class Playlist extends CI_Controller
     public function edit_playlist($id)
     {
         $data = [
+            'id_user' => $this->session->userdata('id'),
             'id_role' => $this->session->userdata('id_role'),
             'playlist' => $this->PlaylistModel->get_playlist_by_id($id)
         ];
@@ -99,6 +102,7 @@ class Playlist extends CI_Controller
     public function add_video()
     {
         $data = [
+            'id_user' => $this->session->userdata('id'),
             'id_role' => $this->session->userdata('id_role'),
             'playlists' => $this->PlaylistModel->get_data_playlist(),
         ];
@@ -143,6 +147,7 @@ class Playlist extends CI_Controller
     public function edit_video($id)
     {
         $data = [
+            'id_user' => $this->session->userdata('id'),
             'id_role' => $this->session->userdata('id_role'),
             'video' => $this->PlaylistModel->get_video_by_id($id),
             'playlists' => $this->PlaylistModel->get_data_playlist()

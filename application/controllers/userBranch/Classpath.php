@@ -168,16 +168,7 @@ class Classpath extends CI_Controller
         $this->load->view('admin/user/listClass');
         $this->load->view('admin/user/script');
     }
-    public function savedClass()
-    {
-        $data = [
-            'id_role' => $this->session->userdata('id_role')
-        ];
-        $this->load->view('admin/user/style');
-        $this->load->view('admin/user/menubar', $data);
-        $this->load->view('admin/user/savedClass');
-        $this->load->view('admin/user/script');
-    }
+
 
     public function detail_video_course($id_link, $id)
     {
@@ -320,7 +311,7 @@ class Classpath extends CI_Controller
         $this->db->delete('user_has_course_saved');
         // $insert_id = $this->UserModel->insert_data_saved_course($data);
 
-        $this->session->set_flashdata('success_add', 'email atau Password salah');
-        redirect('userBranch/user/listClass');
+        $this->session->set_flashdata('success_delete', 'email atau Password salah');
+        redirect($_SERVER['HTTP_REFERER']);
     }
 }
