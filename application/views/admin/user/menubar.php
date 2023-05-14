@@ -6,14 +6,14 @@
             </i>
         </div>
         <div class="search_toggle">
-            <div class="search-wrapper <?php if ($id_role == '1' || $this->uri->segment(3) === "listClass") {
-                                            echo "d-none";
-                                        } ?>">
+            <div class="search-wrapper">
                 <div class="input-holder">
-                    <div class="search-box">
+                    <div class="search-box <?php if ($id_role == '1' || $this->uri->segment(2) === "classpath") {
+                                                echo "d-none";
+                                            } ?>">
                         <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
                         <form action="<?= base_url('userBranch/user/classSearch') ?>" method="get">
-                            <input name="searchTitle" type="text" placeholder="Cari Modul Pembelajaran" id="search<?php if ($this->uri->segment(3) === "listClass") {
+                            <input name="searchTitle" type="text" placeholder="Cari Modul Pembelajaran" id="search<?php if ($this->uri->segment(2) === "classpath") {
                                                                                                                         echo "s";
                                                                                                                     } ?>" autocomplete="off" value="<?= isset($_GET['searchTitle']) ? $_GET['searchTitle'] : '' ?>">
                         </form>
@@ -60,8 +60,8 @@
                 <?php if ($id_role == '1') {
                     echo "d-none";
                 } ?>">
-                    <a href="<?= site_url('/userBranch/user/listClass') ?>" class="nav__link 
-                    <?php if ($this->uri->segment(3) === "listClass") {
+                    <a href="<?= site_url('/userBranch/classpath/listClass') ?>" class="nav__link 
+                    <?php if ($this->uri->segment(2) === "classpath") {
                         echo "active-link";
                     } ?>">
                         <i class="bx bx-library nav__icon"></i>
@@ -95,13 +95,13 @@
                     </a>
                 </li>
                 <!-- Pengaturan Video -->
-                <li class="nav__item">
+                <li class="nav__item <?php if ($id_role != '1') {
+                                            echo "d-none";
+                                        } ?>">
                     <a href="<?= site_url('/userBranch/playlist/video_admin') ?>" class="nav__link 
                     <?php if ($this->uri->segment(3) === "video_admin") {
                         echo "active-link";
-                    } ?> <?php if ($id_role != '1') {
-                                echo "d-none";
-                            } ?>">
+                    } ?> ">
                         <i class="bx bxs-playlist nav__icon"></i>
                     </a>
                 </li>
@@ -155,10 +155,9 @@
                                     } ?>-grid-alt nav_icon"></i>
                     <span class="nav_name">Dashboard</span>
                 </a>
-                <a href="<?= site_url('/userBranch/user/listClass') ?>" class="nav_link 
+                <a href="<?= site_url('/userBranch/classpath/listClass') ?>" class="nav_link 
                 <?php if (
-                    $this->uri->segment(3) === "listClass" || $this->uri->segment(3) ===
-                    "detail_course" || ($this->uri->segment(3) === "detail_video_course")
+                    $this->uri->segment(2) === "classpath"
                 ) {
                     echo "active";
                 } ?>

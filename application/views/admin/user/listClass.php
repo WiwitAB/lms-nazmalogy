@@ -54,7 +54,7 @@ if ($this->session->flashdata('success_add') != '') {
                         <div class="py-3">
                             <div class="search-box">
                                 <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
-                                <form action="<?= base_url('userBranch/user/classSearch') ?>" method="get">
+                                <form action="<?= base_url('userBranch/classpath/classSearch') ?>" method="get">
                                     <input name="searchTitle" type="text" placeholder="Cari Modul Pembelajaran" id="search" autocomplete="off" value="<?= isset($_GET['searchTitle']) ? $_GET['searchTitle'] : '' ?>">
                                 </form>
                                 <svg class="search-border" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 671 111" style="enable-background:new 0 0 671 111;" xml:space="preserve">
@@ -68,14 +68,14 @@ if ($this->session->flashdata('success_add') != '') {
                                     <i class="bx bx-category-alt"></i> <span class="mx-2"> Urutkan Per</span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="<?= site_url('userBranch/user/listClass') ?>">Terbaru - Terlama</a></li>
-                                    <li><a class="dropdown-item" href="<?= site_url('userBranch/user/listClassAsc') ?>">Terlama - Terbaru</a></li>
-                                    <li><a class="dropdown-item" href="<?= site_url('userBranch/user/listClassAZ') ?>">A - Z </a></li>
-                                    <li><a class="dropdown-item" href="<?= site_url('userBranch/user/listClassZA') ?>">Z - A</a></li>
+                                    <li><a class="dropdown-item" href="<?= site_url('userBranch/classpath/listClass') ?>">Terbaru - Terlama</a></li>
+                                    <li><a class="dropdown-item" href="<?= site_url('userBranch/classpath/listClassAsc') ?>">Terlama - Terbaru</a></li>
+                                    <li><a class="dropdown-item" href="<?= site_url('userBranch/classpath/listClassAZ') ?>">A - Z </a></li>
+                                    <li><a class="dropdown-item" href="<?= site_url('userBranch/classpath/listClassZA') ?>">Z - A</a></li>
                                 </ul>
                             </div>
                             <h5 class="ft-7 mx-3 mt-4">Kategori</h5>
-                            <form action="<?php echo base_url('userBranch/user/filter_by_category'); ?>" method="post">
+                            <form action="<?php echo base_url('userBranch/classpath/filter_by_category'); ?>" method="post">
                                 <?php foreach ($categories as $category) { ?>
                                     <div class="form-check mt-2 mb-2">
                                         <input class="form-check-input" value="<?php echo $category->id; ?>" name="category[]" type="checkbox" <?php if (isset($selected_categories) && in_array($category->id, $selected_categories)) echo 'checked' ?>>
@@ -118,7 +118,7 @@ if ($this->session->flashdata('success_add') != '') {
                                                     </i>
                                                 </div>
                                             <?php else : ?>
-                                                <form action="<?= site_url('userBranch/user/save_course') ?>" method="post" id="form-id-<?= $no++ ?>" hidden>
+                                                <form action="<?= site_url('userBranch/classpath/save_course') ?>" method="post" id="form-id-<?= $no++ ?>" hidden>
                                                     <input type="text" name="id_user" value="<?php echo $id_user ?>">
                                                     <input type="text" name="id_course" value="<?php echo $data->id ?>">
                                                 </form>
@@ -154,7 +154,7 @@ if ($this->session->flashdata('success_add') != '') {
                                                     </div>
                                                 </div>
                                                 <div class="detail-bottom">
-                                                    <?php echo anchor('userBranch/user/detail_course/' . $data->id, "
+                                                    <?php echo anchor('userBranch/classpath/detail_course/' . $data->id, "
                                                         <button class='btn btn-primary bg-first text-xl'>+ Ikuti</button>
                                                     "); ?>
                                                 </div>
@@ -179,8 +179,9 @@ if ($this->session->flashdata('success_add') != '') {
 
                         }
                     </script>
-                    <!-- Pagination
-                    <div class="pagination-line" data-aos="fade-up" data-aos-duration="700">
+                    <!-- Pagination -->
+
+                    <!-- <div class="pagination-line" data-aos="fade-up" data-aos-duration="700">
                         <div id="app">
                             <div class="button active"></div>
                             <div class="button"></div>
@@ -189,6 +190,8 @@ if ($this->session->flashdata('success_add') != '') {
                         </div>
                     </div> -->
                 </div>
+
+                <?php echo $links; ?>
 
 
             </div>
@@ -202,8 +205,8 @@ if ($this->session->flashdata('success_add') != '') {
                     <div class="p-5">
                         <div class="search-box">
                             <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
-                            <form action="" class="search-form">
-                                <input type="text" class="search" placeholder="Cari Modul Pembelajaran" autocomplete="off">
+                            <form action="<?= base_url('userBranch/classpath/classSearch') ?>" method="get">
+                                <input name="searchTitle" id="search" type="text" placeholder="Cari Modul Pembelajaran" autocomplete="off" value="<?= isset($_GET['searchTitle']) ? $_GET['searchTitle'] : '' ?>">
                             </form>
                             <svg class="search-border" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 671 111" style="enable-background:new 0 0 671 111;" xml:space="preserve">
                                 <path class="border" d="M335.5,108.5h-280c-29.3,0-53-23.7-53-53v0c0-29.3,23.7-53,53-53h280" />
@@ -216,48 +219,27 @@ if ($this->session->flashdata('success_add') != '') {
                                 <i class="bx bx-category-alt"></i> <span class="mx-2"> Urutkan Per</span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Waktu</a></li>
-                                <li><a class="dropdown-item" href="#">Nama</a></li>
+                                <li><a class="dropdown-item" href="<?= site_url('userBranch/classpath/listClass') ?>">Terbaru - Terlama</a></li>
+                                <li><a class="dropdown-item" href="<?= site_url('userBranch/classpath/listClassAsc') ?>">Terlama - Terbaru</a></li>
+                                <li><a class="dropdown-item" href="<?= site_url('userBranch/classpath/listClassAZ') ?>">A - Z </a></li>
+                                <li><a class="dropdown-item" href="<?= site_url('userBranch/classpath/listClassZA') ?>">Z - A</a></li>
                             </ul>
                         </div>
                         <h5 class="ft-7 mx-3 mt-4">Kategori</h5>
-                        <div class="form-check mt-2">
-                            <input class="form-check-input" type="checkbox" value="">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Manajemen
-                            </label>
-                        </div>
-                        <div class="form-check mt-2">
-                            <input class="form-check-input" type="checkbox" value="">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Programming
-                            </label>
-                        </div>
-                        <div class="form-check mt-2">
-                            <input class="form-check-input" type="checkbox" value="">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Business
-                            </label>
-                        </div>
-                        <h5 class="ft-7 mx-3 mt-4">Level</h5>
-                        <div class="form-check mt-2">
-                            <input class="form-check-input" type="checkbox" value="">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Mudah
-                            </label>
-                        </div>
-                        <div class="form-check mt-2">
-                            <input class="form-check-input" type="checkbox" value="">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Menengah
-                            </label>
-                        </div>
-                        <div class="form-check mt-2">
-                            <input class="form-check-input" type="checkbox" value="">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Lanjutan
-                            </label>
-                        </div>
+                        <form action="<?php echo base_url('userBranch/classpath/filter_by_category'); ?>" method="post">
+                            <?php foreach ($categories as $category) { ?>
+                                <div class="form-check mt-2 mb-2">
+                                    <input class="form-check-input" value="<?php echo $category->id; ?>" name="category[]" type="checkbox" <?php if (isset($selected_categories) && in_array($category->id, $selected_categories)) echo 'checked' ?>>
+                                    <label class="form-check-label">
+                                        <?= $category->name ?>
+                                    </label>
+                                </div>
+                            <?php } ?>
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-primary bg-first">Filter</button>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>

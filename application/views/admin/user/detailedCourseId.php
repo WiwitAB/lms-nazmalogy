@@ -4,7 +4,7 @@
     <body id="body-pd">
         <!--=============== Course Content ===============-->
         <div class="space-top">
-            <a class="fw-bold gap-3 fs-5" style="color:#2c2f75" href="<?= site_url('userBranch/user/listClass') ?>">
+            <a class="fw-bold gap-3 fs-5" style="color:#2c2f75" href="<?= site_url('userBranch/classpath/listClass') ?>">
                 <i class="bi bi-chevron-left"></i>
                 <span class="py-5">
                     Kembali </span>
@@ -71,7 +71,7 @@
                                     <i id="ready_icon" class="text-center bx bx-pause-circle ready-icon"></i>
                                 </div>
                                 <div class="course-progress w-75 block-center">
-                                    <a href="<?= site_url('userBranch/user/detail_course/' . $course->id)  ?>" class="video-ready text-lg text-warning">Intro Kelas</a>
+                                    <a href="<?= site_url('userBranch/classpath/detail_course/' . $course->id)  ?>" class="video-ready text-lg text-warning">Intro Kelas</a>
                                 </div>
                                 <div class="time-course w-15 block-center">
                                     0<?= $course->intro_duration ?>:00
@@ -91,7 +91,7 @@
                                             <i id="ready_icon" class="text-center bx bx-pause-circle ready-icon"></i>
                                         </div>
                                         <div class="course-progress w-75 block-center">
-                                            <a href="<?= site_url('userBranch/user/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="video-ready text-lg text-warning"><?= $video->title  ?></a>
+                                            <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="video-ready text-lg text-warning"><?= $video->title  ?></a>
                                         </div>
                                         <div class="time-course w-15 block-center">
                                             0<?= $video->duration ?>:00

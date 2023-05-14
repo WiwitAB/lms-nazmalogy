@@ -4,7 +4,7 @@
     <body id="body-pd">
         <!--=============== Course Content ===============-->
         <div class="space-top">
-            <a class="fw-bold gap-3 fs-5" style="color:#2c2f75" href="<?= site_url('userBranch/user/listClass') ?>">
+            <a class="fw-bold gap-3 fs-5" style="color:#2c2f75" href="<?= site_url('userBranch/classpath/listClass') ?>">
                 <i class="bi bi-chevron-left"></i>
                 <span class="py-5">
                     Kembali </span>
@@ -68,7 +68,7 @@
                                     <i id="ready_icon" class="text-center bx bx-pause-circle ready-icon"></i>
                                 </div>
                                 <div class="course-progress w-75 block-center">
-                                    <a href="<?= site_url('userBranch/user/detail_course/' . $course->id)  ?>" class="video-ready text-lg text-warning">Intro Kelas</a>
+                                    <a href="<?= site_url('userBranch/classpath/detail_course/' . $course->id)  ?>" class="video-ready text-lg text-warning">Intro Kelas</a>
                                 </div>
                                 <div class="time-course w-15 block-center">
                                     0<?= $course->intro_duration ?>:00
@@ -81,13 +81,13 @@
                             <h6 class="ft-7 pt-3"><?php echo $playlist->name; ?></h6>
 
                             <?php foreach ($playlist->videos as $video) { ?>
-                                <div class="list-course pt-3 d-flex flex-column gap-3 kelas">
+                                <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
                                     <div class="card-course d-flex gap-2 px-15 border">
                                         <div class=" icon-progress w-10 icon-center">
                                             <i id="ready_icon" class="text-center bx bx-pause-circle ready-icon"></i>
                                         </div>
                                         <div class="course-progress w-75 block-center">
-                                            <a href="<?= site_url('userBranch/user/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="video-ready text-lg text-warning"><?= $video->title  ?></a>
+                                            <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="video-ready text-lg text-warning"><?= $video->title  ?></a>
                                         </div>
                                         <div class="time-course w-15 block-center">
                                             0<?= $video->duration ?>:00

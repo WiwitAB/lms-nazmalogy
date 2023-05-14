@@ -22,7 +22,7 @@ class CourseModel extends CI_Model
     //     return $query->result();
     // }
 
-    public function get_data_course()
+    public function get_data_course($limit, $offset)
     {
         // $query = $this->db->get('courses');
         // return $query->result();
@@ -35,11 +35,12 @@ class CourseModel extends CI_Model
         $this->db->join('user_has_course_saved uhc', 'c.id = uhc.id_course AND uhc.id_user = ' . $this->session->userdata('id'), 'left');
         $this->db->group_by('c.id');
         $this->db->order_by('created_at', 'desc');
+        $this->db->limit($limit, $offset);
         $query = $this->db->get();
         return $query->result();
     }
 
-    public function get_data_course_asc()
+    public function get_data_course_asc($limit, $offset)
     {
         // $query = $this->db->get('courses');
         // return $query->result();
@@ -51,10 +52,11 @@ class CourseModel extends CI_Model
         $this->db->join('user_has_course_saved uhc', 'c.id = uhc.id_course AND uhc.id_user = ' . $this->session->userdata('id'), 'left');
         $this->db->group_by('c.id');
         $this->db->order_by('created_at', 'asc');
+        $this->db->limit($limit, $offset);
         $query = $this->db->get();
         return $query->result();
     }
-    public function get_data_course_az()
+    public function get_data_course_az($limit, $offset)
     {
         // $query = $this->db->get('courses');
         // return $query->result();
@@ -66,10 +68,11 @@ class CourseModel extends CI_Model
         $this->db->join('user_has_course_saved uhc', 'c.id = uhc.id_course AND uhc.id_user = ' . $this->session->userdata('id'), 'left');
         $this->db->group_by('c.id');
         $this->db->order_by('title', 'asc');
+        $this->db->limit($limit, $offset);
         $query = $this->db->get();
         return $query->result();
     }
-    public function get_data_course_za()
+    public function get_data_course_za($limit, $offset)
     {
         // $query = $this->db->get('courses');
         // return $query->result();
@@ -81,6 +84,7 @@ class CourseModel extends CI_Model
         $this->db->join('user_has_course_saved uhc', 'c.id = uhc.id_course AND uhc.id_user = ' . $this->session->userdata('id'), 'left');
         $this->db->group_by('c.id');
         $this->db->order_by('title', 'desc');
+        $this->db->limit($limit, $offset);
         $query = $this->db->get();
         return $query->result();
     }
@@ -210,5 +214,10 @@ class CourseModel extends CI_Model
         $this->db->where('id', $video_id);
         $query = $this->db->get('videos');
         return $query->row();
+    }
+
+    public function count_course()
+    {
+        return $this->db->count_all('courses');
     }
 }
