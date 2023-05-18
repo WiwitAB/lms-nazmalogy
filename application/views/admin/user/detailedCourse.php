@@ -1,76 +1,168 @@
-    <!--=============== External CSS ================= -->
-    <link rel="stylesheet" href="<?= base_url('assets/css/star.css') ?>">
+<?php
+if ($this->session->flashdata('success') != '') {
+    echo "
+      <script>
+      Swal.fire({
+          toast: true,
+          position: 'top-right',
+          iconColor: 'white',
+          customClass: {
+              popup: 'colored-toast',
+          },
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          icon: 'success',
+          title: 'Kelas Dimulai',
+      })    
+      </script>
+      ";
+}
+?>
 
-    <body id="body-pd">
-        <!--=============== Course Content ===============-->
-        <div class="space-top">
-            <a class="fw-bold gap-3 fs-5" style="color:#2c2f75" href="<?= site_url('userBranch/classpath/listClass') ?>">
-                <i class="bi bi-chevron-left"></i>
-                <span class="py-5">
-                    Kembali </span>
-            </a>
-            <h3 class="ft-7 mt-3"><?= $course->title ?></h3>
-            <p class="gray-text"><?= $course->instructor ?></p>
-            <div class="row pt-2">
-                <div class="col-lg-7">
-                    <div class="video-panel">
-                        <iframe class="w-100" style="height: 25rem" src="<?= $course->intro_link ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<style>
+    .progress-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #000;
+        /* margin: 0 0 30px; */
+    }
 
-                    </div>
-                    <div class="tab-panel pt-2 mt-3 mb-5 bg-white p-4 border">
+    .progress {
+        height: 17px;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+        margin-bottom: 1rem;
+        overflow: visible;
+        position: relative;
+    }
 
-                        <div class="d-flex gap-3">
-                            <div id="detail1" class="p-3 tab-up" onclick="openCity('detail')" style="border-bottom:  2px solid #2c2f75;">
-                                <span class="ft-7">Pengantar</span>
-                            </div>
-                            <div id="profil1" class="p-3 tab-up" onclick="openCity('profil')">
-                                <span class="ft-7">Feedback</span>
-                            </div>
+    .progress .progress-bar {
+        border-radius: 15px;
+        box-shadow: none;
+        position: relative;
+        animation: animate-positive 2s;
+    }
 
-                        </div>
+    .progress .progress-icon,
+    .progress .progress-value {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        line-height: 40px;
+        background: #fff;
+        border: 7px solid #1f75c4;
+        font-size: 13px;
+        position: absolute;
+        top: -17px;
+        right: -5px;
+    }
 
-                        <div id="detail" class="city bg-white p-3">
-                            <p><?= $course->summary ?></p>
-                        </div>
-                        <div id="profil" class="city bg-white p-3" style="display:none">
-                            <form action="">
-                                <div class="mb-3 p-2">
-                                    <label for="TextInput" class="text-lg ft-7 form-label">Berikan Rating</label>
+    .progress .progress-icon {
+        right: auto;
+        left: -5px;
+    }
 
-                                    <input class="rating" max="5" oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)" step="0.5" style="--value:0" type="range" value="0">
-                                </div>
-                                <div class="mb-3 p-2">
-                                    <label for="TextInput" class="text-lg ft-7 form-label">Berikan Masukan dan Saran</label>
-                                    <textarea rows="4" class="form-control" placeholder="Leave a comment here"></textarea>
-                                </div>
-                                <button class="btn btn-primary bg-first w-100"> Kirim Feedback</button>
-                            </form>
-                        </div>
-                    </div>
+    .progress.orange .progress-icon,
+    .progress.orange .progress-value {
+        border: 7px solid #f7810e;
+        color: #f7810e;
+    }
+
+    @-webkit-keyframes animate-positive {
+        0% {
+            width: 0;
+        }
+    }
+
+    @keyframes animate-positive {
+        0% {
+            width: 0;
+        }
+    }
+</style>
+
+<!--=============== External CSS ================= -->
+<link rel="stylesheet" href="<?= base_url('assets/css/star.css') ?>">
+
+<body id="body-pd">
+    <!--=============== Course Content ===============-->
+    <div class="space-top">
+        <a class="fw-bold gap-3 fs-5" style="color:#2c2f75" href="<?= site_url('userBranch/classpath/listClass') ?>">
+            <i class="bi bi-chevron-left"></i>
+            <span class="py-5">
+                Kembali </span>
+        </a>
+
+        <h3 class="ft-7 mt-3"><?= $course->title ?></h3>
+        <p class="gray-text"><?= $course->instructor ?></p>
+        <div class="row pt-2">
+            <div class="col-lg-7">
+                <div class="video-panel">
+                    <!-- <iframe class="w-100" style="height: 25rem" src="<?= $course->intro_link ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+                    <div id="player"></div>
 
                 </div>
-                <div class="col-lg-5">
-                    <div class="right-content of-10">
-                        <!-- <h5 class="ft-7">Perkembangan Belajar Anda</h5>
-                        <div class="progress-field pt-4 pb-3">
-                            <div class="progress" style="height: 10px;">
-                                <div class="progress-bar" id="progress-bar" role="progressbar" aria-label="Example with label" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="tab-panel pt-2 mt-3 mb-5 bg-white p-4 border">
 
-                                </div>
+                    <div class="d-flex gap-3">
+                        <div id="detail1" class="p-3 tab-up" onclick="openCity('detail')" style="border-bottom:  2px solid #2c2f75;">
+                            <span class="ft-7">Pengantar</span>
+                        </div>
+                        <div id="profil1" class="p-3 tab-up" onclick="openCity('profil')">
+                            <span class="ft-7">Feedback</span>
+                        </div>
+
+                    </div>
+
+                    <div id="detail" class="city bg-white p-3">
+                        <p><?= $course->summary ?></p>
+                    </div>
+                    <div id="profil" class="city bg-white p-3" style="display:none">
+                        <form action="">
+                            <div class="mb-3 p-2">
+                                <label for="TextInput" class="text-lg ft-7 form-label">Berikan Rating</label>
+
+                                <input class="rating" max="5" oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)" step="0.5" style="--value:0" type="range" value="0">
                             </div>
-                            <span id="text-progress" class="text-lg">25%</span>
-                        </div> -->
-                        <!-- Success roll -->
+                            <div class="mb-3 p-2">
+                                <label for="TextInput" class="text-lg ft-7 form-label">Berikan Masukan dan Saran</label>
+                                <textarea rows="4" class="form-control" placeholder="Leave a comment here"></textarea>
+                            </div>
+                            <button class="btn btn-primary bg-first w-100"> Kirim Feedback</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-5">
+                <div class="right-content">
+                    <?php if (!$has_relation) : ?>
+                        <div class="alert alert-warning" role="alert">
+                            Anda harus menonton video perkenalan kelas untuk membuka kelas lainnya!!
+                        </div>
                         <h6 class="ft-7 pt-3">Intro Kelas</h6>
                         <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
                             <div class="bg-white rounded d-flex gap-2 px-15 border">
                                 <div class=" icon-progress w-10 icon-center">
-                                    <i id="ready_icon" class="text-center bx bx-pause-circle ready-icon"></i>
+                                    <i id="icon-<?= $course->id ?>" class="text-center bx bx-pause-circle ready-icon"></i>
                                 </div>
-                                <div class="course-progress w-75 block-center">
-                                    <a href="<?= site_url('userBranch/classpath/detail_course/' . $course->id)  ?>" class="video-ready text-lg text-warning">Intro Kelas</a>
+                                <div class="course-progress w-50 block-center">
+                                    <a href="<?= site_url('userBranch/classpath/detail_course/' . $course->id)  ?>" id="link-<?= $course->id ?>" class="video-ready text-warning">Intro Kelas</a>
                                 </div>
-                                <div class="time-course w-15 block-center">
+                                <div class="w-25 d-flex justify-content-center gap-2">
+                                    <!-- <button id="button-<?= $course->id ?>" class="btn btn-primary bg-first">
+                                        <i id="<?= $course->id ?>" class="bi bi-rocket"></i>
+                                    </button> -->
+                                    <button id="speedDownButton" class="btn btn-primary bg-first" title="mundur 5 detik">
+                                        <i class="bi bi-chevron-double-left"></i>
+                                    </button>
+                                    <button id="speedUpButton" class="btn btn-primary bg-first" title="maju 5 detik">
+                                        <i class="bi bi-chevron-double-right"></i>
+                                    </button>
+                                </div>
+                                <div class="time-course w-15 block-center" id="duration">
                                     0<?= $course->intro_duration ?>:00
                                 </div>
                             </div>
@@ -84,10 +176,10 @@
                                 <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
                                     <div class="card-course d-flex gap-2 px-15 border">
                                         <div class=" icon-progress w-10 icon-center">
-                                            <i id="ready_icon" class="text-center bx bx-pause-circle ready-icon"></i>
+                                            <i id="ready_icon" class="text-center bi bi-file-lock2 fs-5 text-secondary"></i>
                                         </div>
                                         <div class="course-progress w-75 block-center">
-                                            <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="video-ready text-lg text-warning"><?= $video->title  ?></a>
+                                            <a href="#" class="video-ready text-secondary"><?= $video->title  ?></a>
                                         </div>
                                         <div class="time-course w-15 block-center">
                                             0<?= $video->duration ?>:00
@@ -97,57 +189,307 @@
                             <?php } ?>
 
                         <?php } ?>
-                    </div>
+                    <?php else : ?>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h6 class="ft-7 mb-4">Perkembangan Belajar Anda</h6>
+                                <div class="progress orange">
+                                    <div class="progress-bar" style="width:90%; background:#f7810e;">
+                                    </div>
+                                </div>
+                                <div class="progress-value fw-bold text-warning text-center"><span>90</span>%</div>
+                            </div>
+                        </div>
+                        <h6 class="ft-7 pt-3">Intro Kelas</h6>
+                        <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
+                            <div class="bg-white rounded d-flex gap-2 px-15 border">
+                                <div class=" icon-progress w-10 icon-center">
+                                    <i id="icon-<?= $course->id ?>" class="text-center bi bi-check2-circle fs-5 text-success"></i>
+                                </div>
+                                <div class="course-progress w-50 block-center">
+                                    <a href="<?= site_url('userBranch/classpath/detail_course/' . $course->id)  ?>" id="link-<?= $course->id ?>" class="video-ready text-success">Intro Kelas</a>
+                                </div>
+                                <div class="w-25 d-flex justify-content-center gap-2">
+                                    <button id="speedDownButton" class="btn btn-primary bg-first" title="mundur 5 detik">
+                                        <i class="bi bi-chevron-double-left"></i>
+                                    </button>
+                                    <button id="speedUpButton" class="btn btn-primary bg-first" title="maju 5 detik">
+                                        <i class="bi bi-chevron-double-right"></i>
+                                    </button>
+                                </div>
+                                <div class="time-course w-15 block-center" id="duration">
+                                    <button id="button-<?= $course->id ?>" class="btn btn-success fs-6">
+                                        <i class="bi bi-check-all"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                        $no = 1;
+                        foreach ($playlists as $playlist) { ?>
+                            <h6 class="ft-7 pt-3"><?php echo $playlist->name; ?></h6>
+
+                            <?php foreach ($playlist->videos as $video) { ?>
+
+                                <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
+                                    <div class="bg-white gap-2 rounded d-flex px-15 border">
+                                        <?php if ($video->status == 1) : ?>
+                                            <div class=" icon-progress w-10 icon-center">
+                                                <i id="ready_icon" class="text-center bi bi-check2-circle fs-5 text-success"></i>
+                                            </div>
+                                        <?php else : ?>
+                                            <div class=" icon-progress w-10 icon-center">
+                                                <i id="ready_icon" class="text-center bx bx-pause-circle ready-icon"></i>
+                                            </div>
+                                        <?php endif ?>
+                                        <div class="course-progress w-75 block-center">
+                                            <?php if ($video->status == 1) : ?>
+                                                <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="video-ready text-success"><?= $video->title  ?></a>
+                                            <?php else : ?>
+                                                <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="video-ready text-warning"><?= $video->title  ?></a>
+                                            <?php endif ?>
+
+                                        </div>
+                                        <div class="time-course w-15 block-center">
+                                            <?php if ($video->status == 1) : ?>
+                                                <button id="button-<?= $course->id ?>" class="btn btn-success">
+                                                    <i class="bi bi-check-all"></i>
+                                                </button>
+                                            <?php else : ?>
+                                                0<?= $video->duration ?>:00
+                                            <?php endif ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <?php } ?>
+
+
+                        <?php } ?>
+                    <?php endif; ?>
+
+                    <!-- <h5 class="ft-7">Perkembangan Belajar Anda</h5>
+                        <div class="progress-field pt-4 pb-3">
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar" id="progress-bar" role="progressbar" aria-label="Example with label" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+
+                                </div>
+                            </div>
+                            <span id="text-progress" class="text-lg">25%</span>
+                        </div> -->
+                    <!-- Success roll -->
+
                 </div>
-
-
             </div>
+
+
         </div>
+    </div>
+    <form action="<?= site_url('userBranch/classpath/user_has_course') ?>" method="post" id="form-id-<?= $course->id  ?>" hidden>
+        <input type="text" name="id_user" value="<?php echo $id_user ?>">
+        <input type="text" name="id_course" value="<?php echo $course->id ?>">
+        <input type="text" name="status" value="1">
+    </form>
 
-        <!-- <script>
-            //Video Time 
-            function startTimer(duration, display) {
-                var timer = duration,
-                    minutes, seconds;
-                setInterval(function() {
-                    minutes = parseInt(timer / 60, 10);
-                    seconds = parseInt(timer % 60, 10);
+    <!-- <script>
+            function video_time() {
+                //Video Time 
+                function startTimer(duration, display) {
+                    var timer = duration,
+                        minutes, seconds;
+                    setInterval(function() {
+                        minutes = parseInt(timer / 60, 10);
+                        seconds = parseInt(timer % 60, 10);
 
-                    minutes = minutes < 10 ? "0" + minutes : minutes;
-                    seconds = seconds < 10 ? "0" + seconds : seconds;
+                        minutes = minutes < 10 ? "0" + minutes : minutes;
+                        seconds = seconds < 10 ? "0" + seconds : seconds;
 
-                    display.textContent = minutes + ":" + seconds;
+                        var countdownText = minutes + ":" + seconds;
+                        display.textContent = countdownText;
 
-                    if (--timer < 0) {
-                        timer = duration;
-                    }
+                        if (timer <= 0) {
+                            clearInterval(interval); // Hentikan interval saat timer mencapai atau kurang dari 0
+                            // Lakukan tindakan setelah waktu mencapai 00:00 di sini
+                        } else {
+                            timer--; // Kurangi timer hanya jika nilai timer masih lebih besar dari 0
+                        }
 
-                }, 1000);
+                    }, 1000);
+                }
+                window.onload = function() {
+                    // var oneMinutes = 60 * '<?= $course->intro_duration ?>',
+                    var oneMinutes = 60 * 1 / 4,
+                        display = document.querySelector('#time');
+                    startTimer(oneMinutes, display);
+                };
+                // Hidden Link Before Legal Time
+                setTimeout(function() {
+                    document.getElementById('<?= $course->id ?>').className = "bi bi-check-all";
+                    document.getElementById('button' + '-' + '<?= $course->id ?>').className = "btn btn-success fs-6";
+                    document.getElementById('icon' + '-' + '<?= $course->id ?>').className = "text-center bi bi-check2-circle fs-5 text-success";
+                    document.getElementById('link' + '-' + '<?= $course->id ?>').className = "video-ready text-success";
+                    // document.getElementById('ready_title').className = "video-watched-title text-lg";
+                    // document.getElementById('pending_icon').className = "text-center bx bx-play-circle ready-icon";
+                    // document.getElementById('pending_title').className = "video-ready-title text-lg";
+                    // document.getElementById('progress-bar').style.width = "50%";
+                    // document.getElementById('text-progress').innerHTML = "50%";
+                    // document.getElementById('time').style.display = "none";
+                }, 1 / 4 * 60000);
+                // '<?= $course->intro_duration ?>'
             }
-            window.onload = function() {
-                var oneMinutes = 60 * 1 / 2,
-                    display = document.querySelector('#time');
-                startTimer(oneMinutes, display);
-            };
-            // Hidden Link Before Legal Time
-            setTimeout(function() {
-                document.getElementById('ready_icon').className = "text-center bx bxs-check-circle wathed-icon";
-                document.getElementById('ready_title').className = "video-watched-title text-lg";
-                document.getElementById('pending_icon').className = "text-center bx bx-play-circle ready-icon";
-                document.getElementById('pending_title').className = "video-ready-title text-lg";
-                document.getElementById('progress-bar').style.width = "50%";
-                document.getElementById('text-progress').innerHTML = "50%";
-                document.getElementById('time').style.display = "none";
-            }, 1 / 2 * 60000);
         </script> -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        var speedUpButton = document.getElementById('speedUpButton');
+        speedUpButton.addEventListener('touchstart', speedUpVideo, {
+            passive: true
+        });
 
-        <!--=============== Footer Tab and Desktop ===============-->
-        <footer class="p-0">
-            <div class="d-flex justify-content-center">
-                <p class="mt-3 ft-7">NaZMa Office &copy 2023
-                </p>
-            </div>
-        </footer>
+        var speedDownButton = document.getElementById('speedDownButton');
+        speedDownButton.addEventListener('touchstart', speedDownVideo, {
+            passive: true
+        });
+
+        // Global variable untuk menyimpan objek pemutar video
+        var player;
+
+        // Fungsi untuk memanggil API YouTube dan membuat pemutar video
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                videoId: '<?= $course->intro_link ?>', // Ganti VIDEO_ID dengan ID video YouTube yang ingin diputar
+                playerVars: {
+                    autoplay: 1,
+                    // controls: 0,
+                    disablekb: 1,
+                    modestbranding: 1,
+                    rel: 0,
+                    showinfo: 0,
+                    fs: 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Mendapatkan elemen iframe
+            var iframe = event.target.getIframe();
+
+            // Mengatur ukuran pemutar YouTube sesuai kebutuhan
+            iframe.style.width = '100%';
+            iframe.style.height = '25rem';
+        }
 
 
-    </body>
+        // Fungsi untuk menangani perubahan status pemutar video
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                startDurationTimer();
+                // showVideoDuration();
+            } else if (event.data == YT.PlayerState.PAUSED) {
+                // Video sedang dijeda
+                stopDurationTimer();
+            } else if (event.data == YT.PlayerState.ENDED) {
+                document.getElementById('icon-' + "<?= $course->id ?>").className = "text-center bi bi-check2-circle fs-5 text-success";
+                document.getElementById('link' + '-' + '<?= $course->id ?>').className = "video-ready text-success";
+                document.getElementById("form-id-" + "<?= $course->id ?>").submit();
+                stopDurationTimer();
+
+            }
+        }
+
+        function showVideoDuration() {
+            // Mendapatkan durasi total video
+            var duration = player.getDuration();
+
+            // Memperbarui durasi video pada elemen HTML dengan id 'duration'
+            var durationElement = document.getElementById('duration');
+            durationElement.innerHTML = formatTime(duration);
+        }
+
+        function startDurationTimer() {
+            // Memperbarui durasi video setiap detik
+            timer = setInterval(updateDuration, 1000);
+        }
+
+        function stopDurationTimer() {
+            // Menghentikan pembaruan durasi video
+            clearInterval(timer);
+        }
+
+        function updateDuration() {
+            // Mendapatkan waktu saat ini dalam video
+            var currentTime = player.getCurrentTime();
+
+            // Mendapatkan durasi total video
+            var duration = player.getDuration();
+
+            // Menghitung durasi yang tersisa
+            var remainingTime = duration - currentTime;
+
+            // Memperbarui durasi video pada elemen HTML dengan id 'duration'
+            var durationElement = document.getElementById('duration');
+            durationElement.innerHTML = formatTime(remainingTime);
+        }
+
+        function formatTime(time) {
+            // Mengonversi waktu dalam detik menjadi format menit:detik
+            var minutes = Math.floor(time / 60);
+            var seconds = Math.floor(time % 60);
+            return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+        }
+
+        function speedUpVideo(seconds) {
+            var currentTime = player.getCurrentTime();
+            var newTime = currentTime + seconds;
+            player.seekTo(newTime, true);
+        }
+
+        function speedDownVideo(seconds) {
+            var currentTime = player.getCurrentTime();
+            var newTime = currentTime - seconds;
+            player.seekTo(newTime, true);
+        }
+    </script>
+
+    <script>
+        // Menambahkan event listener pada tombol Percepat
+        speedUpButton.addEventListener('click', function() {
+            speedUpVideo(5);
+        });
+
+        speedDownButton.addEventListener('click', function() {
+            speedDownVideo(5);
+        });
+    </script>
+
+    <script src="https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202305150101/show_ads_impl_fy2021.js" id="google_shimpl"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.progress-value > span').each(function() {
+                $(this).prop('Counter', 0).animate({
+                    Counter: $(this).text()
+                }, {
+                    duration: 1500,
+                    easing: 'swing',
+                    step: function(now) {
+                        $(this).text(Math.ceil(now));
+                    }
+                });
+            });
+        });
+    </script>
+    <!--=============== Footer Tab and Desktop ===============-->
+    <footer class="p-0">
+        <div class="d-flex justify-content-center">
+            <p class="mt-3 ft-7">NaZMa Office &copy 2023
+            </p>
+        </div>
+    </footer>
+
+
+</body>

@@ -12,7 +12,7 @@
                                                 echo "d-none";
                                             } ?>">
                         <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
-                        <form action="<?= base_url('userBranch/user/classSearch') ?>" method="get">
+                        <form action="<?= base_url('userBranch/classpath/classSearch') ?>" method="get">
                             <input name="searchTitle" type="text" placeholder="Cari Modul Pembelajaran" id="search<?php if ($this->uri->segment(2) === "classpath") {
                                                                                                                         echo "s";
                                                                                                                     } ?>" autocomplete="off" value="<?= isset($_GET['searchTitle']) ? $_GET['searchTitle'] : '' ?>">
@@ -109,7 +109,7 @@
                 <?php if ($id_role == '1') {
                     echo "d-none";
                 } ?>">
-                    <a href="<?= anchor('/userBranch/user/savedClass/' . $id_role) ?>" class="nav__link 
+                    <a href="<?php echo base_url('/userBranch/user/savedClass/' . $id_user) ?>" class="nav__link 
                     <?php if ($this->uri->segment(3) === "savedClass") {
                         echo "active-link";
                     } ?> ">

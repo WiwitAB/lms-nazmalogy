@@ -242,6 +242,13 @@ class CourseModel extends CI_Model
         $query = $this->db->get('videos');
         return $query->result();
     }
+
+    public function get_detail_videos_by_playlist_id($playlist_id)
+    {
+        $this->db->where('id_playlist', $playlist_id);
+        $query = $this->db->get('videos');
+        return $query->result();
+    }
     public function get_video_by_id($video_id)
     {
         $this->db->where('id', $video_id);

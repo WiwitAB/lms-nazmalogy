@@ -11,9 +11,19 @@ class UserModel extends CI_Model
         return $this->db->get('users')->result_array();
     }
 
+    public function insert_data_course($data)
+    {
+        return $this->db->insert('user_has_course', $data);
+    }
+
     public function insert_data_saved_course($data)
     {
         return $this->db->insert('user_has_course_saved', $data);
+    }
+
+    public function insert_data_every_video($data)
+    {
+        return $this->db->insert('user_has_video', $data);
     }
 
     public function get_all_user()
@@ -70,5 +80,60 @@ class UserModel extends CI_Model
 
         $this->db->where('id', $id);
         $this->db->update('users', $data);
+    }
+
+    public function getUserVideoStatus($id_user, $id_video)
+    {
+        // Perform database query to check user-video relationship
+        // Example code:
+        $query = $this->db->get_where('user_has_video', array('id_user' => $id_user, 'id_video' => $id_video));
+        $result = $query->row();
+
+        if ($result) {
+            return 1; // User-video relationship exists
+        }
+
+        return 0; // User-video relationship does not exist
+    }
+    public function getUserCourseStatus($id_user, $id_course)
+    {
+        // Perform database query to check user-video relationship
+        // Example code:
+        $query = $this->db->get_where('user_has_course', array('id_user' => $id_user, 'id_course' => $id_course));
+        $result = $query->row();
+
+        if ($result) {
+            return 1; // User-video relationship exists
+        }
+
+        return 0; // User-video relationship does not exist
+    }
+
+    public function checkUserHasCourse($id_user, $id_course)
+    {
+        // Query untuk memeriksa apakah ada relasi antara user dan course
+        $query = $this->db->get_where('user_has_course', array('id_user' => $id_user, 'id_course' => $id_course));
+
+        // Mengembalikan true jika relasi ditemukan, false jika tidak
+        return $query->num_rows() > 0;
+    }
+
+    public function checkUserHasVideo($id_user, $id_video)
+    {
+        // Query untuk memeriksa apakah ada relasi antara user dan course
+        $query = $this->db->get_where('user_has_video', array('id_user' => $id_user, 'id_video' => $id_video));
+
+        // Mengembalikan true jika relasi ditemukan, false jika tidak
+        return $query->num_rows() > 0;
+    }
+
+    public function getUserVideo($user_id)
+    {
+        $this->db->select('videos.id');
+        $this->db->from('user_has_video');
+        $this->db->join('videos', 'videos.id = user_has_video.id_video');
+        $this->db->where('user_has_video.id_user', $user_id);
+        $query = $this->db->get();
+        return $query->result();
     }
 }
