@@ -154,9 +154,17 @@ if ($this->session->flashdata('success_add') != '') {
                                                     </div>
                                                 </div>
                                                 <div class="detail-bottom">
-                                                    <?php echo anchor('userBranch/classpath/detail_course/' . $data->id, "
+
+                                                    <?php if ($data->button_label == 'Lanjutkan') : ?>
+                                                        <?php echo anchor('userBranch/classpath/detail_course/' . $data->id, "
+                                                        <button class='btn btn-primary bg-first text-xl'>Lanjutkan</button>
+                                                    "); ?>
+                                                    <?php else : ?>
+                                                        <?php echo anchor('userBranch/classpath/detail_course/' . $data->id, "
                                                         <button class='btn btn-primary bg-first text-xl'>+ Ikuti</button>
                                                     "); ?>
+                                                    <?php endif; ?>
+
                                                 </div>
                                             </div>
                                         </div>

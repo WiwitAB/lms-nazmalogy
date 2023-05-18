@@ -37,6 +37,7 @@ class Classpath extends CI_Controller
 
         $this->pagination->initialize($config);
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+
         $data = [
             'id_role' => $this->session->userdata('id_role'),
             'id_user' => $this->session->userdata('id'),
@@ -44,16 +45,25 @@ class Classpath extends CI_Controller
             'course' => $this->CourseModel->get_data_course($config['per_page'], $page)
         ];
 
+        // Loop melalui data kelas
+        foreach ($data['course'] as &$class) {
+            $userHasCourse = $this->UserModel->getUserHasCourse($data['id_user'], $class->id);
+
+            if ($userHasCourse && $userHasCourse->status == 1) {
+                $class->button_label = 'Lanjutkan';
+            } else {
+                $class->button_label = '+ Ikuti Kelas';
+            }
+        }
+
         $data['links'] = $this->pagination->create_links();
-
-
-
 
         $this->load->view('admin/user/style');
         $this->load->view('admin/user/menubar', $data);
-        $this->load->view('admin/user/listClass');
+        $this->load->view('admin/user/listClass', $data);
         $this->load->view('admin/user/script');
     }
+
     public function detail_course($id)
     {
         // $has_relation = $this->UserModel->checkUserHasCourse($user_id, $course_id);

@@ -143,4 +143,21 @@ class UserModel extends CI_Model
         $this->db->from('user_has_video');
         return $this->db->count_all_results();
     }
+
+    public function getUserHasCourse($id_user, $id_course)
+    {
+        $this->db->where('id_user', $id_user);
+        $this->db->where('id_course', $id_course);
+        return $this->db->get('user_has_course')->row();
+    }
+
+    public function addUserHasCourse($id_user, $id_course, $status)
+    {
+        $data = array(
+            'id_user' => $id_user,
+            'id_course' => $id_course,
+            'status' => $status
+        );
+        $this->db->insert('user_has_course', $data);
+    }
 }
