@@ -71,7 +71,10 @@ class Classpath extends CI_Controller
         $data['course'] = $this->CourseModel->get_course_by_id_detail($id);
         $data['has_relation'] = $has_relation;
         $data['playlists'] = $this->CourseModel->get_playlists_by_course_id($id);
+        $videoCount = $this->CourseModel->getVideoCount($id);
+        $completedClasses = $this->UserModel->getCompletedClasses($this->session->userdata('id'));
 
+        $data['progress'] = ($completedClasses / $videoCount) * 100;
         foreach ($data['playlists'] as $playlist) {
             $playlist->videos = $this->CourseModel->get_videos_by_playlist_id($playlist->id);
             foreach ($playlist->videos as $video) {
@@ -191,7 +194,10 @@ class Classpath extends CI_Controller
         $data['playlists'] = $this->CourseModel->get_playlists_by_course_id($id_link);
         $has_relation = $this->UserModel->checkUserHasCourse($this->session->userdata('id'), $id_link);
         $data['has_relation'] = $has_relation;
+        $videoCount = $this->CourseModel->getVideoCount($id_link);
+        $completedClasses = $this->UserModel->getCompletedClasses($this->session->userdata('id'));
 
+        $data['progress'] = ($completedClasses / $videoCount) * 100;
 
         foreach ($data['playlists'] as $playlist) {
             $playlist->videos = $this->CourseModel->get_videos_by_playlist_id($playlist->id);

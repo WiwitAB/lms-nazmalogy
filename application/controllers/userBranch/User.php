@@ -163,4 +163,14 @@ class User extends CI_Controller
             $this->session->set_flashdata('success_add', 'email atau Password salah');
             redirect('userBranch/user/listClass');
       }
+
+      public function calculateProgress($userId, $courseId)
+      {
+            $videoCount = $this->CourseModel->getVideoCount($courseId);
+            $completedClasses = $this->UserModel->getCompletedClasses($userId);
+
+            $progress = ($completedClasses / $videoCount) * 100;
+
+            echo "Progress belajar: " . $progress . "%";
+      }
 }

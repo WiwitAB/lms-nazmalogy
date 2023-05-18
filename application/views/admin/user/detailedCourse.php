@@ -112,7 +112,11 @@ if ($this->session->flashdata('success') != '') {
                         <div id="profil1" class="p-3 tab-up" onclick="openCity('profil')">
                             <span class="ft-7">Feedback</span>
                         </div>
-
+                        <?php if ($progress == 100) : ?>
+                            <div id="mentoring1" class="p-3 tab-up" onclick="openCity('mentoring')">
+                                <span class="ft-7">Gabung Mentoring</span>
+                            </div>
+                        <?php endif ?>
                     </div>
 
                     <div id="detail" class="city bg-white p-3">
@@ -132,12 +136,16 @@ if ($this->session->flashdata('success') != '') {
                             <button class="btn btn-primary bg-first w-100"> Kirim Feedback</button>
                         </form>
                     </div>
+                    <div id="mentoring" class="city bg-white p-3" style="display:none">
+                        <h6>Gabung Mentoring Melalui Link di Bawah ini : </h6>
+                        <a href="<?= $course->title ?>" class="text-decoration-underline" target="_blank"><?= $course->title ?></a>
+                    </div>
                 </div>
 
             </div>
 
             <div class="col-lg-5">
-                <div class="right-content">
+                <div class="right-content mb-5 pb-5">
                     <?php if (!$has_relation) : ?>
                         <div class="alert alert-warning" role="alert">
                             Anda harus menonton video perkenalan kelas untuk membuka kelas lainnya!!
@@ -194,10 +202,42 @@ if ($this->session->flashdata('success') != '') {
                             <div class="col-md-12">
                                 <h6 class="ft-7 mb-4">Perkembangan Belajar Anda</h6>
                                 <div class="progress orange">
-                                    <div class="progress-bar" style="width:90%; background:#f7810e;">
-                                    </div>
+                                    <?php if ($progress == 0) : ?>
+                                        <div class="progress-bar" id="progress" style="width:0%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 10 && $progress <= 20) : ?>
+                                        <div class="progress-bar" id="progress" style="width:10%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 10 && $progress <= 20) : ?>
+                                        <div class="progress-bar" id="progress" style="width:20%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 20 && $progress <= 30) : ?>
+                                        <div class="progress-bar" id="progress" style="width:30%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 30 && $progress <= 40) : ?>
+                                        <div class="progress-bar" id="progress" style="width:40%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 40 && $progress <= 50) : ?>
+                                        <div class="progress-bar" id="progress" style="width:50%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 50 && $progress <= 60) : ?>
+                                        <div class="progress-bar" id="progress" style="width:60%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 60 && $progress <= 70) : ?>
+                                        <div class="progress-bar" id="progress" style="width:70%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 70 && $progress <= 80) : ?>
+                                        <div class="progress-bar" id="progress" style="width:80%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 80 && $progress <= 90) : ?>
+                                        <div class="progress-bar" id="progress" style="width:90%;background:#f7810e;">
+                                        </div>
+                                    <?php else : ?>
+                                        <div class="progress-bar" id="progress" style="width:100%;background:#f7810e;">
+                                        </div>
+                                    <?php endif ?>
                                 </div>
-                                <div class="progress-value fw-bold text-warning text-center"><span>90</span>%</div>
+                                <div class="progress-value fw-bold text-warning text-center"><span><?= $progress ?></span>%</div>
                             </div>
                         </div>
                         <h6 class="ft-7 pt-3">Intro Kelas</h6>
@@ -290,6 +330,7 @@ if ($this->session->flashdata('success') != '') {
         <input type="text" name="id_course" value="<?php echo $course->id ?>">
         <input type="text" name="status" value="1">
     </form>
+
 
     <!-- <script>
             function video_time() {
