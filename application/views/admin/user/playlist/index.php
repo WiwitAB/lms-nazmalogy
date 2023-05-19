@@ -152,11 +152,11 @@ if ($this->session->flashdata('success_add') != '') {
         });
     </script>
     <!--=============== Footer Tab and Desktop ===============-->
-    <!-- <footer class="p-0">
+    <footer class="p-0 mt-5">
         <div class="d-flex justify-content-center">
             <p class="mt-3 ft-7">NaZMa Office &copy 2023
             </p>
         </div>
-    </footer> -->
+    </footer>
 
 </body>

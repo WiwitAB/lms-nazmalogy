@@ -400,7 +400,7 @@ if ($this->session->flashdata('success') != '') {
                 videoId: '<?= $course->intro_link ?>', // Ganti VIDEO_ID dengan ID video YouTube yang ingin diputar
                 playerVars: {
                     autoplay: 1,
-                    // controls: 0,
+                    controls: 0,
                     disablekb: 1,
                     modestbranding: 1,
                     rel: 0,
