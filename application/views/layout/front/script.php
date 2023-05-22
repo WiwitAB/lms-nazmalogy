@@ -1,6 +1,4 @@
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
-    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 
 <!-- ============== Splide Js =============== -->
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
@@ -35,8 +33,7 @@
 
             splide1.mount();
             splide2.mount();
-        }
-        else if (window.innerWidth >= widths[2] && window.innerWidth < widths[3]) {
+        } else if (window.innerWidth >= widths[2] && window.innerWidth < widths[3]) {
             var splide1 = new Splide('#first-splide', {
                 type: 'loop',
                 padding: '20rem',
@@ -66,9 +63,9 @@
     }
     window.onresize = resizeFn;
     resizeFn();
-
 </script>
 
 <script type="text/javascript" src="<?= base_url('assets/js/search.js') ?>"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 </html>

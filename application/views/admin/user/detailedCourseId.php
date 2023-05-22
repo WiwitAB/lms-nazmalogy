@@ -300,10 +300,11 @@ if ($this->session->flashdata('success') != '') {
         </div>
     </div>
 
-    <form action="<?= site_url('userBranch/classpath/user_has_video') ?>" method="post" id="form-id-detail" hidden>
+    <form action="<?= site_url('userBranch/classpath/user_has_video/' . $course->id) ?>" method="post" id="form-id-detail" hidden>
         <input type="text" name="id_user" value="<?php echo $id_user ?>">
         <input type="text" name="id_video" value="<?= $id_video->id ?>">
         <input type="text" name="status" value="1">
+        <input type="text" name="progress" value="<?= $class_progress ?>">
     </form>
 
 

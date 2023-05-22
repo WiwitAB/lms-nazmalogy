@@ -8,24 +8,24 @@
       <div class="hero-content py-5">
         <div class="row flex-md-row-reverse">
           <div class="col-lg-6 col-md-4 pt-md-5">
-            <img class="w-100 d-lg-block mx-auto d-none"
-              src="<?= base_url('assets/images/landingpage/hero_image.png') ?>" alt=" NaZMalogy">
+            <img class="w-100 d-lg-block mx-auto d-none" src="<?= base_url('assets/images/landingpage/hero_image.png') ?>" alt=" NaZMalogy">
           </div>
           <div class="col-lg-6 col-md-8 pt-lg-5 mt-md-5 mt-2">
             <div class="d-flex gap-3">
-              <img width="30" height="30" class="object-fit-contain"
-                src="<?= base_url('assets/images/landingpage/hero-book.png') ?>" alt="hero-book">
+              <img width="30" height="30" class="object-fit-contain" src="<?= base_url('assets/images/landingpage/hero-book.png') ?>" alt="hero-book">
               <p class="fs-6">
                 Your E-learning Partner
               </p>
             </div>
 
-            <h2 class="fw-bold fs-1">
-              You <span class="text-first">learn better</span>
-              <br>when we <span class="text-first">are together</span>
+            <h2 class="fw-bold fs-2 lh-base">
+              Bersama <span class="text-first">NaZMalogy</span>
+              <br>Berinovasi <span class="text-first">Mewujudkan Mimpi</span>
             </h2>
             <p>
-              Take high quality online courses from the best online instrictors around the world & develop your skills
+              Ubah impian menjadi kenyataan dengan platform pembelajaran interaktif dan inovatif.
+
+
             </p>
             <a href="<?= site_url('auth/login_page') ?>">
               <a href="<?= site_url('auth/login_page') ?>">
@@ -50,16 +50,11 @@
         <h2 class="fs-2 fw-bold text-center">Mitra Kami</h2>
       </div>
       <div class="partner-group flex-wrap d-flex gap-5 justify-content-center mt-1 mb-5">
-        <img width="110" class="object-fit-contain"
-          src="<?= base_url('assets/images/landingpage/ukm_indonesia_1.jpg') ?>" alt="">
-        <img width="110" class="object-fit-contain"
-          src="<?= base_url('assets/images/landingpage/ukm_indonesia_2.jpg') ?>" alt="">
-        <img width="110" class="object-fit-contain" src="<?= base_url('assets/images/landingpage/umkmnaikkelas.jpg') ?>"
-          alt="">
-        <img width="110" class="object-fit-contain" src="<?= base_url('assets/images/landingpage/logo_amikom.jpg') ?>"
-          alt="">
-        <img width="110" class="object-fit-contain"
-          src="<?= base_url('assets/images/landingpage/logoukmindonesia.jpg') ?>" alt="">
+        <img width="110" class="object-fit-contain" src="<?= base_url('assets/images/landingpage/ukm_indonesia_1.jpg') ?>" alt="">
+        <img width="110" class="object-fit-contain" src="<?= base_url('assets/images/landingpage/ukm_indonesia_2.jpg') ?>" alt="">
+        <img width="110" class="object-fit-contain" src="<?= base_url('assets/images/landingpage/umkmnaikkelas.jpg') ?>" alt="">
+        <img width="110" class="object-fit-contain" src="<?= base_url('assets/images/landingpage/logo_amikom.jpg') ?>" alt="">
+        <img width="110" class="object-fit-contain" src="<?= base_url('assets/images/landingpage/logoukmindonesia.jpg') ?>" alt="">
       </div>
     </div>
   </section>
@@ -284,8 +279,7 @@
               <li class="splide__slide">
                 <div class="p-3">
                   <div class="person-card rounded">
-                    <img class="w-100 object-fit-cover position-relative" height="225"
-                      src="<?= base_url('assets/img/Foto_Muhammad_Afifudin.png') ?>" alt="">
+                    <img class="w-100 object-fit-cover position-relative" height="225" src="<?= base_url('assets/img/Foto_Muhammad_Afifudin.png') ?>" alt="">
                     <div class="sosmed-group d-flex justify-content-center gap-2">
                       <a href="/">
                         <i class="bi bi-linkedin py-2 px-3 rounded bg-white"></i>
@@ -318,8 +312,7 @@
               <li class="splide__slide">
                 <div class="p-3">
                   <div class="person-card rounded">
-                    <img class="w-100 object-fit-cover" height="225"
-                      src="<?= base_url('assets/img/Foto_Muhammad_Afifudin.png') ?>" alt="">
+                    <img class="w-100 object-fit-cover" height="225" src="<?= base_url('assets/img/Foto_Muhammad_Afifudin.png') ?>" alt="">
                     <div class="sosmed-group d-flex justify-content-center gap-2">
                       <a href="/">
                         <i class="bi bi-linkedin py-2 px-3 rounded bg-white"></i>
@@ -352,8 +345,7 @@
               <li class="splide__slide">
                 <div class="p-3">
                   <div class="person-card rounded">
-                    <img class="w-100 object-fit-cover" height="225"
-                      src="<?= base_url('assets/img/Foto_Muhammad_Afifudin.png') ?>" alt="">
+                    <img class="w-100 object-fit-cover" height="225" src="<?= base_url('assets/img/Foto_Muhammad_Afifudin.png') ?>" alt="">
                     <div class="sosmed-group d-flex justify-content-center gap-2">
                       <a href="/">
                         <i class="bi bi-linkedin py-2 px-3 rounded bg-white"></i>
@@ -386,8 +378,7 @@
               <li class="splide__slide">
                 <div class="p-3">
                   <div class="person-card rounded">
-                    <img class="w-100 object-fit-cover" height="225"
-                      src="<?= base_url('assets/img/Foto_Muhammad_Afifudin.png') ?>" alt="">
+                    <img class="w-100 object-fit-cover" height="225" src="<?= base_url('assets/img/Foto_Muhammad_Afifudin.png') ?>" alt="">
                     <div class="sosmed-group d-flex justify-content-center gap-2">
                       <a href="/">
                         <i class="bi bi-linkedin py-2 px-3 rounded bg-white"></i>
@@ -434,8 +425,7 @@
             <div class="card-header p-3 bg-white border">
               <div class="d-flex">
                 <div class="w-25">
-                  <img class="image-testimoni rounded-circle" height="70"
-                    src="<?= base_url('assets/img/Foto_Muhammad_Afifudin.png') ?>" alt="">
+                  <img class="image-testimoni rounded-circle" height="70" src="<?= base_url('assets/img/Foto_Muhammad_Afifudin.png') ?>" alt="">
                 </div>
                 <div class="w-75 d-grid" style="place-items: center start;">
                   <h5 class="fw-bold">Muhammad Afifudin</h5>
@@ -463,8 +453,7 @@
             <div class="card-header p-3 bg-white border">
               <div class="d-flex">
                 <div class="w-25">
-                  <img class="image-testimoni rounded-circle" height="70"
-                    src="<?= base_url('assets/img/Foto_Muhammad_Afifudin.png') ?>" alt="">
+                  <img class="image-testimoni rounded-circle" height="70" src="<?= base_url('assets/img/Foto_Muhammad_Afifudin.png') ?>" alt="">
                 </div>
                 <div class="w-75 d-grid" style="place-items: center start;">
                   <h5 class="fw-bold">Muhammad Afifudin</h5>
@@ -490,8 +479,7 @@
             <div class="card-header p-3 bg-white border">
               <div class="d-flex">
                 <div class="w-25">
-                  <img class="image-testimoni rounded-circle" height="70"
-                    src="<?= base_url('assets/img/Foto_Muhammad_Afifudin.png') ?>" alt="">
+                  <img class="image-testimoni rounded-circle" height="70" src="<?= base_url('assets/img/Foto_Muhammad_Afifudin.png') ?>" alt="">
                 </div>
                 <div class="w-75 d-grid" style="place-items: center start;">
                   <h5 class="fw-bold">Muhammad Afifudin</h5>
@@ -531,8 +519,7 @@
             <form>
               <div class="row">
                 <div class="col-md-8 mb-3">
-                  <input type="email" class="form-control" placeholder="example@example.com"
-                    aria-describedby="emailHelp">
+                  <input type="email" class="form-control" placeholder="example@example.com" aria-describedby="emailHelp">
                 </div>
                 <div class="col-md-4 mb-3">
                   <button class="btn btn-primary w-100 btn-first border-first fw-bold">Subscibe</button>

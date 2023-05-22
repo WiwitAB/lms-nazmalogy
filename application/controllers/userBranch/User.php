@@ -19,6 +19,8 @@ class User extends CI_Controller
                   redirect('auth/login_page');
             }
       }
+
+      // Admin and User Dashboard Index
       public function page()
       {
             $role_admin = 1;
@@ -26,21 +28,32 @@ class User extends CI_Controller
             $role_member = 3;
             $this->load->view('admin/user/style');
 
-
             $data = [
                   'id_user' => $this->session->userdata('id'),
                   'id_role' => $this->session->userdata('id_role'),
                   'user_count' => $this->UserModel->count_all(),
-                  'course_count' => $this->CourseModel->count_all(),
                   'admin_count' => $this->UserModel->get_users_role($role_admin),
                   'instructor_count' => $this->UserModel->get_users_role($role_instructor),
-                  'member_count' => $this->UserModel->get_users_role($role_member)
+                  'member_count' => $this->UserModel->get_users_role($role_member),
+                  'course_count' => $this->CourseModel->count_all(),
+                  'video_counts' => $this->CourseModel->getVideoCountsByCategory()
             ];
 
-            $this->load->view('admin/user/menubar', $data);
-            $this->load->view('admin/user/index', $data);
-            $this->load->view('admin/user/script');
+            $views = [
+                  'admin/user/menubar',
+                  'admin/user/index',
+                  'admin/user/script'
+            ];
+
+            $data['course_count_user'] = $this->CourseModel->getCourseCount($this->session->userdata('id'));
+            $data['course_finish'] = $this->CourseModel->getCourseCompletionCount($this->session->userdata('id'));
+            $data['courses'] = $this->CourseModel->get_course_by_user_id($this->session->userdata('id'));
+
+            foreach ($views as $view) {
+                  $this->load->view($view, $data);
+            }
       }
+      // Admin and User Dashboard Index
 
       public function detail_course($id)
       {

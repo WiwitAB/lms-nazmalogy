@@ -6,6 +6,21 @@ class UserModel extends CI_Model
     {
         parent::__construct();
     }
+
+    // Admin Dashboard
+    public function count_all()
+    {
+        return $this->db->count_all('users');
+    }
+    function get_users_role($id_role)
+    {
+        $this->db->from('users');
+        $this->db->where('id_role', $id_role);
+        return $this->db->count_all_results();
+    }
+    // Admin Dashboard
+
+
     public function get_data_user()
     {
         return $this->db->get('users')->result_array();
@@ -34,16 +49,8 @@ class UserModel extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    public function count_all()
-    {
-        return $this->db->count_all('users');
-    }
-    function get_users_role($id_role)
-    {
-        $this->db->from('users');
-        $this->db->where('id_role', $id_role);
-        return $this->db->count_all_results();
-    }
+
+
     function delete_data($where, $table)
     {
         $this->db->where($where);

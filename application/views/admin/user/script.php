@@ -16,7 +16,7 @@
 </script>
 <!-- ============== Splide Js =============== -->
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-<script>
+<!-- <script>
     var widths = [0, 992, 2000];
 
     function resizeFn() {
@@ -45,6 +45,16 @@
     }
     window.onresize = resizeFn;
     resizeFn();
+</script> -->
+
+<script>
+    var splide = new Splide('.splide', {
+        type: 'loop',
+        perPage: 1,
+        perMove: 1,
+    });
+
+    splide.mount();
 </script>
 <script>
     function SupportFunction() {

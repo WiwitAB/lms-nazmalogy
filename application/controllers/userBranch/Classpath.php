@@ -208,6 +208,7 @@ class Classpath extends CI_Controller
         $completedClasses = $this->UserModel->getCompletedClasses($this->session->userdata('id'));
 
         $data['progress'] = ($completedClasses / $videoCount) * 100;
+        $data['class_progress'] = (($completedClasses + 1) / $videoCount) * 100;
 
         foreach ($data['playlists'] as $playlist) {
             $playlist->videos = $this->CourseModel->get_videos_by_playlist_id($playlist->id);
@@ -365,8 +366,13 @@ class Classpath extends CI_Controller
         }
     }
 
-    public function user_has_video()
+    public function user_has_video($id)
     {
+        // $videoCount = $this->CourseModel->getVideoCount($id);
+        // $completedClasses = $this->UserModel->getCompletedClasses($this->session->userdata('id'));
+
+        // $data['progress'] = ($completedClasses / $videoCount) * 100;
+
         $id_user = $this->input->post('id_user');
         $id_video = $this->input->post('id_video');
         $status = $this->input->post('status');
@@ -377,6 +383,15 @@ class Classpath extends CI_Controller
             // dan seterusnya
         );
         $insert_id = $this->UserModel->insert_data_every_video($data);
+
+        $data = array(
+            'progress' => $this->input->post('progress', TRUE),
+            'id' => $id,
+            'id_user' => $id_user
+
+        );
+        $this->CourseModel->updateUserCourse($id, $data, $id_user);
+
         if ($insert_id) {
             $this->session->set_flashdata('success', 'email atau Password salah');
             redirect($_SERVER['HTTP_REFERER']);

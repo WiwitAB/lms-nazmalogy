@@ -6,10 +6,63 @@ class CourseModel extends CI_Model
     {
         parent::__construct();
     }
+
+    // Admin and User Dashboard Index
     public function count_all()
     {
         return $this->db->count_all('courses');
     }
+
+    public function getVideoCountsByCategory()
+    {
+        $query = $this->db->select('c.name as category_name, COUNT(chc.id_course) as video_count')
+            ->from('categories c')
+            ->join('course_has_category chc', 'c.id = chc.id_category', 'left')
+            ->group_by('c.id')
+            ->get();
+        return $query->result();
+    }
+
+    public function getCourseCount($userId)
+    {
+        $this->db->where('id_user', $userId);
+        $this->db->from('user_has_course');
+        return $this->db->count_all_results();
+    }
+
+    public function getCourseCompletionCount($userId)
+    {
+        $this->db->where('progress', 100);
+        $this->db->where('id_user', $userId);
+        $this->db->from('user_has_course');
+        return $this->db->count_all_results();
+    }
+    public function get_all_user()
+    {
+        $this->db->select('users.*, roles.id AS id_role, roles.name AS roles_name, ');
+        $this->db->join('roles', 'users.id_role = roles.id');
+        $this->db->from('users');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function get_course_by_user_id($user_id)
+    {
+        $this->db->select('courses.*, user_has_course.progress');
+        $this->db->from('user_has_course');
+        $this->db->join('courses', 'courses.id = user_has_course.id_course');
+        $this->db->where('user_has_course.id_user', $user_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    // Admin and User Dashboard Index
+
+
+
+
+
+
+
     // public function get_data_course()
     // {
     //     $this->db->select('courses.*, GROUP_CONCAT(categories.name) as category');
@@ -282,5 +335,22 @@ class CourseModel extends CI_Model
         $this->db->where('course_has_playlist.id_course', $id_course);
         $this->db->from('playlists');
         return $this->db->get()->row()->videos;
+    }
+
+
+    public function updateUserCourse($id, $data, $user)
+    {
+        $progress = $data['progress'];
+        $id = $data['id'];
+
+        $data = array(
+            'progress' => $progress,
+            'id' => $id,
+            'id_user' => $user
+
+        );
+        $this->db->where('id_course', $id);
+        $this->db->where('id_user', $user);
+        $this->db->update('user_has_course', $data);
     }
 }

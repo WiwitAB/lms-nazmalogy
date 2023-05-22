@@ -208,31 +208,31 @@ if ($this->session->flashdata('success') != '') {
                                     <?php elseif ($progress > 10 && $progress <= 20) : ?>
                                         <div class="progress-bar" id="progress" style="width:10%;background:#f7810e;">
                                         </div>
-                                    <?php elseif ($progress > 10 && $progress <= 20) : ?>
+                                    <?php elseif ($progress > 20 && $progress <= 30) : ?>
                                         <div class="progress-bar" id="progress" style="width:20%;background:#f7810e;">
                                         </div>
-                                    <?php elseif ($progress > 20 && $progress <= 30) : ?>
+                                    <?php elseif ($progress > 30 && $progress <= 40) : ?>
                                         <div class="progress-bar" id="progress" style="width:30%;background:#f7810e;">
                                         </div>
-                                    <?php elseif ($progress > 30 && $progress <= 40) : ?>
+                                    <?php elseif ($progress > 40 && $progress <= 50) : ?>
                                         <div class="progress-bar" id="progress" style="width:40%;background:#f7810e;">
                                         </div>
-                                    <?php elseif ($progress > 40 && $progress <= 50) : ?>
+                                    <?php elseif ($progress > 50 && $progress <= 60) : ?>
                                         <div class="progress-bar" id="progress" style="width:50%;background:#f7810e;">
                                         </div>
-                                    <?php elseif ($progress > 50 && $progress <= 60) : ?>
+                                    <?php elseif ($progress > 60 && $progress <= 70) : ?>
                                         <div class="progress-bar" id="progress" style="width:60%;background:#f7810e;">
                                         </div>
-                                    <?php elseif ($progress > 60 && $progress <= 70) : ?>
+                                    <?php elseif ($progress > 70 && $progress <= 80) : ?>
                                         <div class="progress-bar" id="progress" style="width:70%;background:#f7810e;">
                                         </div>
-                                    <?php elseif ($progress > 70 && $progress <= 80) : ?>
+                                    <?php elseif ($progress > 80 && $progress <= 90) : ?>
                                         <div class="progress-bar" id="progress" style="width:80%;background:#f7810e;">
                                         </div>
-                                    <?php elseif ($progress > 80 && $progress <= 90) : ?>
+                                    <?php elseif ($progress > 90 && $progress <= 99) : ?>
                                         <div class="progress-bar" id="progress" style="width:90%;background:#f7810e;">
                                         </div>
-                                    <?php else : ?>
+                                    <?php elseif ($progress >= 100) : ?>
                                         <div class="progress-bar" id="progress" style="width:100%;background:#f7810e;">
                                         </div>
                                     <?php endif ?>
