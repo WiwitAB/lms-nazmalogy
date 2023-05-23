@@ -109,7 +109,7 @@
                 <div class="panel-cover"></div>
             </div>
             <div class="logo-panel">
-                <img src="<?= base_url('assets/img/logo-white.png') ?>" alt="">
+                <img src="<?= base_url('assets/img/logo-white-blank.png') ?>" alt="">
             </div>
 
         </div>

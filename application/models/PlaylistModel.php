@@ -6,8 +6,10 @@ class PlaylistModel extends CI_Model
     {
         parent::__construct();
     }
+    // Show Data Latest Playlist 
     public function get_data_playlist()
     {
+        $this->db->order_by('created_at', 'desc');
         $query = $this->db->get('playlists');
         return $query->result();
     }
