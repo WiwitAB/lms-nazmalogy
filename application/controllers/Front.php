@@ -5,7 +5,10 @@ class Front extends CI_Controller
 {
       public function index()
       {
-            $this->load->view('layout/front/style');
+            $data = [
+                  'title_page' => 'Berinovasi Mewujudkan Mimpi Bersama NaZMaLogy | Home'
+            ];
+            $this->load->view('layout/front/style', $data);
             $this->load->view('layout/front/navbar');
             $this->load->view('layout/front/mobile_bar');
             $this->load->view('homepage');

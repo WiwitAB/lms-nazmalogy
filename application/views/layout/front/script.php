@@ -2,7 +2,7 @@
 
 <!-- ============== Splide Js =============== -->
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-<script>
+<!-- <script>
     var widths = [0, 768, 992, 2000];
 
     function resizeFn() {
@@ -63,9 +63,12 @@
     }
     window.onresize = resizeFn;
     resizeFn();
-</script>
+</script> -->
 
 <script type="text/javascript" src="<?= base_url('assets/js/search.js') ?>"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
 
 </html>

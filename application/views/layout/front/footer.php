@@ -1,6 +1,6 @@
 <!-- =============== Footer ================= -->
-<footer id="footer" class="bg-first py-3">
-    <div class="container">
+<footer id="footer" style="background-image:url('<?= base_url('assets/img/footer_blank.png') ?>');background-repeat: no-repeat;background-size: cover;">
+    <div class="container col-9">
         <div class="py-3">
             <div class="row">
                 <div class="col-lg-5 col-md-4">
@@ -90,10 +90,8 @@
             </div>
             <div class="pt-5">
                 <hr class="text-white">
-                <div class="d-flex justify-content-between">
-                    <h6 class="text-white text-lg">Copyright © 2023 · All rights reserved</h6>
-                    <h6 class="text-white text-lg">Developed by NaZMa Office</h6>
-                </div>
+                <h6 class="text-white text-lg">Copyright © 2023 · Developed by NaZMa Office</h6>
+
             </div>
 
         </div>

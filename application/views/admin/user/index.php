@@ -1,3 +1,5 @@
+<?php $this->load->view('admin/user/style'); ?>
+<?php $this->load->view('admin/user/menubar'); ?>
 <?php if ($this->session->flashdata('success_login') != '') { ?>
       <script>
             Swal.fire({

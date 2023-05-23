@@ -26,7 +26,7 @@ class User extends CI_Controller
             $role_admin = 1;
             $role_instructor = 2;
             $role_member = 3;
-            $this->load->view('admin/user/style');
+
 
             $data = [
                   'id_user' => $this->session->userdata('id'),
@@ -40,7 +40,6 @@ class User extends CI_Controller
             ];
 
             $views = [
-                  'admin/user/menubar',
                   'admin/user/index',
                   'admin/user/script'
             ];
