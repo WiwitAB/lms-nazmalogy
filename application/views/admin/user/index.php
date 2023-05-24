@@ -83,131 +83,61 @@
                               </div>
                         </div>
                   </div>
-
-                  <!-- Upcoming Feature -->
-                  <!-- <?php if ($id_role != '1') : ?>
-                        <div class="card-lg">
-                              <div class="card-area">
-                                    <div class="card-body border" data-aos="fade-right" data-aos-duration="900">
-                                          <div class="mt-2 image-card d-flex justify-content-center">
-                                                <i class="bx bxs-hot bx-tada stat-image red-image"></i>
-                                          </div>
-                                          <h2 class="title-card ft-7">200</h2>
-                                          <h6 class="title-card">Poin Saya</h6>
-                                    </div>
-                              </div>
-                        </div>
-
-                        <div class="card-lg">
-                              <div class="card-area">
-                                    <div class="card-body border" data-aos="fade-right" data-aos-duration="900">
-                                          <div class="mt-2 image-card d-flex justify-content-center">
-                                                <i class="bx bx-medal bx-tada stat-image yellow-image"></i>
-                                          </div>
-                                          <h2 class="title-card ft-7">1</h2>
-                                          <h6 class="title-card">Pencapaian</h6>
-                                    </div>
-                              </div>
-                        </div>
-                  <?php endif; ?> -->
             </div>
 
 
-
-            <div class="col-md-6 pb-5 mb-5">
-                  <?php if ($id_role != '1') : ?>
-                        <section class="splide" aria-label="Splide Basic HTML Example">
-                              <div class="py-4" data-aos="fade-up" data-aos-duration="500">
-                                    <h5 class="ft-7">Kelas Berjalan</h5>
-                              </div>
-                              <div class="splide__track" data-aos="fade-up" data-aos-duration="500">
-                                    <ul class="splide__list">
-
-                                          <?php foreach ($courses as $course) : ?>
-                                                <li class="splide__slide">
-                                                      <div class="gallery-card-lg">
-                                                            <div class="card-area">
-                                                                  <div class="card-gallery">
-                                                                        <div class="d-flex flex-column">
-                                                                              <div class="course-image">
-                                                                                    <img src="<?= base_url('assets/images/admin/course/' . $course->cover) ?>">
-                                                                                    <div class="marker"></div>
-                                                                              </div>
-                                                                              <div class="course-title">
-                                                                                    <h6 class="ft-7 p-2 text-center"><?= $course->title ?></h6>
-                                                                              </div>
-
-                                                                              <div class="course-progress">
-                                                                                    <?php if (($course->progress == 0)) : ?>
-                                                                                          <div class="progress" style="height: 0px;">
-                                                                                                <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                          </div>
-
-                                                                                    <?php elseif (($course->progress > 0 && $course->progress <= 10)) : ?>
-                                                                                          <div class="progress" style="height: 10px;">
-                                                                                                <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 10%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                          </div>
-                                                                                    <?php elseif (($course->progress > 10 && $course->progress <= 20)) : ?>
-                                                                                          <div class="progress" style="height: 10px;">
-                                                                                                <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 10%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                          </div>
-                                                                                    <?php elseif (($course->progress > 20 && $course->progress <= 30)) : ?>
-                                                                                          <div class="progress" style="height: 10px;">
-                                                                                                <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 20%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                          </div>
-                                                                                    <?php elseif (($course->progress > 30 && $course->progress <= 40)) : ?>
-                                                                                          <div class="progress" style="height: 10px;">
-                                                                                                <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                          </div>
-                                                                                    <?php elseif (($course->progress > 40 && $course->progress <= 50)) : ?>
-                                                                                          <div class="progress" style="height: 10px;">
-                                                                                                <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 40%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                          </div>
-                                                                                    <?php elseif (($course->progress > 50 && $course->progress <= 60)) : ?>
-                                                                                          <div class="progress" style="height: 10px;">
-                                                                                                <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 50%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                          </div>
-                                                                                    <?php elseif (($course->progress > 60 && $course->progress <= 70)) : ?>
-                                                                                          <div class="progress" style="height: 10px;">
-                                                                                                <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 60%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                          </div>
-                                                                                    <?php elseif (($course->progress > 70 && $course->progress <= 80)) : ?>
-                                                                                          <div class="progress" style="height: 10px;">
-                                                                                                <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 70%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                          </div>
-                                                                                    <?php elseif (($course->progress > 80 && $course->progress <= 90)) : ?>
-                                                                                          <div class="progress" style="height: 10px;">
-                                                                                                <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 70%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                          </div>
-                                                                                    <?php elseif (($course->progress > 90 && $course->progress < 100)) : ?>
-                                                                                          <div class="progress" style="height: 10px;">
-                                                                                                <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 90%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                          </div>
-                                                                                    <?php elseif (($course->progress == 100 || $course->progress > 100)) : ?>
-                                                                                          <div class="progress" style="height: 10px;">
-                                                                                                <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                          </div>
-
-                                                                                    <?php endif ?>
-                                                                                    <p class="text-lg text-center py-2"><?= round($course->progress) ?>%</p>
-                                                                              </div>
-                                                                              <a href="<?= base_url('userBranch/classpath/detail_course/' . $course->id) ?>">
-                                                                                    <div class="course-detail">
-                                                                                          <button class="btn btn-danger bg-yellow w-100 ft-7">Lanjutkan
-                                                                                                Kelas</button>
+            <?php if (!empty($courses)) : ?>
+                  <div class="col-md-6 pb-5 mb-5">
+                        <?php if ($id_role != '1') : ?>
+                              <section class="splide" aria-label="Splide Basic HTML Example">
+                                    <div class="py-4" data-aos="fade-up" data-aos-duration="500">
+                                          <h5 class="ft-7">Kelas Berjalan</h5>
+                                    </div>
+                                    <div class="splide__track" data-aos="fade-up" data-aos-duration="500">
+                                          <ul class="splide__list">
+                                                <?php foreach ($courses as $course) : ?>
+                                                      <li class="splide__slide">
+                                                            <div class="gallery-card">
+                                                                  <div class="card-area">
+                                                                        <div class="card-gallery px-4">
+                                                                              <div class="d-flex flex-column">
+                                                                                    <div class="course-image">
+                                                                                          <img src="<?= base_url('assets/images/admin/course/' . $course->cover) ?>">
+                                                                                          <div class="marker"></div>
                                                                                     </div>
-                                                                              </a>
+                                                                                    <div class="gallery-content bg-white p-4 border rounded-bottom">
+                                                                                          <h6 class="ft-7 p-2 text-center"><?= $course->title ?></h6>
+                                                                                          <div class="">
+                                                                                                <?php
+                                                                                                $progress = $course->progress;
+                                                                                                $width = ($progress >= 100) ? 100 : $progress; // Menghindari lebar yang melebihi 100%
+
+                                                                                                ?>
+                                                                                                <div class="progress" style="height: 10px;">
+                                                                                                      <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: <?= $width ?>%;" aria-valuenow="<?= $width ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                                                </div>
+                                                                                                <p class="text-lg text-center py-2"><?= round($progress) ?>%</p>
+                                                                                          </div>
+                                                                                          <a href="<?= base_url('userBranch/classpath/detail_course/' . $course->id) ?>">
+                                                                                                <div class="course-detail">
+                                                                                                      <button class="btn btn-danger bg-yellow w-100 ft-7">Lanjutkan
+                                                                                                            Kelas</button>
+                                                                                                </div>
+                                                                                          </a>
+                                                                                    </div>
+
+                                                                              </div>
                                                                         </div>
                                                                   </div>
                                                             </div>
-                                                      </div>
-                                                </li>
-                                          <?php endforeach ?>
-                                    </ul>
-                              </div>
-                        </section>
-                  <?php endif; ?>
-            </div>
+                                                      </li>
+                                                <?php endforeach ?>
+                                          </ul>
+                                    </div>
+                              </section>
+                        <?php endif; ?>
+                  </div>
+            <?php endif; ?>
 
 
             <!-- Cannot see the Analytics User When User Auth is not admin role -->
@@ -242,16 +172,6 @@
             <!-- Cannot see the Analytics User When User Auth is not admin role -->
 
       </div>
-
-      <!-- Footer Tab and Desktop -->
-      <footer class="p-0 border rounded">
-            <div class="d-flex justify-content-center">
-                  <p class="mt-3 ft-7">NaZMa Office &copy 2023
-                  </p>
-            </div>
-      </footer>
-      <!-- Footer Tab and Desktop -->
-
 
       <!-- Analytics User Management Script -->
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

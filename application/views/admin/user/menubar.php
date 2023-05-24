@@ -142,8 +142,8 @@
     <nav class="nav">
         <div>
             <a href="<?= site_url('/userBranch/user/page') ?>" class="nav_logo">
-                <img src="<?= base_url('assets/img/plain_icon.png') ?>" alt="">
-                <span class="nav_logo-name">NaZMalogy</span>
+                <img src="<?= base_url('assets/img/nazmalogy-small-extra.png') ?>" alt="">
+                <span class="nav_logo-name">NaZMaLogy</span>
             </a>
             <div class="nav_list">
                 <a href="<?= site_url('/userBranch/user/page') ?>" class="nav_link 
