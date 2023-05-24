@@ -55,7 +55,7 @@ if ($this->session->flashdata('success_add') != '') {
                             <div class="search-box">
                                 <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
                                 <form action="<?= base_url('userBranch/classpath/classSearch') ?>" method="get">
-                                    <input name="searchTitle" type="text" placeholder="Cari Modul Pembelajaran" id="search" autocomplete="off" required value="<?= isset($_GET['searchTitle']) ? $_GET['searchTitle'] : '' ?>">
+                                    <input name="searchTitle" type="text" placeholder="Cari Modul Pembelajaran" id="search" autocomplete="off" value="<?= isset($_GET['searchTitle']) ? $_GET['searchTitle'] : '' ?>">
                                 </form>
                                 <svg class="search-border" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 671 111" style="enable-background:new 0 0 671 111;" xml:space="preserve">
                                     <path class="border" d="M335.5,108.5h-280c-29.3,0-53-23.7-53-53v0c0-29.3,23.7-53,53-53h280" />
@@ -104,7 +104,8 @@ if ($this->session->flashdata('success_add') != '') {
                     <?php
                     $no = 1;
                     foreach ($course as $data) { ?>
-                        <div class="class-lg mb-3">
+
+                        <div class="class-lg">
                             <div class="card-area">
                                 <div class="card-class" data-aos="fade-up" data-aos-duration="700">
                                     <div class="d-flex flex-column rounded border">
@@ -182,8 +183,20 @@ if ($this->session->flashdata('success_add') != '') {
                                     document.getElementById("form-id-" + i).submit();
                                 });
                             }
+
+
                         }
                     </script>
+                    <!-- Pagination -->
+
+                    <!-- <div class="pagination-line" data-aos="fade-up" data-aos-duration="700">
+                        <div id="app">
+                            <div class="button active"></div>
+                            <div class="button"></div>
+                            <div class="button"></div>
+                            <div class="button"></div>
+                        </div>
+                    </div> -->
                 </div>
             </div>
         </div>

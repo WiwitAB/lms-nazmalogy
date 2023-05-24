@@ -57,12 +57,22 @@ if ($this->session->flashdata('success') != '') {
                                                     <div class=" icon-progress w-10 icon-center">
                                                         <i id="ready_icon" class="text-center bx bx-pause-circle ready-icon"></i>
                                                     </div>
+                                                    <form action="<?= site_url('userBranch/classpath/user_has_video') ?>" method="post" id="form-id-detail" hidden>
+                                                        <input type="text" name="id_user" value="<?php echo $id_user ?>">
+                                                        <input type="text" name="id_video" value="<?= $id_video->id ?>">
+                                                        <input type="text" name="id_course" value="<?= $course->id ?>">
+                                                        <input type="text" name="status" value="1">
+                                                        <input type="text" name="progress" value="<?= $class_progress ?>">
+                                                    </form>
                                                 <?php endif ?>
                                                 <?php if ($video->status == 1) : ?>
                                                     <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="text-lg video-ready text-success mx-2"><?= $video->title  ?></a>
                                                 <?php else : ?>
                                                     <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="text-lg video-ready text-warning mx-2"><?= $video->title  ?></a>
                                                 <?php endif ?>
+
+
+
                                             </div>
 
                                             <div class="button-control">
@@ -178,7 +188,6 @@ if ($this->session->flashdata('success') != '') {
                     foreach ($playlists as $playlist) { ?>
                         <h6 class="ft-7 pt-3"><?php echo $playlist->name; ?></h6>
                         <?php foreach ($playlist->videos as $video) { ?>
-
                             <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
                                 <div class="bg-white gap-2 rounded d-flex px-15 border">
                                     <?php if ($video->status == 1) : ?>
@@ -219,14 +228,6 @@ if ($this->session->flashdata('success') != '') {
 
         </div>
     </div>
-
-    <form action="<?= site_url('userBranch/classpath/user_has_video/' . $course->id) ?>" method="post" id="form-id-detail" hidden>
-        <input type="text" name="id_user" value="<?php echo $id_user ?>">
-        <input type="text" name="id_video" value="<?= $id_video->id ?>">
-        <input type="text" name="id_course" value="<?= $course->id ?>">
-        <input type="text" name="status" value="1">
-        <input type="text" name="progress" value="<?= $class_progress ?>">
-    </form>
 
 
     <script src="https://www.youtube.com/iframe_api"></script>

@@ -23,26 +23,11 @@ class Classpath extends CI_Controller
 
     public function listClass()
     {
-        $config['base_url'] = base_url() . 'userBranch/classpath/listClass/';
-        $config['total_rows'] = $this->CourseModel->count_course();
-        $config['per_page'] = 6;
-        $config['uri_segment'] = 3;
-        $config['num_links'] = 2;
-        $config['full_tag_open'] = '<div class="d-flex justify-content-center gap-2 mb-5 mt-3">';
-        $config['full_tag_close'] = '</div>';
-        $config['attributes'] = array('class' => 'py-2 px-3 bg-white border rounded text-black fw-bold');
-
-        $config['cur_tag_open'] = '<a href="#" class="py-2 px-3 bg-white border rounded text-black fw-bold">';
-        $config['cur_tag_close'] = '</a>';
-
-        $this->pagination->initialize($config);
-        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
-
         $data = [
             'id_role' => $this->session->userdata('id_role'),
             'id_user' => $this->session->userdata('id'),
             'categories' => $this->CategoryModel->get_data_category(),
-            'course' => $this->CourseModel->get_data_course($config['per_page'], $page)
+            'course' => $this->CourseModel->get_data_course()
         ];
 
         // Loop melalui data kelas
@@ -55,8 +40,6 @@ class Classpath extends CI_Controller
                 $class->button_label = '+ Ikuti Kelas';
             }
         }
-
-        $data['links'] = $this->pagination->create_links();
 
         $this->load->view('admin/user/style');
         $this->load->view('admin/user/menubar', $data);
@@ -97,27 +80,23 @@ class Classpath extends CI_Controller
 
     public function listClassAsc()
     {
-        $config['base_url'] = base_url() . 'userBranch/classpath/listClassAsc/';
-        $config['total_rows'] = $this->CourseModel->count_course();
-        $config['per_page'] = 6;
-        $config['uri_segment'] = 3;
-        $config['num_links'] = 2;
-        $config['full_tag_open'] = '<div class="d-flex justify-content-center gap-2 mb-5 mt-3">';
-        $config['full_tag_close'] = '</div>';
-        $config['attributes'] = array('class' => 'py-2 px-3 bg-white border rounded text-black fw-bold');
-
-        $config['cur_tag_open'] = '<a href="#" class="py-2 px-3 bg-white border rounded text-black fw-bold">';
-        $config['cur_tag_close'] = '</a>';
-
-        $this->pagination->initialize($config);
-        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
         $data = [
             'id_role' => $this->session->userdata('id_role'),
             'id_user' => $this->session->userdata('id'),
             'categories' => $this->CategoryModel->get_data_category(),
-            'course' => $this->CourseModel->get_data_course_asc($config['per_page'], $page)
+            'course' => $this->CourseModel->get_data_course_asc()
         ];
-        $data['links'] = $this->pagination->create_links();
+
+        // Loop melalui data kelas
+        foreach ($data['course'] as &$class) {
+            $userHasCourse = $this->UserModel->getUserHasCourse($data['id_user'], $class->id);
+
+            if ($userHasCourse && $userHasCourse->status == 1) {
+                $class->button_label = 'Lanjutkan';
+            } else {
+                $class->button_label = '+ Ikuti Kelas';
+            }
+        }
 
         $this->load->view('admin/user/style');
         $this->load->view('admin/user/menubar', $data);
@@ -127,28 +106,23 @@ class Classpath extends CI_Controller
 
     public function listClassAZ()
     {
-        $config['base_url'] = base_url() . 'userBranch/classpath/listClassAZ/';
-        $config['total_rows'] = $this->CourseModel->count_course();
-        $config['per_page'] = 6;
-        $config['uri_segment'] = 3;
-        $config['num_links'] = 2;
-        $config['full_tag_open'] = '<div class="d-flex justify-content-center gap-2 mb-5 mt-3">';
-        $config['full_tag_close'] = '</div>';
-        $config['attributes'] = array('class' => 'py-2 px-3 bg-white border rounded text-black fw-bold');
-
-        $config['cur_tag_open'] = '<a href="#" class="py-2 px-3 bg-white border rounded text-black fw-bold">';
-        $config['cur_tag_close'] = '</a>';
-
-        $this->pagination->initialize($config);
-        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
         $data = [
             'id_role' => $this->session->userdata('id_role'),
             'id_user' => $this->session->userdata('id'),
             'categories' => $this->CategoryModel->get_data_category(),
-            'course' => $this->CourseModel->get_data_course_az($config['per_page'], $page)
+            'course' => $this->CourseModel->get_data_course_az()
         ];
-        $data['links'] = $this->pagination->create_links();
 
+        // Loop melalui data kelas
+        foreach ($data['course'] as &$class) {
+            $userHasCourse = $this->UserModel->getUserHasCourse($data['id_user'], $class->id);
+
+            if ($userHasCourse && $userHasCourse->status == 1) {
+                $class->button_label = 'Lanjutkan';
+            } else {
+                $class->button_label = '+ Ikuti Kelas';
+            }
+        }
         $this->load->view('admin/user/style');
         $this->load->view('admin/user/menubar', $data);
         $this->load->view('admin/user/listClass');
@@ -157,27 +131,22 @@ class Classpath extends CI_Controller
 
     public function listClassZA()
     {
-        $config['base_url'] = base_url() . 'userBranch/classpath/listClassZA/';
-        $config['total_rows'] = $this->CourseModel->count_course();
-        $config['per_page'] = 6;
-        $config['uri_segment'] = 3;
-        $config['num_links'] = 2;
-        $config['full_tag_open'] = '<div class="d-flex justify-content-center gap-2 mb-5 mt-3">';
-        $config['full_tag_close'] = '</div>';
-        $config['attributes'] = array('class' => 'py-2 px-3 bg-white border rounded text-black fw-bold');
-
-        $config['cur_tag_open'] = '<a href="#" class="py-2 px-3 bg-white border rounded text-black fw-bold">';
-        $config['cur_tag_close'] = '</a>';
-        $this->pagination->initialize($config);
-        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
         $data = [
             'id_role' => $this->session->userdata('id_role'),
             'id_user' => $this->session->userdata('id'),
             'categories' => $this->CategoryModel->get_data_category(),
-            'course' => $this->CourseModel->get_data_course_ZA($config['per_page'], $page)
+            'course' => $this->CourseModel->get_data_course_ZA()
         ];
-        $data['links'] = $this->pagination->create_links();
+        // Loop melalui data kelas
+        foreach ($data['course'] as &$class) {
+            $userHasCourse = $this->UserModel->getUserHasCourse($data['id_user'], $class->id);
 
+            if ($userHasCourse && $userHasCourse->status == 1) {
+                $class->button_label = 'Lanjutkan';
+            } else {
+                $class->button_label = '+ Ikuti Kelas';
+            }
+        }
         $this->load->view('admin/user/style');
         $this->load->view('admin/user/menubar', $data);
         $this->load->view('admin/user/listClass');
@@ -223,7 +192,6 @@ class Classpath extends CI_Controller
 
         $this->db->select('c.*, GROUP_CONCAT(categories.name) as category, COUNT(uhc.id_user) as has_relation');
         $this->db->from('courses c');
-        // $this->db->join('course_has_category', 'courses.id = course_has_category.id_course');
         $this->db->join('course_has_category chc', 'c.id = chc.id_course');
         $this->db->join('categories', 'chc.id_category = categories.id');
         $this->db->join('user_has_course_saved uhc', 'c.id = uhc.id_course AND uhc.id_user = ' . $this->session->userdata('id'), 'left');
@@ -234,6 +202,7 @@ class Classpath extends CI_Controller
             $this->db->where_in('chc.id_category', $categories);
         }
 
+
         $query = $this->db->get();
 
         $data = [
@@ -243,7 +212,17 @@ class Classpath extends CI_Controller
             'course' => $query->result(),
             'selected_categories' => $categories
         ];
-        $data['links'] = $this->pagination->create_links();
+
+        // Loop melalui data kelas
+        foreach ($data['course'] as &$class) {
+            $userHasCourse = $this->UserModel->getUserHasCourse($data['id_user'], $class->id);
+
+            if ($userHasCourse && $userHasCourse->status == 1) {
+                $class->button_label = 'Lanjutkan';
+            } else {
+                $class->button_label = '+ Ikuti Kelas';
+            }
+        }
 
         $this->load->view('admin/user/style');
         $this->load->view('admin/user/menubar', $data);
@@ -281,7 +260,19 @@ class Classpath extends CI_Controller
             'categories' => $this->CategoryModel->get_data_category(),
             'course' => $query
         ];
-        $data['links'] = $this->pagination->create_links();
+
+        // Loop melalui data kelas
+        foreach ($data['course'] as &$class) {
+            $userHasCourse = $this->UserModel->getUserHasCourse($data['id_user'], $class->id);
+
+            if ($userHasCourse && $userHasCourse->status == 1) {
+                $class->button_label = 'Lanjutkan';
+            } else {
+                $class->button_label = '+ Ikuti Kelas';
+            }
+        }
+
+
         $this->load->view('admin/user/style');
         $this->load->view('admin/user/menubar', $data);
         $this->load->view('admin/user/listClass');
@@ -356,7 +347,7 @@ class Classpath extends CI_Controller
         }
     }
 
-    public function user_has_video($id)
+    public function user_has_video()
     {
         $id_user = $this->input->post('id_user');
         $id_course = $this->input->post('id_course');
@@ -372,10 +363,10 @@ class Classpath extends CI_Controller
 
         $data = array(
             'progress' => $this->input->post('progress', TRUE),
-            'id' => $id,
+            'id_course' => $id_course,
             'id_user' => $id_user
         );
-        $this->CourseModel->updateUserCourse($id, $data, $id_user);
+        $this->CourseModel->updateUserCourse($id_course, $id_user, $data);
 
         if ($insert_id) {
             $this->session->set_flashdata('success', 'email atau Password salah');
