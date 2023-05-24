@@ -108,16 +108,6 @@ if ($this->session->flashdata('success_delete') != '') {
 
                         }
                     </script>
-                    <!-- Pagination -->
-
-                    <!-- <div class="pagination-line" data-aos="fade-up" data-aos-duration="700">
-                        <div id="app">
-                            <div class="button active"></div>
-                            <div class="button"></div>
-                            <div class="button"></div>
-                            <div class="button"></div>
-                        </div>
-                    </div> -->
                 </div>
 
 
@@ -127,12 +117,5 @@ if ($this->session->flashdata('success_delete') != '') {
 
         </div>
     </div>
-    <!--=============== Footer Tab and Desktop ===============-->
-    <footer class="p-0">
-        <div class="d-flex justify-content-center">
-            <p class="mt-3 ft-7">NaZMa Office &copy 2023
-            </p>
-        </div>
-    </footer>
 
 </body>

@@ -319,4 +319,26 @@ class CourseModel extends CI_Model
         $this->db->where('id_user', $user);
         $this->db->update('user_has_course', $data);
     }
+
+    public function updateFeedback($course, $user, $data)
+    {
+        $rating = $data['rating'];
+        $feedback = $data['feedback'];
+
+        $data = array(
+            'rating' => $rating,
+            'feedback' => $feedback
+        );
+        $this->db->where('id_course', $course);
+        $this->db->where('id_user', $user);
+        $this->db->update('user_has_course', $data);
+    }
+
+    public function get_feedback_by_id($courseID, $userID)
+    {
+        $this->db->where('id_course', $courseID);
+        $this->db->where('id_user', $userID);
+        $query = $this->db->get('user_has_course');
+        return $query->row();
+    }
 }

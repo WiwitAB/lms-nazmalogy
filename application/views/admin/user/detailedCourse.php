@@ -17,6 +17,24 @@ if ($this->session->flashdata('success') != '') {
       })    
       </script>
       ";
+} elseif ($this->session->flashdata('feedback') != '') {
+    echo "
+    <script>
+    Swal.fire({
+        toast: true,
+        position: 'top-right',
+        iconColor: 'white',
+        customClass: {
+            popup: 'colored-toast',
+        },
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        icon: 'success',
+        title: 'Feedback Terkirim',
+    })    
+    </script>
+    ";
 }
 ?>
 
@@ -37,7 +55,25 @@ if ($this->session->flashdata('success') != '') {
         <div class="row pt-2">
             <div class="col-lg-7">
                 <div class="video-panel">
-                    <div id="player"></div>
+                    <div class="bg-white rounded border">
+                        <div id="player"></div>
+                        <div class="video-player d-flex justify-content-between p-3">
+                            <div class="button-control d-flex gap-2">
+                                <button id="speedDownButton" class="btn btn-primary bg-first" title="mundur 5 detik">
+                                    <i class="bi bi-skip-start-fill"></i>
+                                </button>
+                                <button id="playPauseButton" onclick="togglePlayPause()" class="btn btn-warning bg-orange" title="Play/Stop">
+                                    <i class="bi bi-play-fill text-white"></i>
+                                </button>
+                                <button id="speedUpButton" class="btn btn-primary bg-first" title="maju 5 detik">
+                                    <i class="bi bi-skip-end-fill"></i>
+                                </button>
+                            </div>
+                            <button id="fullscreenButton" onclick="toggleFullscreen()" class="btn btn-warning bg-orange" title="Play/Stop">
+                                <i class="bi bi-fullscreen text-white"></i>
+                            </button>
+                        </div>
+                    </div>
                     <?php if (!$has_relation) : ?>
                         <!-- <h6 class="ft-7 pt-3">Intro Kelas</h6> -->
                         <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
@@ -64,7 +100,6 @@ if ($this->session->flashdata('success') != '') {
                             </div>
                         </div>
                     <?php else : ?>
-                        <!-- <h6 class="ft-7 pt-3">Intro Kelas</h6> -->
                         <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
                             <div class="bg-white rounded d-flex gap-2 px-15 border">
                                 <div class="course-progress w-100 d-flex justify-content-between block-center">
@@ -72,16 +107,6 @@ if ($this->session->flashdata('success') != '') {
                                         <i id="icon-<?= $course->id ?>" class="text-center bi bi-check2-circle fs-5 text-success"></i>
                                         <a href="<?= site_url('userBranch/classpath/detail_course/' . $course->id)  ?>" id="link-<?= $course->id ?>" class="video-ready text-success mx-2">Intro Kelas</a>
                                     </div>
-
-                                    <div class="button-control">
-                                        <button id="speedDownButton" class="btn btn-primary bg-first" title="mundur 5 detik">
-                                            <i class="bi bi-chevron-double-left"></i>
-                                        </button>
-                                        <button id="speedUpButton" class="btn btn-primary bg-first" title="maju 5 detik">
-                                            <i class="bi bi-chevron-double-right"></i>
-                                        </button>
-                                    </div>
-
                                     <div class="time-course block-center" id="duration">
                                         <button id="button-<?= $course->id ?>" class="btn btn-success fs-6">
                                             <i class="bi bi-check-all"></i>
@@ -112,18 +137,62 @@ if ($this->session->flashdata('success') != '') {
                         <p><?= $course->summary ?></p>
                     </div>
                     <div id="profil" class="city bg-white p-3" style="display:none">
-                        <form action="">
-                            <div class="mb-3 p-2">
-                                <label for="TextInput" class="text-lg ft-7 form-label">Berikan Rating</label>
+                        <?php if (!empty($rating)) : ?>
+                            <form action="<?= site_url('userBranch/classpath/save_feedback') ?>" method="post">
+                                <input type="text" name="id_user" value="<?php echo $id_user ?>" hidden>
+                                <input type="text" name="id_course" value="<?php echo $course->id ?>" hidden>
+                                <div class="mb-3 p-2">
+                                    <label for="rating" class="text-lg ft-7 form-label">Berikan Rating</label>
 
-                                <input class="rating" max="5" oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)" step="0.5" style="--value:0" type="range" value="0">
+                                    <input name="rating" class="rating" max="5" oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)" step="0.5" style="--value:0" type="range" value="0">
+                                </div>
+                                <div class="mb-3 p-2">
+                                    <label for="feedback" class="text-lg ft-7 form-label">Berikan Masukan dan Saran</label>
+                                    <textarea rows="4" name="feedback" class="form-control" placeholder="Leave a comment here"></textarea>
+                                </div>
+                                <button class="btn btn-primary bg-first w-100"> Kirim Feedback</button>
+                            </form>
+                        <?php else : ?>
+                            <div class="feedback p-3 border">
+                                <div class="d-flex justify-content-between py-2">
+                                    <h6 class="fw-bold">Tanggapan Saya Tentang Kursus Ini</h6>
+                                    <div class="action-btn">
+                                        <button class="btn btn-primary bg-first p-1 px-3 text-white text-lg" data-bs-toggle="modal" data-bs-target="#FeedbackModal"> <i class="bi bi-pencil-square"></i> Edit</button>
+                                    </div>
+                                </div>
+
+                                <input name="rating" class="rating my-3 fs-6" max="5" oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)" step="0.5" style="--value:<?php echo $feedback->rating ?>" type="range" value="0" disabled>
+                                <p class="py-3"><?php echo $feedback->feedback ?></p>
                             </div>
-                            <div class="mb-3 p-2">
-                                <label for="TextInput" class="text-lg ft-7 form-label">Berikan Masukan dan Saran</label>
-                                <textarea rows="4" class="form-control" placeholder="Leave a comment here"></textarea>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="FeedbackModal" tabindex="-1" aria-labelledby="FeedbackModal" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Feedback</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="<?= site_url('userBranch/classpath/save_feedback') ?>" method="post">
+                                                <input type="text" name="id_user" value="<?php echo $id_user ?>" hidden>
+                                                <input type="text" name="id_course" value="<?php echo $course->id ?>" hidden>
+                                                <div class="mb-3 p-2">
+                                                    <label for="rating" class="text-lg ft-7 form-label">Berikan Rating</label>
+
+                                                    <input name="rating" class="rating my-3 fs-6" max="5" oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)" step="0.5" style="--value:<?php echo $feedback->rating ?>" value="<?php echo $feedback->rating ?>" type="range" value="0">
+                                                </div>
+                                                <div class="mb-3 p-2">
+                                                    <label for="feedback" class="text-lg ft-7 form-label">Berikan Masukan dan Saran</label>
+                                                    <textarea rows="4" name="feedback" class="form-control" placeholder="Leave a comment here"><?php echo $feedback->feedback ?></textarea>
+                                                </div>
+                                                <button class="btn btn-primary bg-first w-100"> Kirim Feedback</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <button class="btn btn-primary bg-first w-100"> Kirim Feedback</button>
-                        </form>
+                        <?php endif ?>
                     </div>
                     <div id="mentoring" class="city bg-white p-3" style="display:none">
                         <h6>Gabung Mentoring Melalui Link di Bawah ini : </h6>
@@ -252,6 +321,7 @@ if ($this->session->flashdata('success') != '') {
 
         // Global variable untuk menyimpan objek pemutar video
         var player;
+        var isPlaying = false;
 
         // Fungsi untuk memanggil API YouTube dan membuat pemutar video
         function onYouTubeIframeAPIReady() {
@@ -280,9 +350,34 @@ if ($this->session->flashdata('success') != '') {
             // Mengatur ukuran pemutar YouTube sesuai kebutuhan
             iframe.style.width = '100%';
             iframe.style.height = '25rem';
+            document.getElementById('playPauseButton').disabled = false;
+            document.getElementById('fullscreenButton').disabled = false;
         }
 
+        function toggleFullscreen() {
+            var iframe = player.getIframe();
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
+        }
 
+        function togglePlayPause() {
+            if (isPlaying) {
+                player.pauseVideo();
+                document.getElementById('playPauseButton').innerHTML = '<i class="bi bi-play-fill text-white"></i>';
+                isPlaying = false;
+            } else {
+                player.playVideo();
+                document.getElementById('playPauseButton').innerHTML = '<i class="bi bi-pause-fill text-white"></i>';
+                isPlaying = true;
+            }
+        }
         // Fungsi untuk menangani perubahan status pemutar video
         function onPlayerStateChange(event) {
             if (event.data == YT.PlayerState.PLAYING) {

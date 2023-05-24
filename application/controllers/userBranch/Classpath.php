@@ -52,7 +52,9 @@ class Classpath extends CI_Controller
         $data = [
             'id_role' => $this->session->userdata('id_role'),
             'id_user' => $this->session->userdata('id'),
-            'id_video' => $this->CourseModel->get_video_by_id($id)
+            'id_name' => $this->session->userdata('name'),
+            'id_video' => $this->CourseModel->get_video_by_id($id),
+            'feedback' => $this->CourseModel->get_feedback_by_id($id, $this->session->userdata('id'))
         ];
         $has_relation = $this->UserModel->checkUserHasCourse($this->session->userdata('id'), $id);
         $data['course'] = $this->CourseModel->get_course_by_id_detail($id);
@@ -375,5 +377,24 @@ class Classpath extends CI_Controller
             $this->session->set_flashdata('error', 'email atau Password salah');
             redirect($_SERVER['HTTP_REFERER']);
         }
+    }
+
+    public function save_feedback()
+    {
+        $id_user = $this->input->post('id_user');
+        $id_course = $this->input->post('id_course');
+        $rating = $this->input->post('rating');
+        $feedback = $this->input->post('feedback');
+
+        $data = array(
+            'rating' => $rating,
+            'feedback' => $feedback,
+            'id_course' => $id_course,
+            'id_user' => $id_user
+        );
+        $this->CourseModel->updateFeedback($id_course, $id_user, $data);
+
+        $this->session->set_flashdata('feedback', 'Feedback Terkirim');
+        redirect($_SERVER['HTTP_REFERER']);
     }
 }

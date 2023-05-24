@@ -17,8 +17,39 @@ if ($this->session->flashdata('success') != '') {
       })    
       </script>
       ";
+} elseif ($this->session->flashdata('feedback') != '') {
+    echo "
+    <script>
+    Swal.fire({
+        toast: true,
+        position: 'top-right',
+        iconColor: 'white',
+        customClass: {
+            popup: 'colored-toast',
+        },
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        icon: 'success',
+        title: 'Feedback Terkirim',
+    })    
+    </script>
+    ";
 }
 ?>
+
+<style>
+    #progressBar {
+        width: 0%;
+        height: 5px;
+        background-color: #F00;
+        /* Ubah warna sesuai kebutuhan */
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: width 1s linear;
+    }
+</style>
 
 
 <!--=============== External CSS ================= -->
@@ -37,8 +68,26 @@ if ($this->session->flashdata('success') != '') {
         <div class="row pt-2">
             <div class="col-lg-7">
                 <div class="video-panel">
-                    <div id="player"></div>
-
+                    <div class="bg-white rounded border">
+                        <div id="player"></div>
+                        <div class="video-player d-flex justify-content-between p-3">
+                            <div class="button-control d-flex gap-2">
+                                <button id="speedDownButton" class="btn btn-primary bg-first" title="mundur 5 detik">
+                                    <i class="bi bi-skip-start-fill"></i>
+                                </button>
+                                <button id="playPauseButton" onclick="togglePlayPause()" class="btn btn-warning bg-orange" title="Play/Stop">
+                                    <i class="bi bi-play-fill text-white"></i>
+                                </button>
+                                <button id="speedUpButton" class="btn btn-primary bg-first" title="maju 5 detik">
+                                    <i class="bi bi-skip-end-fill"></i>
+                                </button>
+                                <div id="progressBar"></div>
+                            </div>
+                            <button id="fullscreenButton" onclick="toggleFullscreen()" class="btn btn-warning bg-orange" title="Play/Stop">
+                                <i class="bi bi-fullscreen text-white"></i>
+                            </button>
+                        </div>
+                    </div>
                     <?php
                     $no = 1;
                     foreach ($playlists as $playlist) { ?>
@@ -70,20 +119,7 @@ if ($this->session->flashdata('success') != '') {
                                                 <?php else : ?>
                                                     <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="text-lg video-ready text-warning mx-2"><?= $video->title  ?></a>
                                                 <?php endif ?>
-
-
-
                                             </div>
-
-                                            <div class="button-control">
-                                                <button id="speedDownButton" class="btn btn-primary bg-first" title="mundur 5 detik">
-                                                    <i class="bi bi-chevron-double-left"></i>
-                                                </button>
-                                                <button id="speedUpButton" class="btn btn-primary bg-first" title="maju 5 detik">
-                                                    <i class="bi bi-chevron-double-right"></i>
-                                                </button>
-                                            </div>
-
                                             <div class="time-course block-center" id="duration">
 
                                                 <?php if ($video->status == 1) : ?>
@@ -123,15 +159,17 @@ if ($this->session->flashdata('success') != '') {
                         <p><?= $course->summary ?></p>
                     </div>
                     <div id="profil" class="city bg-white p-3" style="display:none">
-                        <form action="">
+                        <form action="<?= site_url('userBranch/classpath/save_feedback') ?>" method="post">
+                            <input type="text" name="id_user" value="<?php echo $id_user ?>" hidden>
+                            <input type="text" name="id_course" value="<?php echo $course->id ?>" hidden>
                             <div class="mb-3 p-2">
-                                <label for="TextInput" class="text-lg ft-7 form-label">Berikan Rating</label>
+                                <label for="rating" class="text-lg ft-7 form-label">Berikan Rating</label>
 
-                                <input class="rating" max="5" oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)" step="0.5" style="--value:0" type="range" value="0">
+                                <input name="rating" class="rating" max="5" oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)" step="0.5" style="--value:0" type="range" value="0">
                             </div>
                             <div class="mb-3 p-2">
-                                <label for="TextInput" class="text-lg ft-7 form-label">Berikan Masukan dan Saran</label>
-                                <textarea rows="4" class="form-control" placeholder="Leave a comment here"></textarea>
+                                <label for="feedback" class="text-lg ft-7 form-label">Berikan Masukan dan Saran</label>
+                                <textarea rows="4" name="feedback" class="form-control" placeholder="Leave a comment here"></textarea>
                             </div>
                             <button class="btn btn-primary bg-first w-100"> Kirim Feedback</button>
                         </form>
@@ -244,14 +282,16 @@ if ($this->session->flashdata('success') != '') {
 
         // Global variable untuk menyimpan objek pemutar video
         var player;
+        var isPlaying = false;
+        var progressBar;
 
         // Fungsi untuk memanggil API YouTube dan membuat pemutar video
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
-                videoId: '<?= $id_video->link ?>', // Ganti VIDEO_ID dengan ID video YouTube yang ingin diputar
+                videoId: '<?= $course->intro_link ?>', // Ganti VIDEO_ID dengan ID video YouTube yang ingin diputar
                 playerVars: {
-                    // autoplay: 1,
-                    // controls: 0,
+                    autoplay: 1,
+                    controls: 0,
                     disablekb: 1,
                     modestbranding: 1,
                     rel: 0,
@@ -272,13 +312,39 @@ if ($this->session->flashdata('success') != '') {
             // Mengatur ukuran pemutar YouTube sesuai kebutuhan
             iframe.style.width = '100%';
             iframe.style.height = '25rem';
+            document.getElementById('playPauseButton').disabled = false;
+            document.getElementById('fullscreenButton').disabled = false;
         }
 
+        function toggleFullscreen() {
+            var iframe = player.getIframe();
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
+        }
 
+        function togglePlayPause() {
+            if (isPlaying) {
+                player.pauseVideo();
+                document.getElementById('playPauseButton').innerHTML = '<i class="bi bi-play-fill text-white"></i>';
+                isPlaying = false;
+            } else {
+                player.playVideo();
+                document.getElementById('playPauseButton').innerHTML = '<i class="bi bi-pause-fill text-white"></i>';
+                isPlaying = true;
+            }
+        }
         // Fungsi untuk menangani perubahan status pemutar video
         function onPlayerStateChange(event) {
             if (event.data == YT.PlayerState.PLAYING) {
                 startDurationTimer();
+                animateProgressBar();
                 // showVideoDuration();
             } else if (event.data == YT.PlayerState.PAUSED) {
                 // Video sedang dijeda
@@ -286,8 +352,25 @@ if ($this->session->flashdata('success') != '') {
             } else if (event.data == YT.PlayerState.ENDED) {
                 document.getElementById("form-id-detail").submit();
                 stopDurationTimer();
+                stopProgressBarAnimation();
 
             }
+        }
+
+        function animateProgressBar() {
+            var duration = player.getDuration();
+            var currentTime = player.getCurrentTime();
+
+            var progressPercentage = (currentTime / duration) * 100;
+            progressBar.style.width = progressPercentage + '%';
+
+            if (currentTime < duration) {
+                setTimeout(animateProgressBar, 1000);
+            }
+        }
+
+        function stopProgressBarAnimation() {
+            progressBar.style.width = '0%';
         }
 
         function showVideoDuration() {
