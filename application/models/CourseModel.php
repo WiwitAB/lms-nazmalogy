@@ -121,6 +121,18 @@ class CourseModel extends CI_Model
         return $query->result();
     }
 
+    public function get_data_course_non_auth()
+    {
+        $this->db->select('c.*, GROUP_CONCAT(categories.name) as category');
+        $this->db->from('courses c');
+        $this->db->join('course_has_category chc', 'c.id = chc.id_course');
+        $this->db->join('categories', 'chc.id_category = categories.id');
+        $this->db->group_by('c.id');
+        $this->db->order_by('created_at', 'desc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     public function get_data_course_asc()
     {
         $this->db->select('c.*, GROUP_CONCAT(categories.name) as category, COUNT(uhc.id_user) as has_relation');
@@ -128,6 +140,17 @@ class CourseModel extends CI_Model
         $this->db->join('course_has_category chc', 'c.id = chc.id_course');
         $this->db->join('categories', 'chc.id_category = categories.id');
         $this->db->join('user_has_course_saved uhc', 'c.id = uhc.id_course AND uhc.id_user = ' . $this->session->userdata('id'), 'left');
+        $this->db->group_by('c.id');
+        $this->db->order_by('created_at', 'asc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function get_data_course_asc_non_auth()
+    {
+        $this->db->select('c.*, GROUP_CONCAT(categories.name) as category');
+        $this->db->from('courses c');
+        $this->db->join('course_has_category chc', 'c.id = chc.id_course');
+        $this->db->join('categories', 'chc.id_category = categories.id');
         $this->db->group_by('c.id');
         $this->db->order_by('created_at', 'asc');
         $query = $this->db->get();
@@ -145,19 +168,28 @@ class CourseModel extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    public function get_data_course_za()
+    public function get_data_course_az_non_auth()
     {
-        $this->db->select('c.*, GROUP_CONCAT(categories.name) as category, COUNT(uhc.id_user) as has_relation');
+        $this->db->select('c.*, GROUP_CONCAT(categories.name) as category');
         $this->db->from('courses c');
         $this->db->join('course_has_category chc', 'c.id = chc.id_course');
         $this->db->join('categories', 'chc.id_category = categories.id');
-        $this->db->join('user_has_course_saved uhc', 'c.id = uhc.id_course AND uhc.id_user = ' . $this->session->userdata('id'), 'left');
+        $this->db->group_by('c.id');
+        $this->db->order_by('title', 'asc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function get_data_course_za_non_auth()
+    {
+        $this->db->select('c.*, GROUP_CONCAT(categories.name) as category');
+        $this->db->from('courses c');
+        $this->db->join('course_has_category chc', 'c.id = chc.id_course');
+        $this->db->join('categories', 'chc.id_category = categories.id');
         $this->db->group_by('c.id');
         $this->db->order_by('title', 'desc');
         $query = $this->db->get();
         return $query->result();
     }
-
 
 
     public function insert_data_course($data)

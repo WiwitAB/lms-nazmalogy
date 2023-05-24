@@ -78,13 +78,13 @@ if ($this->session->flashdata('success') != '') {
 
 
   <!-- section 2 - Partnership -->
-  <section id="partner-ship" class="py-5">
+  <section id="partner-ship" class="bg-light-primary py-5">
     <div class="container col-10">
       <div class="title p-4 mt-3" data-aos="zoom-in" data-aos-duration="1000">
         <h2 class="fs-2 fw-bold text-center text-legend">Mitra Kami</h2>
       </div>
       <div class="partner-group flex-wrap d-flex gap-5 justify-content-center mt-1 mb-5" data-aos="zoom-in" data-aos-duration="1000">
-        <img width="110" class="object-fit-contain" src="<?= base_url('assets/images/landingpage/ukm_indonesia_1.jpg') ?>" alt="">
+        <img width="110" class="object-fit-contain" src="<?= base_url('assets/images/landingpage/ukm_indonesia_blank.png') ?>" alt="">
         <img width="110" class="object-fit-contain" src="<?= base_url('assets/images/landingpage/ukm_indonesia_2.jpg') ?>" alt="">
         <img width="110" class="object-fit-contain" src="<?= base_url('assets/images/landingpage/umkmnaikkelas.jpg') ?>" alt="">
         <img width="110" class="object-fit-contain" src="<?= base_url('assets/images/landingpage/logo_amikom.jpg') ?>" alt="">
@@ -197,7 +197,7 @@ if ($this->session->flashdata('success') != '') {
 
 
   <!-- section 5 - Subcribe -->
-  <section id="subscribe" class="bg-white py-5">
+  <section id="subscribe" class="bg-light-primary py-5">
     <div class="email-area w-100 mt-md-3 py-md-5 pb-5" data-aos="zoom-in-up" data-aos-duration="1500">
       <div class="text-center">
         <div class="email-logo ">
