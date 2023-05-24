@@ -85,21 +85,21 @@ if ($this->session->flashdata('success') != '') {
                             <div id="progressText">00:00 / <?= $course->intro_duration ?>:00</div>
                         </div>
                         <div class="video-player d-flex justify-content-between p-3 pt-2">
-                            <button id="qualityButton" onclick="changeVideoQuality()" class="fw-bold btn btn-warning bg-orange" title="Play/Stop">
+                            <button title="Kualitas Terbaik Di Jaringan Saya" id="qualityButton" onclick="changeVideoQuality()" class="fw-bold btn btn-warning bg-orange">
                                 HD
                             </button>
                             <div class="button-control d-flex gap-2">
                                 <button id="speedDownButton" class="btn btn-primary bg-first" title="mundur 5 detik">
                                     <i class="bi bi-skip-start-fill"></i>
                                 </button>
-                                <button id="playPauseButton" onclick="togglePlayPause()" class="btn btn-warning bg-orange" title="Play/Stop text-black">
+                                <button id="playPauseButton" onclick="togglePlayPause()" class="btn btn-warning bg-orange text-black" title="Play/Stop">
                                     <i class="bi bi-play-fill"></i>
                                 </button>
                                 <button id="speedUpButton" class="btn btn-primary bg-first" title="maju 5 detik">
                                     <i class="bi bi-skip-end-fill"></i>
                                 </button>
                             </div>
-                            <button id="fullscreenButton" onclick="toggleFullscreen()" class="btn btn-warning bg-orange" title="Play/Stop">
+                            <button id="fullscreenButton" onclick="toggleFullscreen()" class="btn btn-warning bg-orange" title="Fullscreen">
                                 <i class="bi bi-fullscreen"></i>
                             </button>
                         </div>
@@ -223,7 +223,7 @@ if ($this->session->flashdata('success') != '') {
                                             <i id="icon-<?= $course->id ?>" class="text-center bx bx-pause-circle ready-icon"></i>
                                             <a href="<?= site_url('userBranch/classpath/detail_course/' . $course->id)  ?>" id="link-<?= $course->id ?>" class="video-ready text-warning mx-2">Intro Kelas</a>
                                         </div>
-                                        <div class="time-course block-center" id="duration">
+                                        <div class="time-course w-15 d-flex justify-content-end" id="duration">
                                             <?= $course->intro_duration ?>:00
                                         </div>
                                     </div>
@@ -238,7 +238,7 @@ if ($this->session->flashdata('success') != '') {
                                             <i id="icon-<?= $course->id ?>" class="text-center bi bi-check2-circle fs-5 text-success"></i>
                                             <a href="<?= site_url('userBranch/classpath/detail_course/' . $course->id)  ?>" id="link-<?= $course->id ?>" class="video-ready text-success mx-2">Intro Kelas</a>
                                         </div>
-                                        <div class="time-course block-center" id="duration">
+                                        <div class="time-course w-15 d-flex justify-content-end" id="duration">
                                             <button id="button-<?= $course->id ?>" class="btn btn-success fs-6">
                                                 <i class="bi bi-check-all"></i>
                                             </button>
@@ -273,7 +273,7 @@ if ($this->session->flashdata('success') != '') {
                                             <?php endif ?>
 
                                         </div>
-                                        <div class="time-course w-15 block-center">
+                                        <div class="time-course w-15 d-flex justify-content-end">
                                             <?php if ($video->status == 1) : ?>
                                                 <button id="button-<?= $course->id ?>" class="btn btn-success">
                                                     <i class="bi bi-check-all"></i>
@@ -346,7 +346,10 @@ if ($this->session->flashdata('success') != '') {
         var progressBar;
         var progressText;
 
-
+        // Fungsi untuk memuat ulang halaman secara otomatis
+        function reloadPage() {
+            location.reload();
+        }
         // Fungsi untuk memanggil API YouTube dan membuat pemutar video
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
@@ -362,7 +365,8 @@ if ($this->session->flashdata('success') != '') {
                 },
                 events: {
                     'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError // Menambahkan penanganan kesalahan pada pemutar video
                 }
             });
             progressBar = document.getElementById('progressBar');
@@ -377,6 +381,15 @@ if ($this->session->flashdata('success') != '') {
             document.getElementById('playPauseButton').disabled = false;
             document.getElementById('fullscreenButton').disabled = false;
             progressText = document.getElementById('progressText');
+        }
+
+        // Fungsi penanganan kesalahan pada pemutar video
+        function onPlayerError(event) {
+            // Memeriksa apakah kesalahan terjadi pada pemanggilan API YouTube
+            if (event.data === 2 || event.data === 5 || event.data === 100 || event.data === 101 || event.data === 150) {
+                // Memuat ulang halaman setelah 3 detik
+                setTimeout(reloadPage, 3000);
+            }
         }
 
         function changeVideoQuality() {

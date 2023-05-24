@@ -72,16 +72,20 @@ if ($this->session->flashdata('success_delete') != '') {
                                             </div>
                                             <div class="class-action">
                                                 <div class="d-flex justify-content-between">
+                                                    <div class="d-flex gap-4 popularity">
+                                                        <div class="rating">
+                                                            <i class="bx bx-star class-icon yellow-image"></i>
+                                                            <span class="text-xl"><?= $data->rating ?></span>
+                                                        </div>
+                                                        <div class="person">
+                                                            <i class="bx bx-user class-icon blue-image"></i>
+                                                            <span class="text-xl"><?= $data->participant ?></span>
+                                                        </div>
+                                                    </div>
                                                     <div class="detail-bottom">
-                                                        <?php if ($data->button_label == 'Lanjutkan') : ?>
-                                                            <?php echo anchor('userBranch/classpath/detail_course/' . $data->id, "
-                                                        <button class='btn btn-primary bg-first text-xl'>Lanjutkan</button>
-                                                    "); ?>
-                                                        <?php else : ?>
-                                                            <?php echo anchor('userBranch/classpath/detail_course/' . $data->id, "
+                                                        <?php echo anchor('userBranch/classpath/detail_course/' . $data->id, "
                                                         <button class='btn btn-primary bg-first text-xl'>+ Ikuti</button>
                                                     "); ?>
-                                                        <?php endif; ?>
                                                     </div>
                                                 </div>
                                             </div>

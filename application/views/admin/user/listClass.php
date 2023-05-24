@@ -99,7 +99,7 @@ if ($this->session->flashdata('success_add') != '') {
 
 
             <!-- Class List -->
-            <div class="wd-75">
+            <div class="wd-75 pb-5 mb-5">
                 <div class="d-flex card-groups">
                     <?php
                     $no = 1;
@@ -142,18 +142,7 @@ if ($this->session->flashdata('success_add') != '') {
                                         </div>
                                         <div class="class-action">
                                             <div class="d-flex justify-content-between">
-                                                <div class="d-flex gap-4 popularity">
-                                                    <div class="rating">
-                                                        <i class="bx bx-star class-icon yellow-image"></i>
-                                                        <span class="text-xl"><?= $data->rating ?></span>
-                                                    </div>
-                                                    <div class="person">
-                                                        <i class="bx bx-user class-icon blue-image"></i>
-                                                        <span class="text-xl"><?= $data->participant ?></span>
-                                                    </div>
-                                                </div>
                                                 <div class="detail-bottom">
-
                                                     <?php if ($data->button_label == 'Lanjutkan') : ?>
                                                         <?php echo anchor('userBranch/classpath/detail_course/' . $data->id, "
                                                         <button class='btn btn-primary bg-first text-xl'>Lanjutkan</button>
@@ -163,7 +152,6 @@ if ($this->session->flashdata('success_add') != '') {
                                                         <button class='btn btn-primary bg-first text-xl'>+ Ikuti</button>
                                                     "); ?>
                                                     <?php endif; ?>
-
                                                 </div>
                                             </div>
                                         </div>

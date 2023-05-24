@@ -89,7 +89,16 @@ class User extends CI_Controller
                   'categories' => $this->CategoryModel->get_data_category(),
                   'course' => $this->CourseModel->get_course($id)
             ];
+            // Loop melalui data kelas
+            foreach ($data['course'] as &$class) {
+                  $userHasCourse = $this->UserModel->getUserHasCourse($data['id_user'], $class->id);
 
+                  if ($userHasCourse && $userHasCourse->status == 1) {
+                        $class->button_label = 'Lanjutkan';
+                  } else {
+                        $class->button_label = '+ Ikuti Kelas';
+                  }
+            }
 
             $this->load->view('admin/user/style');
             $this->load->view('admin/user/menubar', $data);
