@@ -19,4 +19,8 @@ class FrontModel extends CI_Model
         $this->db->insert('subscribes', $data);
         return $this->db->insert_id();
     }
+    public function get_simmilar_data($tabel, $data)
+    {
+        return $this->db->get_where($tabel, $data);
+    }
 }
