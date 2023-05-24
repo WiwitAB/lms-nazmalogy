@@ -42,12 +42,20 @@ if ($this->session->flashdata('success') != '') {
     #progressBar {
         width: 0%;
         height: 5px;
-        background-color: #F00;
-        /* Ubah warna sesuai kebutuhan */
-        position: absolute;
         top: 0;
         left: 0;
-        transition: width 1s linear;
+        animation: progressAnimation 10s linear infinite;
+        background-color: #2c2f75;
+    }
+
+    @keyframes progressAnimation {
+        0% {
+            background-position: 0 0;
+        }
+
+        100% {
+            background-position: 100% 0;
+        }
     }
 </style>
 
@@ -63,81 +71,40 @@ if ($this->session->flashdata('success') != '') {
             <span class="py-5">
                 Kembali </span>
         </a>
-        <h3 class="ft-7 mt-3"><?= $course->title ?></h3>
+        <h3 class="ft-7 mt-3"><?= $id_video->title ?></h3>
         <p class="gray-text"><?= $course->instructor ?></p>
         <div class="row pt-2">
             <div class="col-lg-7">
                 <div class="video-panel">
                     <div class="bg-white rounded border">
                         <div id="player"></div>
-                        <div class="video-player d-flex justify-content-between p-3">
+                        <div id="progressContainer" class="p-3 pb-1">
+                            <div class="bg-secondary">
+                                <div id="progressBar"></div>
+                            </div>
+
+                            <div id="progressText">00:00 / <?= $course->intro_duration ?>:00</div>
+                        </div>
+                        <div class="video-player d-flex justify-content-between p-3 pt-2">
+                            <button id="qualityButton" onclick="changeVideoQuality()" class="fw-bold btn btn-warning bg-orange" title="Play/Stop">
+                                HD
+                            </button>
                             <div class="button-control d-flex gap-2">
                                 <button id="speedDownButton" class="btn btn-primary bg-first" title="mundur 5 detik">
                                     <i class="bi bi-skip-start-fill"></i>
                                 </button>
-                                <button id="playPauseButton" onclick="togglePlayPause()" class="btn btn-warning bg-orange" title="Play/Stop">
-                                    <i class="bi bi-play-fill text-white"></i>
+                                <button id="playPauseButton" onclick="togglePlayPause()" class="btn btn-warning bg-orange" title="Play/Stop text-black">
+                                    <i class="bi bi-play-fill"></i>
                                 </button>
                                 <button id="speedUpButton" class="btn btn-primary bg-first" title="maju 5 detik">
                                     <i class="bi bi-skip-end-fill"></i>
                                 </button>
-                                <div id="progressBar"></div>
                             </div>
                             <button id="fullscreenButton" onclick="toggleFullscreen()" class="btn btn-warning bg-orange" title="Play/Stop">
-                                <i class="bi bi-fullscreen text-white"></i>
+                                <i class="bi bi-fullscreen"></i>
                             </button>
                         </div>
                     </div>
-                    <?php
-                    $no = 1;
-                    foreach ($playlists as $playlist) { ?>
-                        <!-- <h6 class="ft-7 pt-3"><?php echo $playlist->name; ?></h6> -->
-                        <?php foreach ($playlist->videos as $video) { ?>
-                            <?php if ($video->id == $id_video->id) : ?>
-                                <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
-                                    <div class="bg-white rounded d-flex gap-2 px-15 border">
-                                        <div class="course-progress w-100 d-flex justify-content-between block-center">
-                                            <div class=" icon-progress icon-center">
-                                                <?php if ($video->status == 1) : ?>
-                                                    <div class=" icon-progress w-10 icon-center">
-                                                        <i id="ready_icon" class="text-center bi bi-check2-circle fs-5 text-success"></i>
-                                                    </div>
-                                                <?php else : ?>
-                                                    <div class=" icon-progress w-10 icon-center">
-                                                        <i id="ready_icon" class="text-center bx bx-pause-circle ready-icon"></i>
-                                                    </div>
-                                                    <form action="<?= site_url('userBranch/classpath/user_has_video') ?>" method="post" id="form-id-detail" hidden>
-                                                        <input type="text" name="id_user" value="<?php echo $id_user ?>">
-                                                        <input type="text" name="id_video" value="<?= $id_video->id ?>">
-                                                        <input type="text" name="id_course" value="<?= $course->id ?>">
-                                                        <input type="text" name="status" value="1">
-                                                        <input type="text" name="progress" value="<?= $class_progress ?>">
-                                                    </form>
-                                                <?php endif ?>
-                                                <?php if ($video->status == 1) : ?>
-                                                    <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="text-lg video-ready text-success mx-2"><?= $video->title  ?></a>
-                                                <?php else : ?>
-                                                    <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="text-lg video-ready text-warning mx-2"><?= $video->title  ?></a>
-                                                <?php endif ?>
-                                            </div>
-                                            <div class="time-course block-center" id="duration">
-
-                                                <?php if ($video->status == 1) : ?>
-                                                    <button id="button-<?= $course->id ?>" class="btn btn-success">
-                                                        <i class="bi bi-check-all"></i>
-                                                    </button>
-                                                <?php else : ?>
-                                                    0<?= $video->duration ?>:00
-                                                <?php endif ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                        <?php } ?>
-
-                    <?php } ?>
-
                 </div>
                 <div class="tab-panel pt-2 mt-3 mb-5 bg-white p-4 border">
 
@@ -159,20 +126,37 @@ if ($this->session->flashdata('success') != '') {
                         <p><?= $course->summary ?></p>
                     </div>
                     <div id="profil" class="city bg-white p-3" style="display:none">
-                        <form action="<?= site_url('userBranch/classpath/save_feedback') ?>" method="post">
-                            <input type="text" name="id_user" value="<?php echo $id_user ?>" hidden>
-                            <input type="text" name="id_course" value="<?php echo $course->id ?>" hidden>
-                            <div class="mb-3 p-2">
-                                <label for="rating" class="text-lg ft-7 form-label">Berikan Rating</label>
+                        <?php if ($has_relation) : ?>
+                            <?php if (empty($feedback->rating)) : ?>
+                                <form action="<?= site_url('userBranch/classpath/save_feedback') ?>" method="post">
+                                    <input type="text" name="id_user" value="<?php echo $id_user ?>" hidden>
+                                    <input type="text" name="id_course" value="<?php echo $course->id ?>" hidden>
+                                    <div class="mb-3 p-2">
+                                        <label for="rating" class="text-lg ft-7 form-label">Berikan Rating</label>
 
-                                <input name="rating" class="rating" max="5" oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)" step="0.5" style="--value:0" type="range" value="0">
-                            </div>
-                            <div class="mb-3 p-2">
-                                <label for="feedback" class="text-lg ft-7 form-label">Berikan Masukan dan Saran</label>
-                                <textarea rows="4" name="feedback" class="form-control" placeholder="Leave a comment here"></textarea>
-                            </div>
-                            <button class="btn btn-primary bg-first w-100"> Kirim Feedback</button>
-                        </form>
+                                        <input name="rating" class="rating" max="5" oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)" step="0.5" style="--value:0" type="range" value="0">
+                                    </div>
+                                    <div class="mb-3 p-2">
+                                        <label for="feedback" class="text-lg ft-7 form-label">Berikan Masukan dan Saran</label>
+                                        <textarea rows="4" name="feedback" class="form-control" placeholder="Leave a comment here"></textarea>
+                                    </div>
+                                    <button class="btn btn-primary bg-first w-100"> Kirim Feedback</button>
+                                </form>
+                            <?php elseif (!empty($feedback->rating)) : ?>
+                                <div class="feedback p-3 border">
+                                    <div class="d-flex justify-content-between py-2">
+                                        <h6 class="fw-bold">Tanggapan Saya Tentang Kursus Ini</h6>
+                                        <div class="action-btn">
+                                            <button class="btn btn-primary bg-first p-1 px-3 text-white text-lg" data-bs-toggle="modal" data-bs-target="#FeedbackModal"> <i class="bi bi-pencil-square"></i> Edit</button>
+                                        </div>
+                                    </div>
+
+                                    <input name="rating" class="rating my-3 fs-6" max="5" oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)" step="0.5" style="--value:<?php echo $feedback->rating ?>" type="range" value="0" disabled>
+                                    <p class="py-3"><?php echo $feedback->feedback ?></p>
+                                </div>
+
+                            <?php endif ?>
+                        <?php endif ?>
                     </div>
                     <div id="mentoring" class="city bg-white p-3" style="display:none">
                         <h6>Gabung Mentoring Melalui Link di Bawah ini : </h6>
@@ -213,7 +197,7 @@ if ($this->session->flashdata('success') != '') {
                                 <div class="course-progress w-75 block-center">
                                     <a href="<?= site_url('userBranch/classpath/detail_course/' . $course->id)  ?>" class="video-ready text-success">Intro Kelas</a>
                                 </div>
-                                <div class="time-course w-15 block-center">
+                                <div class="time-course w-15 d-flex justify-content-end">
                                     <button id="button-<?= $course->id ?>" class="btn btn-success">
                                         <i class="bi bi-check-all"></i>
                                     </button>
@@ -245,7 +229,18 @@ if ($this->session->flashdata('success') != '') {
                                         <?php endif ?>
 
                                     </div>
-                                    <div class="time-course w-15 block-center">
+                                    <?php if ($video->id == $id_video->id) : ?>
+                                        <div class="time-course w-15 d-flex justify-content-end" id="duration">
+                                            <?php if ($video->status == 1) : ?>
+                                                <button id="button-<?= $course->id ?>" class="btn btn-success">
+                                                    <i class="bi bi-check-all"></i>
+                                                </button>
+                                            <?php else : ?>
+                                                0<?= $video->duration ?>:00
+                                            <?php endif ?>
+                                        </div>
+                                    <?php else : ?>
+                                        <div class="time-course w-15 d-flex justify-content-end"></div>
                                         <?php if ($video->status == 1) : ?>
                                             <button id="button-<?= $course->id ?>" class="btn btn-success">
                                                 <i class="bi bi-check-all"></i>
@@ -253,8 +248,8 @@ if ($this->session->flashdata('success') != '') {
                                         <?php else : ?>
                                             0<?= $video->duration ?>:00
                                         <?php endif ?>
-                                    </div>
                                 </div>
+                            <?php endif ?>
                             </div>
                         <?php } ?>
 
@@ -269,6 +264,7 @@ if ($this->session->flashdata('success') != '') {
 
 
     <script src="https://www.youtube.com/iframe_api"></script>
+
     <script>
         var speedUpButton = document.getElementById('speedUpButton');
         speedUpButton.addEventListener('touchstart', speedUpVideo, {
@@ -284,11 +280,13 @@ if ($this->session->flashdata('success') != '') {
         var player;
         var isPlaying = false;
         var progressBar;
+        var progressText;
+
 
         // Fungsi untuk memanggil API YouTube dan membuat pemutar video
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
-                videoId: '<?= $course->intro_link ?>', // Ganti VIDEO_ID dengan ID video YouTube yang ingin diputar
+                videoId: '<?= $id_video->link ?>', // Ganti VIDEO_ID dengan ID video YouTube yang ingin diputar
                 playerVars: {
                     autoplay: 1,
                     controls: 0,
@@ -303,17 +301,27 @@ if ($this->session->flashdata('success') != '') {
                     'onStateChange': onPlayerStateChange
                 }
             });
+            progressBar = document.getElementById('progressBar');
         }
 
         function onPlayerReady(event) {
             // Mendapatkan elemen iframe
             var iframe = event.target.getIframe();
-
             // Mengatur ukuran pemutar YouTube sesuai kebutuhan
             iframe.style.width = '100%';
             iframe.style.height = '25rem';
             document.getElementById('playPauseButton').disabled = false;
             document.getElementById('fullscreenButton').disabled = false;
+            progressText = document.getElementById('progressText');
+        }
+
+        function changeVideoQuality() {
+            // Mendapatkan daftar kualitas video yang tersedia
+            var availableQualities = player.getAvailableQualityLevels();
+
+            // Misalnya, Anda dapat mengubah kualitas ke "medium" saat tombol diklik
+            // Ganti "medium" dengan kualitas yang diinginkan
+            player.setPlaybackQuality("hd720");
         }
 
         function toggleFullscreen() {
@@ -343,8 +351,8 @@ if ($this->session->flashdata('success') != '') {
         // Fungsi untuk menangani perubahan status pemutar video
         function onPlayerStateChange(event) {
             if (event.data == YT.PlayerState.PLAYING) {
-                startDurationTimer();
                 animateProgressBar();
+                startDurationTimer();
                 // showVideoDuration();
             } else if (event.data == YT.PlayerState.PAUSED) {
                 // Video sedang dijeda
@@ -352,8 +360,8 @@ if ($this->session->flashdata('success') != '') {
             } else if (event.data == YT.PlayerState.ENDED) {
                 document.getElementById("form-id-detail").submit();
                 stopDurationTimer();
+            } else {
                 stopProgressBarAnimation();
-
             }
         }
 
@@ -363,6 +371,7 @@ if ($this->session->flashdata('success') != '') {
 
             var progressPercentage = (currentTime / duration) * 100;
             progressBar.style.width = progressPercentage + '%';
+            progressText.textContent = formatTime(currentTime) + ' / ' + formatTime(duration);
 
             if (currentTime < duration) {
                 setTimeout(animateProgressBar, 1000);
@@ -371,7 +380,19 @@ if ($this->session->flashdata('success') != '') {
 
         function stopProgressBarAnimation() {
             progressBar.style.width = '0%';
+            progressText.textContent = '';
         }
+
+        function formatTime(time) {
+            var minutes = Math.floor(time / 60);
+            var seconds = Math.floor(time % 60);
+            return pad(minutes) + ':' + pad(seconds);
+        }
+
+        function pad(value) {
+            return value < 10 ? '0' + value : value;
+        }
+
 
         function showVideoDuration() {
             // Mendapatkan durasi total video
