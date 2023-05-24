@@ -121,6 +121,53 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="summary__information">
+                            <div class="info-card">
+                                <div class="info__card__content">
+                                    <div class="info__card__head">
+                                        <h5 class="p-4 ft-7 ">Riwayat Poin</h5>
+                                    </div>
+                                    <div class="li-award px-4 py-3">
+                                        <div class="d-flex p-1">
+                                            <div class="title-poin d-flex align-items-center">
+                                                <span class="text-lg">Login Akun</span>
+                                            </div>
+                                            <div class="number-poin d-flex justify-content-center align-items-center">
+                                                <span class="text-warning">+200</span>
+                                            </div>
+                                            <h6></h6>
+                                        </div>
+                                        <div class="d-flex p-1">
+                                            <div class="title-poin d-flex align-items-center">
+                                                <span class="text-lg">Menonton Video</span>
+                                            </div>
+                                            <div class="number-poin d-flex justify-content-center align-items-center">
+                                                <span class="text-warning">+50</span>
+                                            </div>
+                                            <h6></h6>
+                                        </div>
+                                        <div class="d-flex p-1">
+                                            <div class="title-poin d-flex align-items-center">
+                                                <span class="text-lg">Mengerjakan Soal</span>
+                                            </div>
+                                            <div class="number-poin d-flex justify-content-center align-items-center">
+                                                <span class="text-warning">+40</span>
+                                            </div>
+                                        </div>
+                                        <div class="pt-2">
+                                            <a href="#">
+                                                <button class="w-100 text-lg btn btn-outline-warning bg-yellow">Lebih
+                                                    Detail</button>
+                                            </a>
+                                        </div>
+
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -129,6 +176,59 @@
                 <!-- Personal Information -->
                 <div class="col-lg-7 col-md-7" data-aos="fade-up" data-aos-duration="1000">
                     <div class="d-flex flex-column gap-3">
+                        <div class="personal__information">
+                            <div class="info-card">
+
+                                <div class="info__card__head">
+                                    <h5 class="p-4 ft-7 ">Sertifikat dan Pencapaian</h5>
+                                </div>
+
+                                <!-- Show Personal Information Form -->
+                                <div class="info__card__content">
+                                    <div class="li-award px-2 py-3">
+                                        <div class="d-flex pb-4">
+                                            <div class="icon-award d-flex justify-content-center align-items-center">
+                                                <i class="bx bx-bar-chart-alt-2 nav_icon"></i>
+                                            </div>
+                                            <div class="title-award d-flex align-items-center">
+                                                <span class="text-lg">Membangun Ketangguhan Bisnis dengan
+                                                    Diversifikasi Inovasi Produk</span>
+                                            </div>
+                                            <div class="date-award d-flex justify-content-center align-items-center">
+                                                <span class="text-lg">12 Apr 2023</span>
+                                            </div>
+                                            <div class="action-award d-flex justify-content-center align-items-center">
+                                                <a href="#" class="text-lg">
+
+                                                    <span class="gap-2"><i class="bx bx-download"></i> Unduh</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex pb-4">
+                                            <div class="icon-award d-flex justify-content-center align-items-center">
+                                                <i class="bx bx-award nav_icon"></i>
+                                            </div>
+                                            <div class="title-award d-flex align-items-center">
+                                                <span class="text-lg">Sprint Learning Level 1</span>
+                                            </div>
+                                            <div class="date-award d-flex justify-content-center align-items-center">
+                                                <span class="text-lg">12 Apr 2023</span>
+                                            </div>
+                                            <div class="action-award d-flex justify-content-center align-items-center">
+                                                <span class="text-lg">5000 Poin</span>
+                                            </div>
+                                        </div>
+                                        <div class="pt-2">
+                                            <a href="#">
+                                                <button class="w-100 text-lg btn btn-outline-warning bg-yellow">Lebih
+                                                    Detail</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                         <div class="personal__information">
                             <div class="info-card">
 
