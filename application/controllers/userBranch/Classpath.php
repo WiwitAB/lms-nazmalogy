@@ -66,25 +66,20 @@ class Classpath extends CI_Controller
 
     public function detail_course($id)
     {
-        // $has_relation = $this->UserModel->checkUserHasCourse($user_id, $course_id);
-
         $data = [
             'id_role' => $this->session->userdata('id_role'),
             'id_user' => $this->session->userdata('id'),
             'id_video' => $this->CourseModel->get_video_by_id($id)
-            // 'course' => $this->CourseModel->get_course_by_id($id),
-            // 'categories' => $this->PlaylistModel->get_data_playlist(),
-            // 'detail' => $this->PlaylistModel->get_playlists_by_id($id),
-            // 'videos' => $this->PlaylistModel->get_all_video()
         ];
         $has_relation = $this->UserModel->checkUserHasCourse($this->session->userdata('id'), $id);
         $data['course'] = $this->CourseModel->get_course_by_id_detail($id);
         $data['has_relation'] = $has_relation;
         $data['playlists'] = $this->CourseModel->get_playlists_by_course_id($id);
         $videoCount = $this->CourseModel->getVideoCount($id);
-        $completedClasses = $this->UserModel->getCompletedClasses($this->session->userdata('id'));
+        $completedClasses = $this->UserModel->getCompletedClasses($id, $this->session->userdata('id'));
 
         $data['progress'] = ($completedClasses / $videoCount) * 100;
+
         foreach ($data['playlists'] as $playlist) {
             $playlist->videos = $this->CourseModel->get_videos_by_playlist_id($playlist->id);
             foreach ($playlist->videos as $video) {
@@ -195,17 +190,14 @@ class Classpath extends CI_Controller
         $data = [
             'id_role' => $this->session->userdata('id_role'),
             'id_user' => $this->session->userdata('id'),
-            'id_video' => $this->CourseModel->get_video_by_id($id),
-            // 'categories' => $this->PlaylistModel->get_data_playlist(),
-            // 'detail' => $this->PlaylistModel->get_playlists_by_id($id),
-            // 'videos' => $this->PlaylistModel->get_all_video()
+            'id_video' => $this->CourseModel->get_video_by_id($id)
         ];
         $data['course'] = $this->CourseModel->get_course_by_id_detail($id_link);
         $data['playlists'] = $this->CourseModel->get_playlists_by_course_id($id_link);
         $has_relation = $this->UserModel->checkUserHasCourse($this->session->userdata('id'), $id_link);
         $data['has_relation'] = $has_relation;
         $videoCount = $this->CourseModel->getVideoCount($id_link);
-        $completedClasses = $this->UserModel->getCompletedClasses($this->session->userdata('id'));
+        $completedClasses = $this->UserModel->getCompletedClasses($id_link, $this->session->userdata('id'));
 
         $data['progress'] = ($completedClasses / $videoCount) * 100;
         $data['class_progress'] = (($completedClasses + 1) / $videoCount) * 100;
@@ -217,7 +209,6 @@ class Classpath extends CI_Controller
                 $video->status = $this->UserModel->getUserVideoStatus($this->session->userdata('id'), $video->id);
             }
         }
-        // $data['userVideos'] = $this->UserModel->getUserVideo($this->session->userdata('id')); // Mengambil relasi user dan foods
 
         $this->load->view('admin/user/style');
         $this->load->view('admin/user/menubar', $data);
@@ -354,7 +345,6 @@ class Classpath extends CI_Controller
             'id_user' => $id_user,
             'id_course' => $id_course,
             'status' => $status
-            // dan seterusnya
         );
         $insert_id = $this->UserModel->insert_data_course($data);
         if ($insert_id) {
@@ -368,19 +358,15 @@ class Classpath extends CI_Controller
 
     public function user_has_video($id)
     {
-        // $videoCount = $this->CourseModel->getVideoCount($id);
-        // $completedClasses = $this->UserModel->getCompletedClasses($this->session->userdata('id'));
-
-        // $data['progress'] = ($completedClasses / $videoCount) * 100;
-
         $id_user = $this->input->post('id_user');
+        $id_course = $this->input->post('id_course');
         $id_video = $this->input->post('id_video');
         $status = $this->input->post('status');
         $data = array(
             'id_user' => $id_user,
+            'id_course' => $id_course,
             'id_video' => $id_video,
             'status' => $status
-            // dan seterusnya
         );
         $insert_id = $this->UserModel->insert_data_every_video($data);
 
@@ -388,7 +374,6 @@ class Classpath extends CI_Controller
             'progress' => $this->input->post('progress', TRUE),
             'id' => $id,
             'id_user' => $id_user
-
         );
         $this->CourseModel->updateUserCourse($id, $data, $id_user);
 

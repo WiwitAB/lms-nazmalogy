@@ -143,10 +143,11 @@ class UserModel extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    public function getCompletedClasses($userId)
+    public function getCompletedClasses($id, $userId)
     {
+        $this->db->where('id_course', $id);
         $this->db->where('id_user', $userId);
-        $this->db->where('status', 1); // Status 1 menunjukkan kelas yang selesai
+        $this->db->where('status', 1);
         $this->db->from('user_has_video');
         return $this->db->count_all_results();
     }

@@ -316,22 +316,9 @@ class CourseModel extends CI_Model
 
     public function getVideoCount($id_course)
     {
-        // $this->db->where('id_course', $id_course);
-        // $this->db->from('course_has_playlist');
-        // return $this->db->count_all_results(); // Setiap playlist memiliki 2 video
-        // $this->db->select('COUNT(*) as videos');
-        // $this->db->join('playlists', 'playlists.id = course_has_playlist.id_playlist');
-        // $this->db->join('videos', 'videos.id = playlists.id');
-        // $this->db->where('course_has_playlist.id_course', $id_course);
-        // $this->db->from('course_has_playlist');
-        // return $this->db->get()->row()->videos;
-        // $this->db->select('COUNT(*) as videos');
-        // $this->db->join('playlists', 'playlists.id = videos.id_playlist');
-        // $this->db->where('playlists.id', $id_course);
-        // $this->db->from('videos');
-        // return $this->db->get()->row()->videos;
         $this->db->select('COUNT(*) as videos');
         $this->db->join('course_has_playlist', 'course_has_playlist.id_playlist = playlists.id');
+        $this->db->join('videos', 'videos.id_playlist = playlists.id');
         $this->db->where('course_has_playlist.id_course', $id_course);
         $this->db->from('playlists');
         return $this->db->get()->row()->videos;

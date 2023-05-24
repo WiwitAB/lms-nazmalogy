@@ -20,7 +20,67 @@ if ($this->session->flashdata('success') != '') {
 }
 ?>
 
+<style>
+    .progress-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #000;
+        /* margin: 0 0 30px; */
+    }
 
+    .progress {
+        height: 17px;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+        margin-bottom: 1rem;
+        overflow: visible;
+        position: relative;
+    }
+
+    .progress .progress-bar {
+        border-radius: 15px;
+        box-shadow: none;
+        position: relative;
+        animation: animate-positive 2s;
+    }
+
+    .progress .progress-icon,
+    .progress .progress-value {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        line-height: 40px;
+        background: #fff;
+        border: 7px solid #1f75c4;
+        font-size: 13px;
+        position: absolute;
+        top: -17px;
+        right: -5px;
+    }
+
+    .progress .progress-icon {
+        right: auto;
+        left: -5px;
+    }
+
+    .progress.orange .progress-icon,
+    .progress.orange .progress-value {
+        border: 7px solid #f7810e;
+        color: #f7810e;
+    }
+
+    @-webkit-keyframes animate-positive {
+        0% {
+            width: 0;
+        }
+    }
+
+    @keyframes animate-positive {
+        0% {
+            width: 0;
+        }
+    }
+</style>
 <!--=============== External CSS ================= -->
 <link rel="stylesheet" href="<?= base_url('assets/css/star.css') ?>">
 
@@ -37,60 +97,10 @@ if ($this->session->flashdata('success') != '') {
         <div class="row pt-2">
             <div class="col-lg-7">
                 <div class="video-panel">
+
+
+                    <!-- <iframe class="w-100" style="height: 25rem;" src="<?= $id_video->link ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
                     <div id="player"></div>
-
-                    <?php
-                    $no = 1;
-                    foreach ($playlists as $playlist) { ?>
-                        <!-- <h6 class="ft-7 pt-3"><?php echo $playlist->name; ?></h6> -->
-                        <?php foreach ($playlist->videos as $video) { ?>
-                            <?php if ($video->id == $id_video->id) : ?>
-                                <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
-                                    <div class="bg-white rounded d-flex gap-2 px-15 border">
-                                        <div class="course-progress w-100 d-flex justify-content-between block-center">
-                                            <div class=" icon-progress icon-center">
-                                                <?php if ($video->status == 1) : ?>
-                                                    <div class=" icon-progress w-10 icon-center">
-                                                        <i id="ready_icon" class="text-center bi bi-check2-circle fs-5 text-success"></i>
-                                                    </div>
-                                                <?php else : ?>
-                                                    <div class=" icon-progress w-10 icon-center">
-                                                        <i id="ready_icon" class="text-center bx bx-pause-circle ready-icon"></i>
-                                                    </div>
-                                                <?php endif ?>
-                                                <?php if ($video->status == 1) : ?>
-                                                    <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="text-lg video-ready text-success mx-2"><?= $video->title  ?></a>
-                                                <?php else : ?>
-                                                    <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="text-lg video-ready text-warning mx-2"><?= $video->title  ?></a>
-                                                <?php endif ?>
-                                            </div>
-
-                                            <div class="button-control">
-                                                <button id="speedDownButton" class="btn btn-primary bg-first" title="mundur 5 detik">
-                                                    <i class="bi bi-chevron-double-left"></i>
-                                                </button>
-                                                <button id="speedUpButton" class="btn btn-primary bg-first" title="maju 5 detik">
-                                                    <i class="bi bi-chevron-double-right"></i>
-                                                </button>
-                                            </div>
-
-                                            <div class="time-course block-center" id="duration">
-
-                                                <?php if ($video->status == 1) : ?>
-                                                    <button id="button-<?= $course->id ?>" class="btn btn-success">
-                                                        <i class="bi bi-check-all"></i>
-                                                    </button>
-                                                <?php else : ?>
-                                                    0<?= $video->duration ?>:00
-                                                <?php endif ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                        <?php } ?>
-
-                    <?php } ?>
 
                 </div>
                 <div class="tab-panel pt-2 mt-3 mb-5 bg-white p-4 border">
@@ -139,16 +149,43 @@ if ($this->session->flashdata('success') != '') {
                         <div class="col-md-12">
                             <h6 class="ft-7 mb-4">Perkembangan Belajar Anda</h6>
                             <div class="progress orange">
-                                <?php
-                                $width = $progress > 100 ? 100 : (int)($progress / 10) * 10; // Menghitung lebar progress bar
-
-                                if ($width === 0) {
-                                    $width = 0; // Atur lebar minimal jika progress = 0
-                                }
-                                ?>
-
-                                <div class="progress-bar" id="progress" style="width:<?php echo $width; ?>%;background:#f7810e;">
-                                </div>
+                                <?php if ($progress == 0) : ?>
+                                    <div class="progress-bar" id="progress" style="width:0%;background:#f7810e;">
+                                    </div>
+                                <?php elseif ($progress > 10 && $progress <= 20) : ?>
+                                    <div class="progress-bar" id="progress" style="width:10%;background:#f7810e;">
+                                    </div>
+                                <?php elseif ($progress > 10 && $progress <= 20) : ?>
+                                    <div class="progress-bar" id="progress" style="width:20%;background:#f7810e;">
+                                    </div>
+                                <?php elseif ($progress > 20 && $progress <= 30) : ?>
+                                    <div class="progress-bar" id="progress" style="width:30%;background:#f7810e;">
+                                    </div>
+                                <?php elseif ($progress > 30 && $progress <= 40) : ?>
+                                    <div class="progress-bar" id="progress" style="width:40%;background:#f7810e;">
+                                    </div>
+                                <?php elseif ($progress > 40 && $progress <= 50) : ?>
+                                    <div class="progress-bar" id="progress" style="width:50%;background:#f7810e;">
+                                    </div>
+                                <?php elseif ($progress > 50 && $progress <= 60) : ?>
+                                    <div class="progress-bar" id="progress" style="width:60%;background:#f7810e;">
+                                    </div>
+                                <?php elseif ($progress > 60 && $progress <= 70) : ?>
+                                    <div class="progress-bar" id="progress" style="width:70%;background:#f7810e;">
+                                    </div>
+                                <?php elseif ($progress > 70 && $progress <= 80) : ?>
+                                    <div class="progress-bar" id="progress" style="width:80%;background:#f7810e;">
+                                    </div>
+                                <?php elseif ($progress > 80 && $progress <= 99) : ?>
+                                    <div class="progress-bar" id="progress" style="width:90%;background:#f7810e;">
+                                    </div>
+                                <?php elseif ($progress == 100) : ?>
+                                    <div class="progress-bar" id="progress" style="width:100%;background:#f7810e;">
+                                    </div>
+                                <?php else : ?>
+                                    <div class="progress-bar" id="progress" style="width:100%;background:#f7810e;">
+                                    </div>
+                                <?php endif ?>
                             </div>
                             <div class="progress-value fw-bold text-warning text-center"><span><?= round($progress) ?></span>%</div>
                         </div>
@@ -178,37 +215,80 @@ if ($this->session->flashdata('success') != '') {
                     foreach ($playlists as $playlist) { ?>
                         <h6 class="ft-7 pt-3"><?php echo $playlist->name; ?></h6>
                         <?php foreach ($playlist->videos as $video) { ?>
-
-                            <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
-                                <div class="bg-white gap-2 rounded d-flex px-15 border">
-                                    <?php if ($video->status == 1) : ?>
+                            <?php if ($video->id == $id_video->id) : ?>
+                                <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
+                                    <div class="bg-white gap-2 rounded d-flex px-15 border">
                                         <div class=" icon-progress w-10 icon-center">
-                                            <i id="ready_icon" class="text-center bi bi-check2-circle fs-5 text-success"></i>
+                                            <?php if ($video->status == 1) : ?>
+                                                <div class=" icon-progress w-10 icon-center">
+                                                    <i id="ready_icon" class="text-center bi bi-check2-circle fs-5 text-success"></i>
+                                                </div>
+                                            <?php else : ?>
+                                                <div class=" icon-progress w-10 icon-center">
+                                                    <i id="ready_icon" class="text-center bx bx-pause-circle ready-icon"></i>
+                                                </div>
+                                            <?php endif ?>
                                         </div>
-                                    <?php else : ?>
-                                        <div class=" icon-progress w-10 icon-center">
-                                            <i id="ready_icon" class="text-center bx bx-pause-circle ready-icon"></i>
+                                        <div class="course-progress w-50 block-center">
+                                            <?php if ($video->status == 1) : ?>
+                                                <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="video-ready text-success"><?= $video->title  ?></a>
+                                            <?php else : ?>
+                                                <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="video-ready text-warning"><?= $video->title  ?></a>
+                                            <?php endif ?>
                                         </div>
-                                    <?php endif ?>
-                                    <div class="course-progress w-75 block-center">
-                                        <?php if ($video->status == 1) : ?>
-                                            <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="video-ready text-success"><?= $video->title  ?></a>
-                                        <?php else : ?>
-                                            <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="video-ready text-warning"><?= $video->title  ?></a>
-                                        <?php endif ?>
-
-                                    </div>
-                                    <div class="time-course w-15 block-center">
-                                        <?php if ($video->status == 1) : ?>
-                                            <button id="button-<?= $course->id ?>" class="btn btn-success">
-                                                <i class="bi bi-check-all"></i>
+                                        <div class="w-25 d-flex justify-content-center gap-2">
+                                            <button id="speedDownButton" class="btn btn-primary bg-first" title="mundur 5 detik">
+                                                <i class="bi bi-chevron-double-left"></i>
                                             </button>
-                                        <?php else : ?>
-                                            0<?= $video->duration ?>:00
-                                        <?php endif ?>
+                                            <button id="speedUpButton" class="btn btn-primary bg-first" title="maju 5 detik">
+                                                <i class="bi bi-chevron-double-right"></i>
+                                            </button>
+                                        </div>
+                                        <div class="time-course w-15 block-center" id="duration">
+
+                                            <?php if ($video->status == 1) : ?>
+                                                <button id="button-<?= $course->id ?>" class="btn btn-success">
+                                                    <i class="bi bi-check-all"></i>
+                                                </button>
+                                            <?php else : ?>
+                                                0<?= $video->duration ?>:00
+                                            <?php endif ?>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+
+                            <?php else : ?>
+                                <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
+                                    <div class="bg-white gap-2 rounded d-flex px-15 border">
+                                        <?php if ($video->status == 1) : ?>
+                                            <div class=" icon-progress w-10 icon-center">
+                                                <i id="ready_icon" class="text-center bi bi-check2-circle fs-5 text-success"></i>
+                                            </div>
+                                        <?php else : ?>
+                                            <div class=" icon-progress w-10 icon-center">
+                                                <i id="ready_icon" class="text-center bx bx-pause-circle ready-icon"></i>
+                                            </div>
+                                        <?php endif ?>
+                                        <div class="course-progress w-75 block-center">
+                                            <?php if ($video->status == 1) : ?>
+                                                <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="video-ready text-success"><?= $video->title  ?></a>
+                                            <?php else : ?>
+                                                <a href="<?= site_url('userBranch/classpath/detail_video_course/' . $course->id . "/" . $video->id)  ?>" class="video-ready text-warning"><?= $video->title  ?></a>
+                                            <?php endif ?>
+
+                                        </div>
+                                        <div class="time-course w-15 block-center">
+                                            <?php if ($video->status == 1) : ?>
+                                                <button id="button-<?= $course->id ?>" class="btn btn-success">
+                                                    <i class="bi bi-check-all"></i>
+                                                </button>
+                                            <?php else : ?>
+                                                0<?= $video->duration ?>:00
+                                            <?php endif ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                         <?php } ?>
 
                     <?php } ?>
@@ -223,7 +303,6 @@ if ($this->session->flashdata('success') != '') {
     <form action="<?= site_url('userBranch/classpath/user_has_video/' . $course->id) ?>" method="post" id="form-id-detail" hidden>
         <input type="text" name="id_user" value="<?php echo $id_user ?>">
         <input type="text" name="id_video" value="<?= $id_video->id ?>">
-        <input type="text" name="id_course" value="<?= $course->id ?>">
         <input type="text" name="status" value="1">
         <input type="text" name="progress" value="<?= $class_progress ?>">
     </form>
@@ -283,6 +362,8 @@ if ($this->session->flashdata('success') != '') {
                 // Video sedang dijeda
                 stopDurationTimer();
             } else if (event.data == YT.PlayerState.ENDED) {
+                // document.getElementById('icon-' + "<?= $course->id ?>").className = "text-center bi bi-check2-circle fs-5 text-success";
+                // document.getElementById('link' + '-' + '<?= $course->id ?>').className = "video-ready text-success";
                 document.getElementById("form-id-detail").submit();
                 stopDurationTimer();
 

@@ -42,24 +42,22 @@ if ($this->session->flashdata('success') != '') {
                         <!-- <h6 class="ft-7 pt-3">Intro Kelas</h6> -->
                         <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
                             <div class="bg-white rounded d-flex gap-2 px-15 border">
-                                <div class="course-progress w-100 d-flex justify-content-between block-center">
-                                    <div class=" icon-progress icon-center">
-                                        <i id="icon-<?= $course->id ?>" class="text-center bx bx-pause-circle ready-icon"></i>
-                                        <a href="<?= site_url('userBranch/classpath/detail_course/' . $course->id)  ?>" id="link-<?= $course->id ?>" class="video-ready text-warning mx-2">Intro Kelas</a>
-                                    </div>
-
-                                    <div class="button-control">
-                                        <button id="speedDownButton" class="btn btn-primary bg-first" title="mundur 5 detik">
-                                            <i class="bi bi-chevron-double-left"></i>
-                                        </button>
-                                        <button id="speedUpButton" class="btn btn-primary bg-first" title="maju 5 detik">
-                                            <i class="bi bi-chevron-double-right"></i>
-                                        </button>
-                                    </div>
-
-                                    <div class="time-course block-center" id="duration">
-                                        0<?= $course->intro_duration ?>:00
-                                    </div>
+                                <div class=" icon-progress w-10 icon-center">
+                                    <i id="icon-<?= $course->id ?>" class="text-center bx bx-pause-circle ready-icon"></i>
+                                </div>
+                                <div class="course-progress w-50 block-center">
+                                    <a href="<?= site_url('userBranch/classpath/detail_course/' . $course->id)  ?>" id="link-<?= $course->id ?>" class="video-ready text-warning">Intro Kelas</a>
+                                </div>
+                                <div class="w-25 d-flex justify-content-center gap-2">
+                                    <button id="speedDownButton" class="btn btn-primary bg-first" title="mundur 5 detik">
+                                        <i class="bi bi-chevron-double-left"></i>
+                                    </button>
+                                    <button id="speedUpButton" class="btn btn-primary bg-first" title="maju 5 detik">
+                                        <i class="bi bi-chevron-double-right"></i>
+                                    </button>
+                                </div>
+                                <div class="time-course w-15 block-center" id="duration">
+                                    0<?= $course->intro_duration ?>:00
                                 </div>
                             </div>
                         </div>
@@ -67,26 +65,24 @@ if ($this->session->flashdata('success') != '') {
                         <!-- <h6 class="ft-7 pt-3">Intro Kelas</h6> -->
                         <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
                             <div class="bg-white rounded d-flex gap-2 px-15 border">
-                                <div class="course-progress w-100 d-flex justify-content-between block-center">
-                                    <div class=" icon-progress icon-center">
-                                        <i id="icon-<?= $course->id ?>" class="text-center bi bi-check2-circle fs-5 text-success"></i>
-                                        <a href="<?= site_url('userBranch/classpath/detail_course/' . $course->id)  ?>" id="link-<?= $course->id ?>" class="video-ready text-success mx-2">Intro Kelas</a>
-                                    </div>
-
-                                    <div class="button-control">
-                                        <button id="speedDownButton" class="btn btn-primary bg-first" title="mundur 5 detik">
-                                            <i class="bi bi-chevron-double-left"></i>
-                                        </button>
-                                        <button id="speedUpButton" class="btn btn-primary bg-first" title="maju 5 detik">
-                                            <i class="bi bi-chevron-double-right"></i>
-                                        </button>
-                                    </div>
-
-                                    <div class="time-course block-center" id="duration">
-                                        <button id="button-<?= $course->id ?>" class="btn btn-success fs-6">
-                                            <i class="bi bi-check-all"></i>
-                                        </button>
-                                    </div>
+                                <div class=" icon-progress w-10 icon-center">
+                                    <i id="icon-<?= $course->id ?>" class="text-center bi bi-check2-circle fs-5 text-success"></i>
+                                </div>
+                                <div class="course-progress w-50 block-center">
+                                    <a href="<?= site_url('userBranch/classpath/detail_course/' . $course->id)  ?>" id="link-<?= $course->id ?>" class="video-ready text-success">Intro Kelas</a>
+                                </div>
+                                <div class="w-25 d-flex justify-content-center gap-2">
+                                    <button id="speedDownButton" class="btn btn-primary bg-first" title="mundur 5 detik">
+                                        <i class="bi bi-chevron-double-left"></i>
+                                    </button>
+                                    <button id="speedUpButton" class="btn btn-primary bg-first" title="maju 5 detik">
+                                        <i class="bi bi-chevron-double-right"></i>
+                                    </button>
+                                </div>
+                                <div class="time-course w-15 block-center" id="duration">
+                                    <button id="button-<?= $course->id ?>" class="btn btn-success fs-6">
+                                        <i class="bi bi-check-all"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -139,6 +135,28 @@ if ($this->session->flashdata('success') != '') {
                         <div class="alert alert-warning" role="alert">
                             Anda harus menonton video perkenalan kelas untuk membuka kelas lainnya!!
                         </div>
+                        <h6 class="ft-7 pt-3">Intro Kelas</h6>
+                        <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
+                            <div class="bg-white rounded d-flex gap-2 px-15 border">
+                                <div class=" icon-progress w-10 icon-center">
+                                    <i id="icon-<?= $course->id ?>" class="text-center bx bx-pause-circle ready-icon"></i>
+                                </div>
+                                <div class="course-progress w-50 block-center">
+                                    <a href="<?= site_url('userBranch/classpath/detail_course/' . $course->id)  ?>" id="link-<?= $course->id ?>" class="video-ready text-warning">Intro Kelas</a>
+                                </div>
+                                <div class="w-25 d-flex justify-content-center gap-2">
+                                    <button id="speedDownButton" class="btn btn-primary bg-first" title="mundur 5 detik">
+                                        <i class="bi bi-chevron-double-left"></i>
+                                    </button>
+                                    <button id="speedUpButton" class="btn btn-primary bg-first" title="maju 5 detik">
+                                        <i class="bi bi-chevron-double-right"></i>
+                                    </button>
+                                </div>
+                                <div class="time-course w-15 block-center" id="duration">
+                                    0<?= $course->intro_duration ?>:00
+                                </div>
+                            </div>
+                        </div>
                         <?php
                         $no = 1;
                         foreach ($playlists as $playlist) { ?>
@@ -166,18 +184,42 @@ if ($this->session->flashdata('success') != '') {
                             <div class="col-md-12">
                                 <h6 class="ft-7 mb-4">Perkembangan Belajar Anda</h6>
                                 <div class="progress orange">
-                                    <?php
-                                    $width = $progress > 100 ? 100 : (int)($progress / 10) * 10; // Menghitung lebar progress bar
-
-                                    if ($width === 0) {
-                                        $width = 0; // Atur lebar minimal jika progress = 0
-                                    }
-                                    ?>
-
-                                    <div class="progress-bar" id="progress" style="width:<?php echo $width; ?>%;background:#f7810e;">
-                                    </div>
+                                    <?php if ($progress == 0) : ?>
+                                        <div class="progress-bar" id="progress" style="width:0%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 10 && $progress <= 20) : ?>
+                                        <div class="progress-bar" id="progress" style="width:10%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 20 && $progress <= 30) : ?>
+                                        <div class="progress-bar" id="progress" style="width:20%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 30 && $progress <= 40) : ?>
+                                        <div class="progress-bar" id="progress" style="width:30%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 40 && $progress <= 50) : ?>
+                                        <div class="progress-bar" id="progress" style="width:40%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 50 && $progress <= 60) : ?>
+                                        <div class="progress-bar" id="progress" style="width:50%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 60 && $progress <= 70) : ?>
+                                        <div class="progress-bar" id="progress" style="width:60%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 70 && $progress <= 80) : ?>
+                                        <div class="progress-bar" id="progress" style="width:70%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 80 && $progress <= 90) : ?>
+                                        <div class="progress-bar" id="progress" style="width:80%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress > 90 && $progress <= 99) : ?>
+                                        <div class="progress-bar" id="progress" style="width:90%;background:#f7810e;">
+                                        </div>
+                                    <?php elseif ($progress >= 100) : ?>
+                                        <div class="progress-bar" id="progress" style="width:100%;background:#f7810e;">
+                                        </div>
+                                    <?php endif ?>
                                 </div>
-                                <div class="progress-value fw-bold text-warning text-center"><span><?= round($progress)  ?></span>%</div>
+                                <div class="progress-value fw-bold text-warning text-center"><span><?= $progress ?></span>%</div>
                             </div>
                         </div>
 
@@ -230,13 +272,11 @@ if ($this->session->flashdata('success') != '') {
 
         </div>
     </div>
-    <?php if (!$has_relation) : ?>
-        <form action="<?= site_url('userBranch/classpath/user_has_course') ?>" method="post" id="form-id-<?= $course->id  ?>" hidden>
-            <input type="text" name="id_user" value="<?php echo $id_user ?>">
-            <input type="text" name="id_course" value="<?php echo $course->id ?>">
-            <input type="text" name="status" value="1">
-        </form>
-    <?php endif ?>
+    <form action="<?= site_url('userBranch/classpath/user_has_course') ?>" method="post" id="form-id-<?= $course->id  ?>" hidden>
+        <input type="text" name="id_user" value="<?php echo $id_user ?>">
+        <input type="text" name="id_course" value="<?php echo $course->id ?>">
+        <input type="text" name="status" value="1">
+    </form>
 
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
@@ -382,7 +422,7 @@ if ($this->session->flashdata('success') != '') {
         });
     </script>
     <!--=============== Footer Tab and Desktop ===============-->
-    <footer class="p-0 border rounded">
+    <footer class="p-0">
         <div class="d-flex justify-content-center">
             <p class="mt-3 ft-7">NaZMa Office &copy 2023
             </p>
