@@ -55,6 +55,25 @@
         </script>
         ";
     }
+    else if ($this->session->flashdata('warning_register') != '') {
+        echo "
+        <script>
+        Swal.fire({
+            toast: true,
+            position: 'top-right',
+            iconColor: 'white',
+            customClass: {
+                popup: 'colored-toast',
+            },
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            icon: 'warning',
+            title: 'E-mail Sudah Terdaftar',
+        })    
+        </script>
+        ";
+    }
     ?>
 
     <div class="d-flex responsive-form">
