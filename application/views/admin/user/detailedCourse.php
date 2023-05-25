@@ -162,7 +162,7 @@ if ($this->session->flashdata('success') != '') {
                     </div>
                     <div id="mentoring" class="city bg-white p-3" style="display:none">
                         <h6>Gabung Mentoring Melalui Link di Bawah ini : </h6>
-                        <a href="<?= $course->title ?>" class="text-decoration-underline" target="_blank"><?= $course->title ?></a>
+                        <a href="<?= $course->mentoring_link ?>" class="text-decoration-underline" target="_blank"><?= $course->mentoring_link ?></a>
                     </div>
                 </div>
                 <!-- 2 -->

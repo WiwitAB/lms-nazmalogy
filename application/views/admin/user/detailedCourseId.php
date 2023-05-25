@@ -160,7 +160,7 @@ if ($this->session->flashdata('success') != '') {
                     </div>
                     <div id="mentoring" class="city bg-white p-3" style="display:none">
                         <h6>Gabung Mentoring Melalui Link di Bawah ini : </h6>
-                        <a href="<?= $course->title ?>" class="text-decoration-underline" target="_blank"><?= $course->title ?></a>
+                        <a href="<?= $course->mentoring_link ?>" class="text-decoration-underline" target="_blank"><?= $course->mentoring_link ?></a>
                     </div>
                 </div>
 
@@ -210,6 +210,17 @@ if ($this->session->flashdata('success') != '') {
                     foreach ($playlists as $playlist) { ?>
                         <h6 class="ft-7 pt-3"><?php echo $playlist->name; ?></h6>
                         <?php foreach ($playlist->videos as $video) { ?>
+                            <?php if ($video->id == $id_video->id) : ?>
+                                <?php if ($video->status != 1) : ?>
+                                    <form action="<?= site_url('userBranch/classpath/user_has_video/' . $video->id) ?>" method="post" id="form-id-detail" hidden>
+                                        <input type="text" name="id_user" value="<?php echo $id_user ?>">
+                                        <input type="text" name="id_video" value="<?= $id_video->id ?>">
+                                        <input type="text" name="id_course" value="<?= $course->id ?>">
+                                        <input type="text" name="status" value="1">
+                                        <input type="text" name="progress" value="<?= $class_progress ?>">
+                                    </form>
+                                <?php endif ?>
+                            <?php endif ?>
                             <div class="list-course pt-1 d-flex flex-column gap-3 kelas">
                                 <div class="bg-white gap-2 rounded d-flex px-15 border">
                                     <?php if ($video->status == 1) : ?>
@@ -263,6 +274,8 @@ if ($this->session->flashdata('success') != '') {
     </div>
 
 
+
+
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
@@ -292,7 +305,7 @@ if ($this->session->flashdata('success') != '') {
                 videoId: '<?= $id_video->link ?>', // Ganti VIDEO_ID dengan ID video YouTube yang ingin diputar
                 playerVars: {
                     autoplay: 1,
-                    controls: 0,
+                    // controls: 0,
                     disablekb: 1,
                     modestbranding: 1,
                     rel: 0,

@@ -173,19 +173,6 @@ class Front extends CI_Controller
 
       public function save_subscribe()
       {
-            // $email = $this->input->post('email');
-            // $data = array(
-            //       'email' => $email,
-            //       // dan seterusnya
-            // );
-            // $insert_id = $this->FrontModel->insert_data_subscribe($data);
-            // if ($insert_id) {
-            //       $this->session->set_flashdata('success', 'Email Terkirim');
-            //       redirect('front');
-            // } else {
-            //       $this->session->set_flashdata('error', 'Input Salah');
-            //       redirect('front');
-            // }
             $email = $this->input->post('email');
             $emaildata = array('email' => $email);
             $checkData = $this->FrontModel->get_simmilar_data('subscribes', $emaildata);
@@ -194,8 +181,10 @@ class Front extends CI_Controller
                   redirect('front');
             } else {
                   if ($checkData->num_rows() == 1) {
+                        $this->session->set_flashdata('success', 'Email Terkirim');
                         redirect('front');
                   } else {
+                        $this->session->set_flashdata('success', 'Email Terkirim');
                         $this->FrontModel->insert_data_subscribe($emaildata);
                         redirect('front');
                   }
