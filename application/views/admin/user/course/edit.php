@@ -42,6 +42,16 @@
                             <input type="text" name="instructor" class="form-control" id="exampleInputname1" value="<?php echo $course->instructor; ?>" required>
                         </div>
                         <div class="mb-3">
+                            <label for="exampleInputname1" class="form-label fw-bold">Playlist Kursus
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select style="width: 100%" class="js-example-basic-multiple" name="playlist[]" multiple aria-required="true">
+                                <?php foreach ($playlists as $row) { ?>
+                                    <option value="<?php echo $row->id; ?>" <?php if (in_array($row->id, explode(',', $detail_playlist->playlist_ids))) echo 'selected'; ?>><?php echo $row->name; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label for="exampleInputname1" class="form-label fw-bold">Link Intro Kelas
                                 <span class="text-danger">*</span>
                             </label>
@@ -53,15 +63,22 @@
                             </label>
                             <input type="number" value="<?= $course->intro_duration ?>" name="intro_duration" class="form-control" id="exampleInputname1" required>
                         </div>
+
                         <div class="mb-3">
                             <label for="exampleInputname1" class="form-label fw-bold">Kategori Kursus
                                 <span class="text-danger">*</span>
                             </label>
                             <select style="width: 100%" class="js-example-basic-multiple" name="category[]" multiple aria-required="true">
                                 <?php foreach ($categories as $row) { ?>
-                                    <option value="<?php echo $row->id; ?>" <?php if (in_array($row->id, explode(',', $detail->category_ids))) echo 'selected'; ?>><?php echo $row->name; ?></option>
+                                    <option value="<?php echo $row->id; ?>" <?php if (in_array($row->id, explode(',', $detail_category->category_ids))) echo 'selected'; ?>><?php echo $row->name; ?></option>
                                 <?php } ?>
                             </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mentoring_link" class="form-label fw-bold">Link WA Mentoring
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" value="<?= $course->mentoring_link ?>" name="mentoring_link" class="form-control" required>
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputname1" class="form-label fw-bold">Ringkasan Kursus

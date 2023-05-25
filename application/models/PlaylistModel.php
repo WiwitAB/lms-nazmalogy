@@ -95,4 +95,11 @@ class PlaylistModel extends CI_Model
         $this->db->where('id', $id);
         $this->db->update('videos', $data);
     }
+
+
+    public function delete_playlist_relation($id)
+    {
+        $this->db->where('id_course', $id);
+        $this->db->delete('course_has_playlist');
+    }
 }

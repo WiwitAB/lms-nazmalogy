@@ -138,6 +138,7 @@ class Course extends CI_Controller
                 'instructor' => $this->input->post('instructor', TRUE),
                 'intro_link' => $this->input->post('intro_link', TRUE),
                 'intro_duration' => $this->input->post('intro_duration', TRUE),
+                'mentoring_link' => $this->input->post('mentoring_link', TRUE),
                 'cover' => $this->upload->data('file_name')
             );
 
@@ -192,7 +193,9 @@ class Course extends CI_Controller
             'id_role' => $this->session->userdata('id_role'),
             'course' => $this->CourseModel->get_course_by_id($id),
             'categories' => $this->CategoryModel->get_data_category(),
-            'detail' => $this->CourseModel->get_category_by_id($id)
+            'playlists' => $this->PlaylistModel->get_data_playlist(),
+            'detail_category' => $this->CourseModel->get_category_by_id($id),
+            'detail_playlist' => $this->CourseModel->get_playlist_by_id_course($id)
         ];
         $this->load->view('admin/user/style');
         $this->load->view('admin/user/menubar', $data);
@@ -201,16 +204,8 @@ class Course extends CI_Controller
     }
     public function update_course($id)
     {
-        //load library upload
-        // $this->load->library('upload');
-
-        // //konfigurasi upload
-        // $config['upload_path'] = './assets/images/admin/course/';
-        // $config['allowed_types'] = '*';
-        // $config['max_size'] = 10000;
-
-        // // Hapus relasi kelas dan kategori untuk data yang diupdate
         $this->CourseModel->delete_category_relation($id);
+        $this->PlaylistModel->delete_playlist_relation($id);
 
         // //inisialisasi upload
         // $this->upload->initialize($config);
@@ -218,6 +213,7 @@ class Course extends CI_Controller
         $data = array(
             'title' => $this->input->post('title', TRUE),
             'instructor' => $this->input->post('instructor', TRUE),
+            'mentoring_link' => $this->input->post('mentoring_link', TRUE),
             'summary' => $this->input->post('summary', TRUE),
             'intro_link' => $this->input->post('intro_link', TRUE),
             'intro_duration' => $this->input->post('intro_duration', TRUE),
@@ -233,6 +229,15 @@ class Course extends CI_Controller
                 'id_category' => $row
             );
             $this->CourseModel->save_category_relation($data_category);
+        }
+
+        $playlist = $this->input->post('playlist');
+        foreach ($playlist as $row) {
+            $data_playlist = array(
+                'id_course' => $id,
+                'id_playlist' => $row
+            );
+            $this->CourseModel->save_playlist_relation($data_playlist);
         }
         $this->session->set_flashdata('success_update', 'Data berhasil diupdate');
 

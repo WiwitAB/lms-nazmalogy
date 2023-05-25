@@ -75,6 +75,12 @@
                             </select>
                         </div>
                         <div class="mb-3">
+                            <label for="exampleInputname1" class="form-label fw-bold">Link WA Mentoring
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" placeholder="bit.ly/joinGroupKulWA" name="mentoring_link" class="form-control" id="exampleInputname1" required>
+                        </div>
+                        <div class="mb-3">
                             <label for="exampleInputname1" class="form-label fw-bold">Ringkasan Kursus
                                 <span class="text-danger">*</span>
                             </label>

@@ -233,12 +233,23 @@ class CourseModel extends CI_Model
         $query = $this->db->get();
         return $query->row();
     }
+    public function get_playlist_by_id_course($id)
+    {
+        $this->db->select('courses.*, GROUP_CONCAT(course_has_playlist.id_course) AS course_ids, GROUP_CONCAT(course_has_playlist.id_playlist) AS playlist_ids');
+        $this->db->from('courses');
+        $this->db->join('course_has_playlist', 'courses.id = course_has_playlist.id_course', 'left');
+        $this->db->where('courses.id', $id);
+        $this->db->group_by('courses.id');
+        $query = $this->db->get();
+        return $query->row();
+    }
     public function updateCourse($id, $data)
     {
         $title = $data['title'];
         $instructor = $data['instructor'];
         $summary = $data['summary'];
         $intro_link = $data['intro_link'];
+        $mentoring_link = $data['mentoring_link'];
         $intro_duration = $data['intro_duration'];
         $id = $data['id'];
         $this->db->where('id', $id);
@@ -259,6 +270,7 @@ class CourseModel extends CI_Model
                 'instructor' => $instructor,
                 'summary' => $summary,
                 'intro_link' => $intro_link,
+                'mentoring_link' => $mentoring_link,
                 'intro_duration' => $intro_duration,
                 'cover' => $this->upload->data('file_name')
 
@@ -270,6 +282,7 @@ class CourseModel extends CI_Model
                 'title' => $title,
                 'intro_link' => $intro_link,
                 'summary' => $summary,
+                'mentoring_link' => $mentoring_link,
                 'intro_duration' => $intro_duration,
                 'instructor' => $instructor,
                 'cover' => $cover
