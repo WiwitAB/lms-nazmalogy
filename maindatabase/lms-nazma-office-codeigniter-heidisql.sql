@@ -18,14 +18,16 @@
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table lms-nazma-office-codeigniter.categories: ~3 rows (approximately)
-INSERT INTO `categories` (`id`, `name`) VALUES
-	(1, 'Marketing'),
-	(2, 'Business'),
-	(3, 'Management');
+INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
+	(1, 'Marketing', '2023-05-24 22:01:05', '2023-05-24 22:01:05'),
+	(2, 'Business', '2023-05-24 22:01:05', '2023-05-24 22:01:05'),
+	(3, 'Management', '2023-05-24 22:01:05', '2023-05-24 22:01:05');
 
 -- Dumping structure for table lms-nazma-office-codeigniter.courses
 CREATE TABLE IF NOT EXISTS `courses` (
@@ -40,13 +42,14 @@ CREATE TABLE IF NOT EXISTS `courses` (
   `intro_duration` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `mentoring_link` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table lms-nazma-office-codeigniter.courses: ~1 rows (approximately)
-INSERT INTO `courses` (`id`, `cover`, `rating`, `participant`, `title`, `instructor`, `summary`, `intro_link`, `intro_duration`, `created_at`, `updated_at`) VALUES
-	(25, 'Screenshot_(16)1.png', 0.0, 0, 'Pembelajaran Digital Marketing', 'Wiwit AB', '    <div xss=removed><div xss=removed><b>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat odio quibusdam eum excepturi molestiae doloribus inventore iste ullam, enim quasi neque. Ex sint rerum nostrum? Sequi cumque eius quam, provident assumenda beatae aperiam temporibus, amet ullam non aliquid recuaasaasandae ipsum odit soluta commodi deleniti corrupti! Numquam quae facere consequuntur sint.</b></div></div>', 'OdLGq9y_OC8', 3, '2023-05-18 14:52:09', '2023-05-18 14:52:09'),
-	(27, 'hqdefault.jpg', 0.0, 0, 'Global Enterpreneurship', 'Wiwi AB', '<p><span xss=removed><b>Hallo, Sobat..\r\nKali ini kita akan belajar bareng lagi ya mengenai Desain Organisasi, yuk mari kita simak bersama!\r\n\r\nJangan Lupa Like, Comment, Share & Subscribe Untuk Video Belajar Lainnya!</b></span><br></p>', 'vIudlgadXlw', 5, '2023-05-23 04:07:59', '2023-05-23 04:07:59');
+INSERT INTO `courses` (`id`, `cover`, `rating`, `participant`, `title`, `instructor`, `summary`, `intro_link`, `intro_duration`, `created_at`, `updated_at`, `mentoring_link`) VALUES
+	(25, 'Screenshot_(16)1.png', 0.0, 0, 'Pembelajaran Digital Marketing', 'Wiwit AB', '    <div xss=removed><div xss=removed><b>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat odio quibusdam eum excepturi molestiae doloribus inventore iste ullam, enim quasi neque. Ex sint rerum nostrum? Sequi cumque eius quam, provident assumenda beatae aperiam temporibus, amet ullam non aliquid recuaasaasandae ipsum odit soluta commodi deleniti corrupti! Numquam quae facere consequuntur sint.</b></div></div>', 'OdLGq9y_OC8', 3, '2023-05-25 03:05:40', '2023-05-25 03:05:40', 'https://www.google.com/'),
+	(27, 'hqdefault.jpg', 0.0, 0, 'Global Enterpreneurship', 'Wiwi AB', '<p><span xss=removed><b>Hallo, Sobat..\r\nKali ini kita akan belajar bareng lagi ya mengenai Desain Organisasi, yuk mari kita simak bersama!\r\n\r\nJangan Lupa Like, Comment, Share & Subscribe Untuk Video Belajar Lainnya!</b></span><br></p>', 'vIudlgadXlw', 5, '2023-05-25 03:05:42', '2023-05-25 03:05:42', 'https://www.google.com/');
 
 -- Dumping structure for table lms-nazma-office-codeigniter.course_has_category
 CREATE TABLE IF NOT EXISTS `course_has_category` (
@@ -60,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `course_has_category` (
   KEY `FK_course_has_category_categories` (`id_category`),
   CONSTRAINT `FK_course_has_category_categories` FOREIGN KEY (`id_category`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_course_has_category_courses` FOREIGN KEY (`id_course`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=184 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=199 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table lms-nazma-office-codeigniter.course_has_category: ~4 rows (approximately)
 INSERT INTO `course_has_category` (`id`, `id_course`, `id_category`, `created_at`, `updated_at`) VALUES
@@ -79,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `course_has_playlist` (
   KEY `FK_course_has_playlist_playlists` (`id_playlist`),
   CONSTRAINT `FK_course_has_playlist_courses` FOREIGN KEY (`id_course`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_course_has_playlist_playlists` FOREIGN KEY (`id_playlist`) REFERENCES `playlists` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table lms-nazma-office-codeigniter.course_has_playlist: ~5 rows (approximately)
 INSERT INTO `course_has_playlist` (`id`, `id_course`, `id_playlist`) VALUES
@@ -137,7 +140,7 @@ INSERT INTO `playlists` (`id`, `name`, `created_at`, `updated_at`) VALUES
 	(8, 'Bab 3. Mitra dan Sponsorship', '2023-05-23 04:12:24', '2023-05-23 04:12:24'),
 	(9, 'Bab 4. Laba dan Koneksi', '2023-05-23 04:12:24', '2023-05-23 04:12:24'),
 	(10, 'Desain Organisasi', '2023-05-23 04:12:24', '2023-05-23 04:12:24'),
-	(11, 'Global Enterprenuership', '2023-05-23 04:12:24', '2023-05-23 04:12:24');
+	(11, 'Global Enterprenership', '2023-05-25 03:40:58', '2023-05-25 03:40:58');
 
 -- Dumping structure for table lms-nazma-office-codeigniter.progress
 CREATE TABLE IF NOT EXISTS `progress` (
@@ -178,9 +181,9 @@ CREATE TABLE IF NOT EXISTS `subscribes` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table lms-nazma-office-codeigniter.subscribes: ~0 rows (approximately)
+-- Dumping data for table lms-nazma-office-codeigniter.subscribes: ~6 rows (approximately)
 INSERT INTO `subscribes` (`id`, `email`) VALUES
 	(1, 'muhafifudin66@gmail.com'),
 	(2, 'muhafifudin2306@gmail.com'),
@@ -188,7 +191,11 @@ INSERT INTO `subscribes` (`id`, `email`) VALUES
 	(4, 'cobacobalagi@gmail.com'),
 	(5, 'anisa66@gmail.com'),
 	(6, 'anisa66@gmail.com'),
-	(7, 'cobacobalagi@gmail.com');
+	(7, 'cobacobalagi@gmail.com'),
+	(8, 'cek@mail.com'),
+	(9, 'muhafifudin266@gmail.com'),
+	(10, 'jowenize@mailinator.comfgffhgf'),
+	(11, 'anisa66@gmail.comjjkjkjk');
 
 -- Dumping structure for table lms-nazma-office-codeigniter.tags
 CREATE TABLE IF NOT EXISTS `tags` (
@@ -209,14 +216,15 @@ CREATE TABLE IF NOT EXISTS `testimonies` (
   `rating` decimal(20,6) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `status` int DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table lms-nazma-office-codeigniter.testimonies: ~0 rows (approximately)
-INSERT INTO `testimonies` (`id`, `image`, `author`, `job`, `message`, `rating`, `created_at`, `updated_at`) VALUES
-	(1, 'Foto_Muhammad_Afifudin.png', 'Muhammad Afifudin', 'Web Developer', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. At magni praesentium deleniti rem accusantium blanditiis voluptatibus sapiente! Reiciendis quia sunt unde dolorum possimus sit consequuntur ducimus, minus incidunt quisquam necessitatibus quidem voluptates aliquid nostrum ullam omnis illum quaerat nulla atque saepe tempore doloribus vero aperiam. Asperiores suscipit distinctio deleniti alias.', 5.000000, '2023-05-23 13:54:43', '2023-05-23 13:48:30'),
-	(2, 'Foto_Muhammad_Afifudin.png', 'Muhammad Afifudin', 'Web Developer', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam suscipit expedita quibusdam recusandae dolore magni voluptas id voluptatem consequatur facilis!', 5.000000, '2023-05-23 13:48:05', '2023-05-23 13:48:05'),
-	(3, 'Foto_Muhammad_Afifudin.png', 'Muhammad Afifudin', 'Web Developer', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit earum est facilis, quia provident amet obcaecati suscipit natus. Fuga veritatis dolores fugit magni, quisquam facere ipsa vel consectetur corrupti explicabo?', 5.000000, '2023-05-23 13:34:07', '2023-05-23 13:34:07');
+-- Dumping data for table lms-nazma-office-codeigniter.testimonies: ~3 rows (approximately)
+INSERT INTO `testimonies` (`id`, `image`, `author`, `job`, `message`, `rating`, `created_at`, `updated_at`, `status`) VALUES
+	(1, 'Foto_Muhammad_Afifudin.png', 'Muhammad Afifudin', 'Web Developer', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. At magni praesentium deleniti rem accusantium blanditiis voluptatibus sapiente! Reiciendis quia sunt unde dolorum possimus sit consequuntur ducimus, minus incidunt quisquam necessitatibus quidem voluptates aliquid nostrum ullam omnis illum quaerat nulla atque saepe tempore doloribus vero aperiam. Asperiores suscipit distinctio deleniti alias.', 5.000000, '2023-05-25 04:25:10', '2023-05-25 04:25:10', 1),
+	(2, 'Foto_Muhammad_Afifudin.png', 'Muhammad Afifudin', 'Web Developer', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam suscipit expedita quibusdam recusandae dolore magni voluptas id voluptatem consequatur facilis!', 5.000000, '2023-05-25 04:25:11', '2023-05-25 04:25:11', 1),
+	(3, 'Foto_Muhammad_Afifudin.png', 'Muhammad Afifudin', 'Web Developer', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit earum est facilis, quia provident amet obcaecati suscipit natus. Fuga veritatis dolores fugit magni, quisquam facere ipsa vel consectetur corrupti explicabo?', 5.000000, '2023-05-25 04:25:12', '2023-05-25 04:25:12', 0);
 
 -- Dumping structure for table lms-nazma-office-codeigniter.users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -255,11 +263,11 @@ CREATE TABLE IF NOT EXISTS `user_has_course` (
   KEY `FK_user_has_course_courses` (`id_course`),
   CONSTRAINT `FK_user_has_course_courses` FOREIGN KEY (`id_course`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_user_has_course_users` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table lms-nazma-office-codeigniter.user_has_course: ~1 rows (approximately)
 INSERT INTO `user_has_course` (`id`, `id_user`, `id_course`, `status`, `progress`, `rating`, `feedback`, `created_at`, `updated_at`) VALUES
-	(33, 27, 27, 1, 100.000000, 5.0, NULL, '2023-05-24 03:22:22', '2023-05-24 03:22:22');
+	(35, 21, 27, 1, 100.000000, 4.0, 'mantap, bismillah bang', '2023-05-25 03:18:13', '2023-05-25 03:18:13');
 
 -- Dumping structure for table lms-nazma-office-codeigniter.user_has_course_saved
 CREATE TABLE IF NOT EXISTS `user_has_course_saved` (
@@ -271,11 +279,11 @@ CREATE TABLE IF NOT EXISTS `user_has_course_saved` (
   KEY `FK_user_has_course_saved_courses` (`id_course`),
   CONSTRAINT `FK_user_has_course_saved_courses` FOREIGN KEY (`id_course`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_user_has_course_saved_users` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table lms-nazma-office-codeigniter.user_has_course_saved: ~1 rows (approximately)
 INSERT INTO `user_has_course_saved` (`id`, `id_user`, `id_course`) VALUES
-	(142, 21, 25);
+	(146, 21, 25);
 
 -- Dumping structure for table lms-nazma-office-codeigniter.user_has_video
 CREATE TABLE IF NOT EXISTS `user_has_video` (
@@ -291,9 +299,14 @@ CREATE TABLE IF NOT EXISTS `user_has_video` (
   CONSTRAINT `FK_user_has_video_courses` FOREIGN KEY (`id_course`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_user_has_video_users` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_user_has_video_videos` FOREIGN KEY (`id_video`) REFERENCES `videos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table lms-nazma-office-codeigniter.user_has_video: ~0 rows (approximately)
+INSERT INTO `user_has_video` (`id`, `id_user`, `id_video`, `status`, `id_course`) VALUES
+	(62, 21, 10, 1, 27),
+	(63, 21, 11, 1, 27),
+	(64, 21, 12, 1, 27),
+	(66, 21, 13, 1, 27);
 
 -- Dumping structure for table lms-nazma-office-codeigniter.videos
 CREATE TABLE IF NOT EXISTS `videos` (

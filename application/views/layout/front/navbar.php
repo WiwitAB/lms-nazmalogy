@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg fixed-top py-sm-3 py-xl-1 bg-white">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="<?= base_url('assets/images/logo/nazmalogy_logo.png') ?>" alt="NaZMalogy">
+                <img width="150" src="<?= base_url('assets/images/logo/nazmalogy_logo_new.png') ?>" alt="NaZMalogy">
             </a>
             <button class="navbar-toggler header-pc" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
