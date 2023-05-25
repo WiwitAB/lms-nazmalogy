@@ -6,7 +6,7 @@
 <body id="body-pd">
     <!--=============== Course Content ===============-->
     <div class="space-top">
-        <div class="row">
+        <div class="row pb-5">
             <div class="col-md-6">
 
                 <div class="bg-white p-5 border" data-aos="fade-up" data-aos-duration="700">

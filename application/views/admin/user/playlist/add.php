@@ -1,6 +1,6 @@
 <body id="body-pd">
     <div class="space-top">
-        <div class="row">
+        <div class="row pb-5">
             <div class="col-md-6">
                 <div class="bg-white p-5 border" data-aos="zoom-in-up" data-aos-duration="1000">
                     <div class="d-flex justify-content-between py-2">
@@ -20,21 +20,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const nameInput = document.getElementById('name');
-            const nameError = document.getElementById('name-error');
-
-            nameInput.addEventListener('input', function() {
-                if (nameInput.validity.valid) {
-                    nameError.textContent = '';
-                    nameError.className = 'invalid-feedback';
-                } else {
-                    nameError.textContent = 'Nama Playlist harus diisi.';
-                    nameError.className = 'invalid-feedback d-block';
-                }
-            });
-        });
-    </script>
 </body>
