@@ -144,10 +144,10 @@ if ($this->session->flashdata('success') != '') {
                                     </div>
                                     <button class="btn btn-primary bg-first w-100"> Kirim Feedback</button>
                                 </form>
-                            <?php elseif (!empty($feedback->rating)) : ?>
-                                <div class="feedback p-3 border">
+                            <?php else : ?>
+                                <div class="feedback p-2 p-md-3 border">
                                     <div class="d-flex justify-content-between py-2">
-                                        <h6 class="fw-bold">Tanggapan Saya Tentang Kursus Ini</h6>
+                                        <h6 class="fw-bold">Tanggapan Saya </h6>
                                         <div class="action-btn">
                                             <button class="btn btn-primary bg-first p-1 px-3 text-white text-lg" data-bs-toggle="modal" data-bs-target="#FeedbackModal"> <i class="bi bi-pencil-square"></i> Edit</button>
                                         </div>
@@ -464,6 +464,24 @@ if ($this->session->flashdata('success') != '') {
             var newTime = currentTime - seconds;
             player.seekTo(newTime, true);
         }
+
+        function adjustPlayerSize() {
+            var playerDiv = document.getElementById('player');
+
+            if (window.innerWidth >= 768) {
+                // Gaya untuk laptop
+                playerDiv.style.width = '100%';
+                playerDiv.style.height = '25rem';
+            } else {
+                // Gaya untuk layar hp
+                playerDiv.style.width = '100%';
+                playerDiv.style.height = '11.4rem';
+            }
+        }
+
+        // Panggil fungsi saat halaman dimuat dan saat ukuran layar berubah
+        window.addEventListener('load', adjustPlayerSize);
+        window.addEventListener('resize', adjustPlayerSize);
     </script>
 
     <script>

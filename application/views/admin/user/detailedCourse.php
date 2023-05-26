@@ -514,6 +514,27 @@ if ($this->session->flashdata('success') != '') {
             var newTime = currentTime - seconds;
             player.seekTo(newTime, true);
         }
+
+
+        function adjustPlayerSize() {
+            var playerDiv = document.getElementById('player');
+
+            if (window.innerWidth >= 768) {
+                // Gaya untuk laptop
+                playerDiv.style.width = '100%';
+                playerDiv.style.height = '25rem';
+            } else {
+                // Gaya untuk layar hp
+                playerDiv.style.width = '100%';
+                playerDiv.style.height = '11.4rem';
+            }
+        }
+
+        // Panggil fungsi saat halaman dimuat dan saat ukuran layar berubah
+        window.addEventListener('load', adjustPlayerSize);
+        window.addEventListener('resize', adjustPlayerSize);
+    </script>
+
     </script>
 
     <script>

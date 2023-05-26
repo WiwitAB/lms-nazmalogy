@@ -161,7 +161,8 @@ class Classpath extends CI_Controller
         $data = [
             'id_role' => $this->session->userdata('id_role'),
             'id_user' => $this->session->userdata('id'),
-            'id_video' => $this->CourseModel->get_video_by_id($id)
+            'id_video' => $this->CourseModel->get_video_by_id($id),
+            'feedback' => $this->CourseModel->get_feedback_by_id($id_link, $this->session->userdata('id'))
         ];
         $data['course'] = $this->CourseModel->get_course_by_id_detail($id_link);
         $data['playlists'] = $this->CourseModel->get_playlists_by_course_id($id_link);
@@ -169,6 +170,7 @@ class Classpath extends CI_Controller
         $data['has_relation'] = $has_relation;
         $videoCount = $this->CourseModel->getVideoCount($id_link);
         $completedClasses = $this->UserModel->getCompletedClasses($id_link, $this->session->userdata('id'));
+
 
         $data['progress'] = ($completedClasses / $videoCount) * 100;
         $data['class_progress'] = (($completedClasses + 1) / $videoCount) * 100;
