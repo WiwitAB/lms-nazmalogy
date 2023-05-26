@@ -9,6 +9,7 @@ class FrontModel extends CI_Model
 
     public function get_data_testimony()
     {
+        $this->db->where('status', 1); // Menambahkan kondisi WHERE untuk kolom "status" dengan nilai 1
         $this->db->order_by('created_at', 'desc');
         $this->db->limit(3);
         $query = $this->db->get('testimonies');

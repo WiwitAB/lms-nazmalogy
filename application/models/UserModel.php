@@ -50,6 +50,18 @@ class UserModel extends CI_Model
         return $query->result();
     }
 
+    public function get_all_subscribe()
+    {
+        $query = $this->db->get('subscribes');
+        return $query->result();
+    }
+
+    public function get_all_testimony()
+    {
+        $query = $this->db->get('testimonies');
+        return $query->result();
+    }
+
 
     function delete_data($where, $table)
     {
@@ -167,5 +179,65 @@ class UserModel extends CI_Model
             'status' => $status
         );
         $this->db->insert('user_has_course', $data);
+    }
+
+    public function insert_data_testimony($data)
+    {
+        return $this->db->insert('testimonies', $data);
+    }
+
+    public function get_testimony_by_id($id)
+    {
+        $this->db->where('id', $id);
+        $query = $this->db->get('testimonies');
+
+        return $query->row(); // mengembalikan sebuah objek hasil query
+    }
+
+    public function updateTestimony($id, $data)
+    {
+        $author = $data['author'];
+        $job = $data['job'];
+        $message = $data['message'];
+        $status = $data['status'];
+        $rating = $data['rating'];
+        $id = $data['id'];
+        $this->db->where('id', $id);
+        $testimony = $this->db->get('testimonies')->row();
+        $image = $testimony->image;
+
+
+        $config['upload_path'] = './assets/images/admin/testimony/';
+        $config['allowed_types'] = '*';
+        $config['max_size'] = 10000;
+
+        $this->load->library('upload', $config);
+        //konfigurasi upload
+        if ($this->upload->do_upload('image')) {
+
+            $data = array(
+                'author' => $author,
+                'job' => $job,
+                'status' => $status,
+                'message' => $message,
+                'rating' => $rating,
+                'image' => $this->upload->data('file_name')
+
+            );
+            $this->db->where('id', $id);
+            $this->db->update('courses', $data);
+        } else {
+            $data = array(
+                'author' => $author,
+                'message' => $message,
+                'status' => $status,
+                'rating' => $rating,
+                'job' => $job,
+                'image' => $image
+
+            );
+            $this->db->where('id', $id);
+            $this->db->update('testimonies', $data);
+        }
     }
 }
