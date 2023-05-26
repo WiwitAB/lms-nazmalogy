@@ -43,46 +43,59 @@
                   <?php echo $dashboardTitle; ?>
             </h5>
 
-            <div class="d-flex card-groups">
+            <div class="row">
                   <!-- 1. Jumlah User, 2. Jumlah Murid, 3. Jumlah kelas -->
                   <?php if ($id_role == '1') : ?>
-                        <div class="card-lg">
-                              <div class="card-area">
-                                    <div class="card-body border" data-aos="fade-right" data-aos-duration="700">
-                                          <div class="mt-2 image-card d-flex justify-content-center">
-                                                <i class="bx bx-user bx-tada stat-image green-image"></i>
-                                          </div>
-                                          <h2 class="title-card ft-7"><?= $user_count ?></h2>
-                                          <h6 class="title-card">Pengguna</h6>
+                        <div class="col-md-4 col-lg-3 mb-3">
+                              <div class="card-body border d-flex justify-content-between" data-aos="fade-right" data-aos-duration="700">
+                                    <div class="card-index">
+                                          <h6 class="py-1">Pengguna</h6>
+                                          <h2 id="user_count" class="fw-bold py-1"><?php echo $user_count; ?></h2>
+                                    </div>
+                                    <div class="mt-2 image-card">
+                                          <i class="bx bx-user p-2 bx-tada fs-5 rounded-circle green-image"></i>
+                                    </div>
+                              </div>
+                        </div>
+
+                        <div class="col-md-4 col-lg-3 mb-3">
+                              <div class="card-body border d-flex justify-content-between" data-aos="fade-right" data-aos-duration="700">
+                                    <div class="card-index">
+                                          <h6 class="py-1">Kelas</h6>
+                                          <h2 id="course_count" class="fw-bold py-1"><?php echo $course_count; ?></h2>
+                                    </div>
+                                    <div class="mt-2 image-card">
+                                          <i class="bx bx-library p-2 bx-tada fs-5 rounded-circle blue-image"></i>
                                     </div>
                               </div>
                         </div>
                   <?php else : ?>
-                        <div class="card-lg">
-                              <div class="card-area">
-                                    <div class="card-body border" data-aos="fade-right" data-aos-duration="700">
-                                          <div class="mt-2 image-card d-flex justify-content-center">
-                                                <i class="bx bx-library bx-tada stat-image green-image"></i>
-                                          </div>
-                                          <h2 class="title-card ft-7"><?php echo $course_count_user; ?></h2>
-                                          <h6 class="title-card">Kelas Berjalan</h6>
+
+                        <!-- ============== Splide CSS ================= -->
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+                        <div class="col-md-4 col-lg-3 mb-3">
+                              <div class="card-body border d-flex justify-content-between" data-aos="fade-right" data-aos-duration="700">
+                                    <div class="card-index">
+                                          <h6 class="py-1">Kelas Berjalan</h6>
+                                          <h2 id="running_course" class="fw-bold py-1"><?php echo $course_count_user; ?></h2>
+                                    </div>
+                                    <div class="mt-2 image-card">
+                                          <i class="bx bx-library p-2 bx-tada fs-5 rounded-circle green-image"></i>
+                                    </div>
+                              </div>
+                        </div>
+                        <div class="col-md-4 col-lg-3 mb-3">
+                              <div class="card-body border d-flex justify-content-between" data-aos="fade-right" data-aos-duration="700">
+                                    <div class="card-index">
+                                          <h6 class="py-1">Kelas Selesai</h6>
+                                          <h2 id="finish_course" class="fw-bold py-1"><?php echo $course_finish; ?></h2>
+                                    </div>
+                                    <div class="mt-2 image-card">
+                                          <i class="bx bx-card p-2 bx-tada fs-5 rounded-circle blue-image"></i>
                                     </div>
                               </div>
                         </div>
                   <?php endif; ?>
-
-                  <div class="card-lg">
-                        <div class="card-area">
-                              <div class="card-body border" data-aos="fade-right" data-aos-duration="900">
-                                    <div class="mt-2 image-card d-flex justify-content-center">
-                                          <i class="bx bx-<?php echo ($id_role == '1') ? 'library' : 'card'; ?> bx-tada stat-image blue-image"></i>
-                                    </div>
-                                    <!-- <h2 class="title-card ft-7"><?= $course_count ?></h2> -->
-                                    <h2 class="title-card ft-7"><?php echo ($id_role == '1') ? $course_count : $course_finish; ?></h2>
-                                    <h6 class="title-card"><?php echo ($id_role == '1') ? 'Kelas' : 'Kelas Selesai'; ?></h6>
-                              </div>
-                        </div>
-                  </div>
             </div>
 
 
@@ -98,35 +111,33 @@
                                                 <?php foreach ($courses as $course) : ?>
                                                       <li class="splide__slide">
                                                             <div class="gallery-card">
-                                                                  <div class="card-area">
-                                                                        <div class="card-gallery px-4">
-                                                                              <div class="d-flex flex-column">
-                                                                                    <div class="course-image">
-                                                                                          <img src="<?= base_url('assets/images/admin/course/' . $course->cover) ?>">
-                                                                                          <div class="marker"></div>
-                                                                                    </div>
-                                                                                    <div class="gallery-content bg-white p-4 border rounded-bottom">
-                                                                                          <h6 class="ft-7 p-2 text-center"><?= $course->title ?></h6>
-                                                                                          <div class="">
-                                                                                                <?php
-                                                                                                $progress = $course->progress;
-                                                                                                $width = ($progress >= 100) ? 100 : $progress; // Menghindari lebar yang melebihi 100%
-
-                                                                                                ?>
-                                                                                                <div class="progress" style="height: 10px;">
-                                                                                                      <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: <?= $width ?>%;" aria-valuenow="<?= $width ?>" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                                </div>
-                                                                                                <p class="text-lg text-center py-2"><?= round($progress) ?>%</p>
-                                                                                          </div>
-                                                                                          <a href="<?= base_url('userBranch/classpath/detail_course/' . $course->id) ?>">
-                                                                                                <div class="course-detail">
-                                                                                                      <button class="btn btn-danger bg-yellow w-100 ft-7">Lanjutkan
-                                                                                                            Kelas</button>
-                                                                                                </div>
-                                                                                          </a>
-                                                                                    </div>
-
+                                                                  <div class="card-gallery px-4">
+                                                                        <div class="d-flex flex-column">
+                                                                              <div class="course-image">
+                                                                                    <img src="<?= base_url('assets/images/admin/course/' . $course->cover) ?>">
+                                                                                    <div class="marker"></div>
                                                                               </div>
+                                                                              <div class="gallery-content bg-white p-4 border rounded-bottom">
+                                                                                    <h6 class="ft-7 p-2 text-center"><?= $course->title ?></h6>
+                                                                                    <div class="">
+                                                                                          <?php
+                                                                                          $progress = $course->progress;
+                                                                                          $width = ($progress >= 100) ? 100 : $progress; // Menghindari lebar yang melebihi 100%
+
+                                                                                          ?>
+                                                                                          <div class="progress" style="height: 10px;">
+                                                                                                <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: <?= $width ?>%;" aria-valuenow="<?= $width ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                                          </div>
+                                                                                          <p class="text-lg text-center py-2"><?= round($progress) ?>%</p>
+                                                                                    </div>
+                                                                                    <a href="<?= base_url('userBranch/classpath/detail_course/' . $course->id) ?>">
+                                                                                          <div class="course-detail">
+                                                                                                <button class="btn btn-danger bg-yellow w-100 ft-7">Lanjutkan
+                                                                                                      Kelas</button>
+                                                                                          </div>
+                                                                                    </a>
+                                                                              </div>
+
                                                                         </div>
                                                                   </div>
                                                             </div>
@@ -238,4 +249,71 @@
             });
       </script>
       <!-- Analytics User Management Script -->
+
+      <?php if ($id_role == '1') : ?>
+            <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                        function animateValue(id, start, end, duration) {
+
+                              var range = end - start;
+                              var current = start;
+                              var increment = end > start ? 1 : -1;
+                              var stepTime = Math.abs(Math.floor(duration / range));
+
+                              var timer = setInterval(function() {
+                                    current += increment;
+                                    document.getElementById(id).textContent = current;
+
+                                    if (current == end) {
+                                          clearInterval(timer);
+                                    }
+                              }, stepTime);
+                              var element = document.getElementById(id);
+                        }
+
+                        var CourseCountElement = document.getElementById('course_count');
+                        var targetNumber3 = <?php echo $course_count; ?>;
+                        var UserCourseElement = document.getElementById('user_count');
+                        var targetNumber4 = <?php echo $user_count; ?>;
+
+
+                        animateValue('course_count', 0, targetNumber3, 1000); // Angka awal 0, durasi 1000ms (1 detik)
+                        animateValue('user_count', 0, targetNumber4, 1000); // Angka awal 0, durasi 1000ms (1 detik)
+                  });
+            </script>
+      <?php else : ?>
+            <!-- ============== Splide Js =============== -->
+            <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+            <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                        function animateValue(id, start, end, duration) {
+
+                              var range = end - start;
+                              var current = start;
+                              var increment = end > start ? 1 : -1;
+                              var stepTime = Math.abs(Math.floor(duration / range));
+
+                              var timer = setInterval(function() {
+                                    current += increment;
+                                    document.getElementById(id).textContent = current;
+
+                                    if (current == end) {
+                                          clearInterval(timer);
+                                    }
+                              }, stepTime);
+                              var element = document.getElementById(id);
+                        }
+
+                        var CourseRunningElement = document.getElementById('running_course');
+                        var targetNumber1 = <?php echo $course_count_user; ?>;
+                        var FinishCourseElement = document.getElementById('finish_course');
+                        var targetNumber2 = <?php echo $course_finish; ?>;
+
+                        animateValue('running_course', 0, targetNumber1, 1000); // Angka awal 0, durasi 1000ms (1 detik)
+                        animateValue('finish_course', 0, targetNumber2, 1000); // Angka awal 0, durasi 1000ms (1 detik)
+
+                  });
+            </script>
+      <?php endif; ?>
+
 </body>

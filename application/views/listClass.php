@@ -5,7 +5,7 @@
         <!-- =============== Kelas Tersedia ================= -->
         <div class="pt-5 mt-5">
             <!-- Top Menu -->
-            <div class="d-flex justify-content-end btn-filter pb-3" data-aos="fade-up" data-aos-duration="700">
+            <div class="d-flex justify-content-end btn-filter pb-3 d-inline d-md-none" data-aos="fade-up" data-aos-duration="700">
                 <div class="filter-panel card-lg">
                 </div>
                 <div class="search-panel card-xxl p-side">
@@ -21,7 +21,7 @@
             <!-- Class List All Component -->
             <div class="row">
                 <!-- PC dan Tab Filter -->
-                <div class="col-lg-3 d-none d-md-inline col-mb-4 pb-3" data-aos="fade-up" data-aos-duration="700">
+                <div class="col-lg-3 col-md-4 d-none d-md-inline col-mb-4 pb-3" data-aos="fade-up" data-aos-duration="700">
                     <div class="bg-white border rounded p-4">
                         <div class="search-box">
                             <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
@@ -67,7 +67,7 @@
                         <?php
                         $no = 1;
                         foreach ($course as $data) { ?>
-                            <div class="col-lg-4 col-md-6 pb-3">
+                            <div class="col-lg-4 col-md-6 pb-3 p-1 px-2">
                                 <div class="card-class" data-aos="fade-up" data-aos-duration="700">
                                     <div class="d-flex flex-column rounded border">
                                         <div class="class-image">

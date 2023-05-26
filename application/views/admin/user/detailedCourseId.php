@@ -66,13 +66,15 @@ if ($this->session->flashdata('success') != '') {
 <body id="body-pd">
     <!--=============== Course Content ===============-->
     <div class="space-top">
-        <a class="fw-bold gap-3 fs-5" style="color:#2c2f75" href="<?= site_url('userBranch/classpath/listClass') ?>">
-            <i class="bi bi-chevron-left"></i>
-            <span class="py-5">
-                Kembali </span>
-        </a>
-        <h3 class="ft-7 mt-3"><?= $id_video->title ?></h3>
-        <p class="gray-text"><?= $course->instructor ?></p>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="title">
+                <h3 class="ft-7"><?= $id_video->title ?></h3>
+                <p class="gray-text"><?= $course->instructor ?></p>
+            </div>
+            <a class="fw-bold gap-3 fs-5 d-none d-md-inline" style="color:#2c2f75" href="<?= site_url('userBranch/classpath/listClass') ?>">
+                <i class="bi bi-x-lg"></i>
+            </a>
+        </div>
         <div class="row pt-2">
             <div class="col-lg-7">
                 <div class="video-panel">
@@ -106,9 +108,9 @@ if ($this->session->flashdata('success') != '') {
                         </div>
                     </div>
                 </div>
-                <div class="tab-panel pt-2 mt-3 mb-5 bg-white p-4 border">
+                <div class="tab-panel pt-2 mt-3 mb-5 bg-white p-2 border">
 
-                    <div class="d-flex gap-3">
+                    <div class="d-flex gap-3 flex-wrap">
                         <div id="detail1" class="p-3 tab-up" onclick="openCity('detail')" style="border-bottom:  2px solid #2c2f75;">
                             <span class="ft-7">Pengantar</span>
                         </div>
@@ -279,16 +281,6 @@ if ($this->session->flashdata('success') != '') {
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
-        var speedUpButton = document.getElementById('speedUpButton');
-        speedUpButton.addEventListener('touchstart', speedUpVideo, {
-            passive: true
-        });
-
-        var speedDownButton = document.getElementById('speedDownButton');
-        speedDownButton.addEventListener('touchstart', speedDownVideo, {
-            passive: true
-        });
-
         // Global variable untuk menyimpan objek pemutar video
         var player;
         var isPlaying = false;
@@ -475,13 +467,18 @@ if ($this->session->flashdata('success') != '') {
     </script>
 
     <script>
-        // Menambahkan event listener pada tombol Percepat
+        var speedUpButton = document.getElementById('speedUpButton');
         speedUpButton.addEventListener('click', function() {
-            speedUpVideo(5);
+            speedUpVideo(5); // Ganti angka 5 dengan jumlah detik yang Anda inginkan
+        }, {
+            passive: true
         });
 
+        var speedDownButton = document.getElementById('speedDownButton');
         speedDownButton.addEventListener('click', function() {
-            speedDownVideo(5);
+            speedDownVideo(5); // Ganti angka 5 dengan jumlah detik yang Anda inginkan
+        }, {
+            passive: true
         });
     </script>
 

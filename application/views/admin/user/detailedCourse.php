@@ -64,14 +64,16 @@ if ($this->session->flashdata('success') != '') {
 <body id="body-pd">
     <!--=============== Course Content ===============-->
     <div class="space-top">
-        <a class="fw-bold gap-3 fs-5" style="color:#2c2f75" href="<?= site_url('userBranch/classpath/listClass') ?>">
-            <i class="bi bi-chevron-left"></i>
-            <span class="py-5">
-                Kembali </span>
-        </a>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="title">
+                <h3 class="ft-7"><?= $course->title ?></h3>
+                <p class="gray-text"><?= $course->instructor ?></p>
+            </div>
+            <a class="fw-bold gap-3 fs-5 d-none d-md-inline" style="color:#2c2f75" href="<?= site_url('userBranch/classpath/listClass') ?>">
+                <i class="bi bi-x-lg"></i>
+            </a>
+        </div>
 
-        <h3 class="ft-7 mt-3"><?= $course->title ?></h3>
-        <p class="gray-text"><?= $course->instructor ?></p>
         <div class="row pt-2">
             <div class="col-md-7">
                 <div class="video-panel">
@@ -105,10 +107,9 @@ if ($this->session->flashdata('success') != '') {
                         </div>
                     </div>
                 </div>
-                <!-- 2 -->
-                <div class="tab-panel pt-2 mt-3 mb-5 bg-white p-4 border">
+                <div class="tab-panel pt-2 mt-3 mb-5 bg-white p-2 border">
 
-                    <div class="d-flex gap-3">
+                    <div class="d-flex gap-3 flex-wrap">
                         <div id="detail1" class="p-3 tab-up" onclick="openCity('detail')" style="border-bottom:  2px solid #2c2f75;">
                             <span class="ft-7">Pengantar</span>
                         </div>
@@ -145,9 +146,9 @@ if ($this->session->flashdata('success') != '') {
                                     <button class="btn btn-primary bg-first w-100"> Kirim Feedback</button>
                                 </form>
                             <?php elseif (!empty($feedback->rating)) : ?>
-                                <div class="feedback p-3 border">
+                                <div class="feedback p-2 p-md-3 border">
                                     <div class="d-flex justify-content-between py-2">
-                                        <h6 class="fw-bold">Tanggapan Saya Tentang Kursus Ini</h6>
+                                        <h6 class="fw-bold">Tanggapan Saya </h6>
                                         <div class="action-btn">
                                             <button class="btn btn-primary bg-first p-1 px-3 text-white text-lg" data-bs-toggle="modal" data-bs-target="#FeedbackModal"> <i class="bi bi-pencil-square"></i> Edit</button>
                                         </div>
@@ -295,7 +296,7 @@ if ($this->session->flashdata('success') != '') {
         </div>
     </div>
     <?php if (!$has_relation) : ?>
-        <form action="<?= site_url('userBranch/classpath/user_has_course') ?>" method="post" id="form-id-<?= $course->id  ?>" hidden>
+        <form action="<?= site_url('userBranch/classpath/user_has_course') ?>" method="post" id="form-id-course" hidden>
             <input type="text" name="id_user" value="<?php echo $id_user ?>">
             <input type="text" name="id_course" value="<?php echo $course->id ?>">
             <input type="text" name="status" value="1">
@@ -330,16 +331,6 @@ if ($this->session->flashdata('success') != '') {
     </div>
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        var speedUpButton = document.getElementById('speedUpButton');
-        speedUpButton.addEventListener('touchstart', speedUpVideo, {
-            passive: true
-        });
-
-        var speedDownButton = document.getElementById('speedDownButton');
-        speedDownButton.addEventListener('touchstart', speedDownVideo, {
-            passive: true
-        });
-
         // Global variable untuk menyimpan objek pemutar video
         var player;
         var isPlaying = false;
@@ -417,11 +408,11 @@ if ($this->session->flashdata('success') != '') {
         function togglePlayPause() {
             if (isPlaying) {
                 player.pauseVideo();
-                document.getElementById('playPauseButton').innerHTML = '<i class="bi bi-play-fill text-white"></i>';
+                document.getElementById('playPauseButton').innerHTML = '<i class="bi bi-play-fill text-black"></i>';
                 isPlaying = false;
             } else {
                 player.playVideo();
-                document.getElementById('playPauseButton').innerHTML = '<i class="bi bi-pause-fill text-white"></i>';
+                document.getElementById('playPauseButton').innerHTML = '<i class="bi bi-pause-fill text-black"></i>';
                 isPlaying = true;
             }
         }
@@ -435,7 +426,7 @@ if ($this->session->flashdata('success') != '') {
                 // Video sedang dijeda
                 stopDurationTimer();
             } else if (event.data == YT.PlayerState.ENDED) {
-                document.getElementById("form-id-" + "<?= $course->id ?>").submit();
+                document.getElementById("form-id-course").submit();
                 stopDurationTimer();
             } else {
                 stopProgressBarAnimation();
@@ -526,13 +517,18 @@ if ($this->session->flashdata('success') != '') {
     </script>
 
     <script>
-        // Menambahkan event listener pada tombol Percepat
+        var speedUpButton = document.getElementById('speedUpButton');
         speedUpButton.addEventListener('click', function() {
-            speedUpVideo(5);
+            speedUpVideo(5); // Ganti angka 5 dengan jumlah detik yang Anda inginkan
+        }, {
+            passive: true
         });
 
+        var speedDownButton = document.getElementById('speedDownButton');
         speedDownButton.addEventListener('click', function() {
-            speedDownVideo(5);
+            speedDownVideo(5); // Ganti angka 5 dengan jumlah detik yang Anda inginkan
+        }, {
+            passive: true
         });
     </script>
 

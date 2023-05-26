@@ -56,6 +56,10 @@ a {
     cursor: pointer;
 }
 
+.text-first {
+    color: var(--first-color) !important;
+}
+
 .l-navbar {
     position: fixed;
     top: 0;
@@ -240,6 +244,7 @@ a {
     width: 200px;
     /* height: 100px; */
     border-radius: 10px;
+    /* border: 1px solid darkgray; */
     right: 25px;
     top: 7px;
     position: absolute;

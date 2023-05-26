@@ -21,7 +21,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!--=============== External CSS ================= -->
-    <link rel="stylesheet" href="<?= base_url('assets/css/admin/style.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/admin/admin.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/search.css') ?>">
 
     <!--=============== Sweet Alert CDN ================= -->
@@ -30,8 +30,6 @@
     <!--=============== AOS CDN ================= -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <!-- ============== Splide CSS ================= -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     <!-- ============== Select JS =================> -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

@@ -14,8 +14,7 @@
         $(".js-example-basic-multiple").select2();
     });
 </script>
-<!-- ============== Splide Js =============== -->
-<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+
 <script>
     var splide = new Splide('.splide', {
         type: 'loop',
@@ -30,6 +29,13 @@
         window.location.href =
             "<?= site_url('front/support') ?>";
     }
+
+    function LandingPage() {
+        window.location.href =
+            "<?= site_url('front') ?>";
+    }
 </script>
+
+
 
 </html>

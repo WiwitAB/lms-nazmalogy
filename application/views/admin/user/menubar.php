@@ -5,6 +5,13 @@
             <i class="bx bx-menu" id="header-toggle">
             </i>
         </div>
+        <?php if ($this->uri->segment(3) === "detail_course" || $this->uri->segment(3) === 'detail_video_course') : ?>
+            <a class="fw-bold gap-3 fs-5 d-inline d-md-none" style="color:#2c2f75" href="<?= site_url('userBranch/classpath/listClass') ?>">
+                <i class="bi bi-chevron-left fw-bold fs-2 text-first"></i>
+            </a>
+        <?php endif ?>
+
+
         <div class="search_toggle">
             <div class="search-wrapper">
                 <div class="input-holder">
@@ -32,6 +39,7 @@
             <div class="profile"> <i class="bx bx-log-out nav_icon"></i>
                 <div class="dropdown-content">
                     <ul>
+                        <li onclick="LandingPage()"><i class="bi bi-rocket-takeoff"></i><span>Landing Page</span></li>
                         <li onclick="SupportFunction()"><i class="bx bx-help-circle"></i><span>Bantuan</span></li>
                         <li onclick="logOutFunction()"><i class="bx bx-log-in-circle"></i><span>Keluar</span></li>
                     </ul>

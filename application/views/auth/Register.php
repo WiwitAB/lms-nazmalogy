@@ -7,7 +7,7 @@
     }
     ?>
     <div class="d-flex responsive-form">
-        <div class="side-left w-50 m-full">
+        <div class="side-left w-50 m-full pb-5">
 
             <div class="login_field">
                 <div class="auth-form">

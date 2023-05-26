@@ -1,10 +1,10 @@
 <section id="support" class="bg-light-primary">
-    <div class="container col-10" data-aos="fade-up" data-aos-duration="700">
-        <div class="pt-5 my-5">
+    <div class="container col-lg-10" data-aos="fade-up" data-aos-duration="700">
+        <div class="py-5">
             <!-- ======= pertanyaan cepat di jawab ====== -->
-            <h1 class="questions-title text-legend pt-5">FAQ (Frequently Asked Question)</h1>
+            <h1 class="questions-title text-legend pt-5 mt-3">FAQ (Frequently Asked Question)</h1>
             <div class="row">
-                <div class="col-md-8 mb-4">
+                <div class="col-lg-8 col-md-7 mb-4">
                     <div class="accordion accordion-flush" id="accordionFlushExample">
                         <div class="accordion-item m-2">
                             <h2 class="accordion-header" id="flush-headingOne">
@@ -51,19 +51,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-5">
-                    <div class="bg-white p-3">
-                        <h4 class="text-legend">Navigasi Bantuan</h4>
+                <div class="col-lg-4 col-md-5 mb-5">
+                    <div class="bg-white p-4 border">
+                        <h5 class="text-legend">Navigasi Bantuan</h5>
                         <hr>
                         <div class="d-flex flex-column gap-2 py-1">
                             <a href="https://wa.link/6u8kcx" target="_blank">
-                                <button class="btn btn-primary bg-first text-white py-3 w-100" type="button">
+                                <button class="btn btn-primary bg-first text-white py-3 w-100 border-first fw-bold" type="button">
                                     <img src="<?= base_url('assets/images/support/support-ask.png') ?>" alt="support-icon-1" width="25">
                                     Ajukan Pertanyaan
                                 </button>
                             </a>
                             <a href="https://linktr.ee/nazma_office" target="_blank">
-                                <button class="btn btn-warning bg-orange text-white py-3 w-100" type="button">
+                                <button class="btn btn-warning bg-orange text-white py-3 w-100 fw-bold" type="button">
                                     <img src="<?= base_url('assets/images/support/support-contact.png') ?>" alt="support-icon-2" width="25">
                                     Kontak Kami
                                 </button>
